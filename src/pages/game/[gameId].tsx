@@ -25,7 +25,7 @@ export default function Game() {
     if (router.query.gameId) {
       setGameId(router.query.gameId as string);
     }
-  }, [router.query, gameState]);
+  }, [router.query.gameId]);
 
   const { sendJsonMessage } = useWebSocket(gameId && clientId ? `${WS_URL}/${gameId}:${clientId}` : null, {
     onOpen: () => {
@@ -53,7 +53,7 @@ export default function Game() {
       console.log('Disconnected from WebSocket server');
       router.push("/")
     },
-    shouldReconnect: (closeEvent) => true,
+    shouldReconnect: (_closeEvent) => true,
   });
 
   const handleAskQuestion = () => {
@@ -65,7 +65,7 @@ export default function Game() {
       <h2>Guess Who New Game!</h2>
       <p>Client Id: {clientId}</p>
       <button onClick={handleAskQuestion}>I win</button>
-      {gameState.winner && <p>{gameState.winner == clientId ? "You win!" : "You lost!"}</p>}
+      <p>Winner: {gameState.winner}</p>
     </>
   );
 }

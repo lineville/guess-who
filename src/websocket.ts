@@ -21,14 +21,16 @@ function createWebSocketServer() {
 
     // Add this session and client connection
     connections[gameId][clientId] = ws;
+    console.log(`Client connected with clientId: ${clientId} to gameId: ${gameId}`);
 
+    // Handle websocket messages from client
     ws.on("message", (message: string) => {
       console.log(`Received message: ${message}`);
       const data = JSON.parse(message);
       switch (data.type) {
 
         case "ask": {
-          gameStates[gameId] = updateGameState(gameStates[gameId], clientId);
+          gameStates[gameId] = handleAskQuestion(gameStates[gameId], clientId);
           broadcastGameState({ type: 'ask', ...gameStates[gameId] }, connections[gameId]);
           break;
         }
@@ -39,8 +41,10 @@ function createWebSocketServer() {
       console.log(gameStates);
     });
 
+    // Handle client disconnecting
     ws.on("close", () => {
       console.log("Client disconnected");
+      
       // Remove this WebSocket instance from the connections object
       delete connections[gameId][clientId];
     
@@ -52,15 +56,18 @@ function createWebSocketServer() {
   });
 }
 
+// TODO define game state
 function initializeGameState() {
   return { winner: null };
 }
 
-function updateGameState(gameState: any, clientId: any) {
+// 
+function handleAskQuestion(gameState: any, clientId: any) {
   gameState.winner = clientId;
   return gameState;
 }
 
+// Broadcasts the gameState to all of the clients in the session
 function broadcastGameState(gameState: any, clients: { [clientId: string]: WebSocket }) {
   Object.keys(clients).forEach((clientId) => {
     const client = clients[clientId];
