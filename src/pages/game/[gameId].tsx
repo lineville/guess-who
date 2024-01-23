@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
 import useWebSocket from 'react-use-websocket';
 
-const WS_URL = 'ws://localhost:8080'; // TODO - move to env
+const WS_URL = process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_WS_URL : 'ws://localhost:8080';
 
 export default function Game() {
   const router = useRouter();
