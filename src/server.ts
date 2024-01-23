@@ -2,13 +2,13 @@ import WebSocket from "ws";
 import { IncomingMessage } from "http";
 
 function createWebSocketServer() {
-  const wss = new WebSocket.Server({ port: 8080 }); // TODO add host to env
+  const ws = new WebSocket.Server({ port: 8080 }); // TODO add host to env
   console.log("WebSocket server listening on port 8080");
 
   const gameStates: { [gameId: string]: any } = {};
   const connections: { [gameId: string]: { [clientId: string]: WebSocket } } = {};
 
-  wss.on("connection", (ws: WebSocket, req: IncomingMessage) => {
+  ws.on("connection", (ws: WebSocket, req: IncomingMessage) => {
     // Get the gameId and clientId from the websocket request
     const [gameId, clientId] = (req.url as string).split(":");
 

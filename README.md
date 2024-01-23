@@ -5,7 +5,7 @@ Web based game to play Guess Who with your friends. Inspired by the Hasbro board
 ## Development
 
 ```bash
-bun src/websocket.ts
+bun src/server.ts
 ```
 
 In a separate terminal:
