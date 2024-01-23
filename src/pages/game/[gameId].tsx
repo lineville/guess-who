@@ -2,9 +2,17 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
-import useWebSocket from 'react-use-websocket';
+import Pusher from 'pusher-js';
 
-const WS_URL = process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_WS_URL : 'ws://localhost:8080';
+// TODO Bind different handlers to different events
+// TODO secure pusher channel using private channel
+// TODO get AI generated images
+// TODO implement user actions
+
+// Create New Game
+// Ask a question (string, clientId)
+// Eliminate characters ([character], clientId)
+// Make a guess (character, clientId)
 
 export default function Game() {
   const router = useRouter();
@@ -27,37 +35,26 @@ export default function Game() {
     }
   }, [router.query.gameId]);
 
-  const { sendJsonMessage } = useWebSocket(gameId && clientId ? `${WS_URL}/${gameId}:${clientId}` : null, {
-    onOpen: () => {
-      console.log(`Connected to WebSocket server at ${WS_URL}/${gameId}:${clientId}`);
-    },
-    onMessage: (event) => {
-      const data = JSON.parse(event.data);
-      console.log('Received:', data)
-
-      switch (data.type) {
-        case 'ask':
-          setGameState({...gameState, winner: data.winner})
-          break;
-        case 'eliminate':
-          // TODO - handle eliminate
-          break;
-        case 'guess':
-          // TODO - handle guess
-          break;
-        default:
-          console.warn('Unknown message type', data.type);
-      }
-    },
-    onClose: () => { 
-      console.log('Disconnected from WebSocket server');
-      router.push("/")
-    },
-    shouldReconnect: (_closeEvent) => true,
+  var pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY as string, {
+    cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER as string
   });
 
-  const handleAskQuestion = () => {
-    sendJsonMessage({ type: 'ask', message: 'Is your person a man or a woman?' })
+  var channel = pusher.subscribe(`${process.env.NEXT_PUBLIC_PUSHER_CHANNEL as string}-${gameId}`);
+  channel.bind('ask', function (data: any) {
+    setGameState({ ...gameState, winner: data.winner })
+  });
+
+  const handleAskQuestion = async () => {
+    const res = await fetch('/api/pusher', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ event: 'ask', winner: clientId, gameId: gameId }),
+    });
+    if (!res.ok) {
+      console.error('failed to push data');
+    }
   }
 
   return (
@@ -65,14 +62,7 @@ export default function Game() {
       <h2>Guess Who New Game!</h2>
       <p>Client Id: {clientId}</p>
       <button onClick={handleAskQuestion}>I win</button>
-      <p>Winner: {gameState.winner}</p>
+      <p>{gameState.winner == clientId ? "You win" : "You lose"}</p>
     </>
   );
 }
-
-// Client Actions
-
-// Create New Game
-// Ask a question (string, clientId)
-// Eliminate characters ([character], clientId)
-// Make a guess (character, clientId)
