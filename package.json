@@ -9,11 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@primer/octicons-react": "^19.8.0",
+    "@primer/react": "^36.5.0",
+    "@primer/react-brand": "^0.30.0",
+    "fs": "^0.0.1-security",
     "next": "14.1.0",
+    "openai": "^4.25.0",
     "pusher": "^5.2.0",
     "pusher-js": "^8.4.0-rc2",
     "react": "^18",
     "react-dom": "^18",
+    "styled-components": "5",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

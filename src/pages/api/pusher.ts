@@ -1,4 +1,5 @@
 import Pusher from "pusher";
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const pusher = new Pusher({
   appId: process.env.PUSHER_APP_ID as string,
@@ -8,9 +9,21 @@ const pusher = new Pusher({
   useTLS: true
 });
 
-const handler = async (req: any, res: any) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const channel = `${process.env.NEXT_PUBLIC_PUSHER_CHANNEL as string}-${req.body.gameId}`;
-  await pusher.trigger(channel, req.body.event, req.body);
+  switch (req.body.event) {
+    case 'ask':
+      // TODO
+      await pusher.trigger(channel, req.body.event, req.body);
+      break;
+    case 'eliminate':
+      // TODO eliminate the player from the gamestate
+      await pusher.trigger(channel, req.body.event, req.body);
+      break;
+    default:
+      break;
+  }
+
   res.status(200).end('sent event successfully');
 };
 

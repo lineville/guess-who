@@ -1,0 +1,11 @@
+/* styles.module.css */
+
+.imageHover {
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.imageHover:hover {
+  transform: scale(1.1);
+  background-color: #f0f0f0; /* Change this to the color you want */
+}
