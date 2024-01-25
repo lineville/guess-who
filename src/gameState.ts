@@ -6,7 +6,7 @@ export default interface GameState {
   yourCharacter: string;
 }
 
-interface Character {
+export interface Character {
   name: string;
   image: string;
   alive: boolean;
