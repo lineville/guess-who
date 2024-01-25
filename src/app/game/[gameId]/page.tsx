@@ -6,27 +6,29 @@ import Pusher from 'pusher-js';
 import Message from '@/message';
 import Board from '@/components/Board';
 import Image from 'next/image'
+import Character from '@/character';
+import { Text, Box, Card, CardBody, CardHeader, Flex, Center } from '@chakra-ui/react';
 
 // TODO Bind different handlers to different events
 // TODO secure pusher channel using private channel
-// TODO get AI generated images
 // TODO implement user actions
 
 // Create New Game
 // Ask a question (string, clientId)
-// Eliminate characters ([character], clientId)
+// Flip characters ([character], clientId)
 // Make a guess (character, clientId)
 
-// const BOARD_SIZE = 36;
+const ROWS = 4;
+const COLUMNS = 6;
 
-const characters = ['Abi', 'Ang', 'Anna', 'Boris', 'Carl', 'Chimezi', 'Colin', 'Dolores', 'Emily', 'Gwen', 'Imani', 'Jada', 'Jing', 'Kai', 'Karen', 'Kevin', 'Kiki', 'Liza', 'Len', 'Lucy', 'Manu', 'Marcus', 'Maria', 'Martha', 'Meryl', 'Pablo', 'Raquel', 'Robert', 'Samantha', 'Samir', 'Stew', 'Sue', 'Tonto', 'Trae', 'Wendell', 'Waru']
+const characters = ['Abi', 'Ang', 'Anna', 'Boris', 'Carl', 'Chimezi', 'Colin', 'Emily', 'Gwen', 'Guadalupe', 'Imani', 'Jada', 'Jing', 'Kai', 'Karen', 'Kevin', 'Kiki', 'Liza', 'Len', 'Lucy', 'Manu', 'Marcus', 'Maria', 'Martha', 'Meryl', 'Pablo', 'Raquel', 'Robert', 'Samantha', 'Samir', 'Stew', 'Sue', 'Tonto', 'Trae', 'Wendell', 'Waru']
 
 export default function Game() {
   const pathname = usePathname();
   const [gameId, setGameId] = useState((pathname as string).substring("/game/".length));
   const [clientId, setClientId] = useState('');
   const [winner, setWinner] = useState('');
-  const [board, setBoard] = useState(() => shuffleArray(characters.map((name: string) => ({ name, image: `/${name}.png`, alive: true }))));
+  const [board, setBoard] = useState<Character[]>([]);
   const [questions, setQuestions] = useState<string[]>([]);
   const [myTurn, setMyTurn] = useState(false);
   const [yourCharacter, setYourCharacter] = useState('');
@@ -51,9 +53,10 @@ export default function Game() {
       // setGameState({ ...gameState, winner: data.clientId })
     });
 
-    channel.bind('eliminate', function (data: Message) {
-      setBoard(board.map((c, index) => index === parseInt(data.message, 10) ? { ...c, alive: false } : c))
+    channel.bind('flip', function (data: Message) {
+      setBoard(board.map((c, index) => index === parseInt(data.message, 10) ? { ...c, alive: !c.alive } : c))
     });
+
 
     return () => {
       channel.unbind_all();
@@ -70,11 +73,17 @@ export default function Game() {
       localStorage.setItem('yourCharacter', characters[randomIndex]);
       setYourCharacter(characters[randomIndex]);
     }
-  }, [yourCharacter]); // Empty dependency array
+
+  }, []);
+
+  useEffect(() => {
+    const randomSubsetOfCharacters = shuffleArray(characters).slice(0, ROWS * COLUMNS);
+    setBoard(randomSubsetOfCharacters.map((name: string) => ({ name, image: `/${name}.png`, alive: true })));
+  }, []);
 
   const handleClickCharacter = (index: number) => {
     postMessage({
-      event: 'eliminate',
+      event: 'flip',
       message: `${index}`,
       clientId,
       gameId
@@ -82,20 +91,28 @@ export default function Game() {
   }
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <div style={{ position: 'absolute', top: 30, right: 30 }}>
-        {yourCharacter && (
-          <div>
-            <Image src={yourCharacter ? `/${yourCharacter}.png` : ''} alt="character" width={140} height={140} />
-            <br />
-            <span style={{ display: 'flex', justifyContent: 'center' }}>You are {yourCharacter}</span>
-          </div>
-        )}
-      </div>
-      <div style={{ position: 'absolute', top: 75 }}>
-        <Board board={board} handleClickCharacter={handleClickCharacter} />
-      </div>
-    </div>
+    <Center>
+
+      <Flex style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+
+        <Box style={{ position: 'absolute', top: '5%', right: '5%' }}>
+          {yourCharacter && (
+            <Card style={{ borderRadius: '8px' }}>
+              <CardHeader>
+                <Text>You are {yourCharacter}</Text>
+              </CardHeader>
+              <CardBody>
+                <Image src={yourCharacter ? `/${yourCharacter}.png` : ''} alt={yourCharacter} width={140} height={140} />
+              </CardBody>
+            </Card>
+          )}
+        </Box>
+
+        <Box style={{ position: 'absolute', justifyContent: 'center', alignItems: 'center', top: '10%' }}>
+          <Board board={board} handleClickCharacter={handleClickCharacter} rows={ROWS} columns={COLUMNS} />
+        </Box>
+      </Flex>
+    </Center>
   );
 }
 

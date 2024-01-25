@@ -16,8 +16,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       // TODO
       await pusher.trigger(channel, req.body.event, req.body);
       break;
-    case 'eliminate':
-      // TODO eliminate the player from the gamestate
+    case 'flip':
+      // TODO eliminate/revive the player from the gamestate
       await pusher.trigger(channel, req.body.event, req.body);
       break;
     default:

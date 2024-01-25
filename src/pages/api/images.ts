@@ -9,11 +9,13 @@ const imageSpec =
   "Generate a 3D, Pixar-style character. The character should be realistic and resemble a real person. Make sure that the character fits within a square frame and takes up approximately the same amount of space as the other characters. The character should be drawn from the shoulders up, similar to a portrait or avatar. There should be a single character.";
 
 const prompts = [
-  "Create a character of a young white Man with a comical look and a student attire.",
-  "Create a character of a chubby middle aged brown-haired Indian woman with a curious expression.",
-  "Create a character of a kind elderly white woman with frizzy blonde hair and eclectic attire.",
-  "Create a character of a young black American man, with a serious expression and urban attire.",
-  "Create a character of a middle aged black American man, with a calm expression and academic attire.",
+  "A plain white background with a red question mark in the center.",
+  // "Create a 3D image of a red question mark on a white background and appear like it might appear on the back of a playing card for a board game. The image should just be a question mark nothing else."
+  // "Create a character of a young white Man with a comical look and a student attire.",
+  // "Create a character of a chubby middle aged brown-haired Indian woman with a curious expression.",
+  // "Create a character of a kind elderly white woman with frizzy blonde hair and eclectic attire.",
+  // "Create a character of a young black American man, with a serious expression and urban attire.",
+  // "Create a character of a middle aged black American man, with a calm expression and academic attire.",
 ];
 
 export default async function handler(
@@ -23,7 +25,7 @@ export default async function handler(
   const promises = prompts.map((prompt: string) =>
     openai.images.generate({
       model: "dall-e-3",
-      prompt: `${prompt} ${imageSpec}`,
+      prompt: `${prompt}`,
     })
   );
 

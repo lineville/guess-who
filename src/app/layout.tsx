@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import { Providers } from './providers'
+import { Center, Container, Heading, Spacer } from '@chakra-ui/react'
 
 export const metadata: Metadata = {
   title: 'Guess Who ?',
@@ -12,11 +14,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body style={{ display: 'flex', justifyContent: 'center' }}>
-        <h2>Guess Who ?</h2>
-        <main>
-          {children}
-        </main>
+      <body>
+        <Providers>
+          <Container>
+            <Center>
+              <Heading style={{ marginTop: '5%' }}>{metadata.title as string}</Heading>
+            </Center>
+            <Spacer />
+            {children}
+          </Container>
+        </Providers>
       </body>
     </html>
   )
