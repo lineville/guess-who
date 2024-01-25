@@ -6,6 +6,7 @@ export default function Home() {
   const router = useRouter();
 
   const createGame = () => {
+    localStorage.removeItem('yourCharacter');
     const gameId = uuidv4();
     router.push(`/game/${gameId}`);
   };

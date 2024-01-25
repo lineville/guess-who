@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
 import Pusher from 'pusher-js';
 import Message from '@/message';
-import GameState, { Character } from '@/gameState';
+import GameState from '@/gameState';
 import Board from '@/components/Board';
 import Image from 'next/image'
 
@@ -77,7 +77,7 @@ export default function Game() {
       localStorage.setItem('yourCharacter', characters[randomIndex]);
       setGameState({ ...gameState, yourCharacter: characters[randomIndex] });
     }
-  }, []); // Empty dependency array
+  }, [gameState]); // Empty dependency array
 
   const handleClickCharacter = (index: number) => {
     postMessage({
