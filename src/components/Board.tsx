@@ -9,7 +9,7 @@ export default function Board({ board, handleClickCharacter, rows, columns }: { 
     <Grid templateColumns={`repeat(${columns}, 1fr)`} gap={columns}>
       {board.map((c, index) => (
         <GridItem key={index} onClick={() => handleClickCharacter(index)}>
-          <Card className={styles.imageHover} size="lg">
+          <Card className={styles.imageHover} size="md">
             <CardBody>
               <Image src={c.alive ? c.image : "/question-mark.png"} alt={c.name} width={120} height={120} />
             </CardBody>

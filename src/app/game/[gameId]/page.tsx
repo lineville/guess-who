@@ -89,7 +89,7 @@ export default function Game() {
   return (
     <Center>
       <Flex style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <Box style={{ position: 'absolute', top: '5%', right: '5%' }}>
+        <Box style={{ position: 'absolute', top: '5%', right: '3%' }}>
           {yourCharacter && (
             <Card size="lg">
               <CardHeader display="flex" alignItems="center" justifyContent="center">
