@@ -3,8 +3,8 @@ import { Providers } from './providers'
 import { Center, Container, Heading, Spacer } from '@chakra-ui/react'
 
 export const metadata: Metadata = {
-  title: 'Guess Who ?',
-  description: 'Guess Who ?',
+  title: 'Guess Who?',
+  description: 'Guess Who?',
 }
 
 export default function RootLayout({
@@ -18,7 +18,7 @@ export default function RootLayout({
         <Providers>
           <Container>
             <Center>
-              <Heading style={{ marginTop: '5%' }}>{metadata.title as string}</Heading>
+              <Heading mt={4}>{metadata.title as string}</Heading>
             </Center>
             <Spacer />
             {children}

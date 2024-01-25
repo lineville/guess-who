@@ -13,10 +13,6 @@ import { Text, Box, Card, CardBody, CardHeader, Flex, Center } from '@chakra-ui/
 // TODO secure pusher channel using private channel
 // TODO implement user actions
 
-// Create New Game
-// Ask a question (string, clientId)
-// Flip characters ([character], clientId)
-// Make a guess (character, clientId)
 
 const ROWS = 4;
 const COLUMNS = 6;
@@ -92,13 +88,11 @@ export default function Game() {
 
   return (
     <Center>
-
       <Flex style={{ justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-
         <Box style={{ position: 'absolute', top: '5%', right: '5%' }}>
           {yourCharacter && (
-            <Card style={{ borderRadius: '8px' }}>
-              <CardHeader>
+            <Card size="lg">
+              <CardHeader display="flex" alignItems="center" justifyContent="center">
                 <Text>You are {yourCharacter}</Text>
               </CardHeader>
               <CardBody>
@@ -112,9 +106,13 @@ export default function Game() {
           <Board board={board} handleClickCharacter={handleClickCharacter} rows={ROWS} columns={COLUMNS} />
         </Box>
       </Flex>
-    </Center>
+    </Center >
   );
 }
+
+// -------
+// HELPERS
+// -------
 
 const shuffleArray = (array: any[]) => {
   for (let i = array.length - 1; i > 0; i--) {
