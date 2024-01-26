@@ -1,90 +1,74 @@
 'use client'
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { v4 as uuidv4 } from 'uuid';
-import Pusher from 'pusher-js';
-import Message from '@/message';
 import Board from '@/components/Board';
 import Image from 'next/image'
 import Character from '@/character';
-import { Text, Box, Card, CardBody, CardHeader, Flex, Center } from '@chakra-ui/react';
+import { Text, Box, Card, CardBody, CardHeader, Flex, Center, CardFooter } from '@chakra-ui/react';
+import { socket } from '@/socket';
+import { Socket } from 'socket.io-client';
 
-// TODO Bind different handlers to different events
-// TODO secure pusher channel using private channel
-// TODO implement user actions
+// TODO Finish implementing user actions
 
-
-const ROWS = 6;
 const COLUMNS = 6;
-
-const characters = ['Abi', 'Ang', 'Anna', 'Boris', 'Carl', 'Chimezi', 'Colin', 'Emily', 'Gwen', 'Guadalupe', 'Imani', 'Jada', 'Jing', 'Kai', 'Karen', 'Kevin', 'Kiki', 'Liza', 'Len', 'Lucy', 'Manu', 'Marcus', 'Maria', 'Martha', 'Meryl', 'Pablo', 'Raquel', 'Robert', 'Samantha', 'Samir', 'Stew', 'Sue', 'Tonto', 'Trae', 'Wendell', 'Waru']
+const ROWS = 4;
 
 export default function Game() {
+
   const pathname = usePathname();
-  const [gameId, setGameId] = useState((pathname as string).substring("/game/".length));
-  const [clientId, setClientId] = useState('');
   const [winner, setWinner] = useState('');
   const [board, setBoard] = useState<Character[]>([]);
   const [questions, setQuestions] = useState<string[]>([]);
   const [myTurn, setMyTurn] = useState(false);
   const [yourCharacter, setYourCharacter] = useState('');
+  const [opponentRemainingCharacters, setOpponentRemainingCharacters] = useState<number>(COLUMNS * ROWS);
 
+  const [socketConnection, setSocketConnection] = useState<Socket>();
+  const [events, setEvents] = useState<string[]>([]);
+
+  // Hook that handles the socket connection
   useEffect(() => {
-    const storedClientId = localStorage.getItem('clientId');
-    if (storedClientId) {
-      setClientId(storedClientId);
-    } else {
-      const newClientId = uuidv4();
-      localStorage.setItem('clientId', newClientId);
-      setClientId(newClientId);
-    }
-
-    var pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY as string, {
-      cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER as string
-    });
-
-    const channelName = `${process.env.NEXT_PUBLIC_PUSHER_CHANNEL as string}-${gameId as string}`;
-    var channel = pusher.subscribe(channelName);
-    channel.bind('ask', function (data: Message) {
-      // setGameState({ ...gameState, winner: data.clientId })
-    });
-
-    channel.bind('flip', function (data: Message) {
-      setBoard(board.map((c, index) => index === parseInt(data.message, 10) ? { ...c, alive: !c.alive } : c))
-    });
-
+    const gameId = (pathname as string).substring("/game/".length);
+    const newSocket = socket(gameId);
+    setSocketConnection(newSocket);
 
     return () => {
-      channel.unbind_all();
-      pusher.unsubscribe(channelName);
+      if (newSocket) {
+        newSocket.disconnect();
+      }
     };
-  }, [clientId, board, gameId]);
+  }, [pathname]);
 
+  // Hook that handles all the websocket events
   useEffect(() => {
-    const storedCharacter = localStorage.getItem('yourCharacter');
-    if (storedCharacter) {
-      setYourCharacter(storedCharacter);
-    } else {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      localStorage.setItem('yourCharacter', characters[randomIndex]);
-      setYourCharacter(characters[randomIndex]);
-    }
-
-  }, []);
-
-  useEffect(() => {
-    // TODO move this to the server
-    const randomSubsetOfCharacters = shuffleArray(characters).slice(0, ROWS * COLUMNS);
-    setBoard(randomSubsetOfCharacters.map((name: string) => ({ name, image: `/${name}.png`, alive: true })));
-  }, []);
-
-  const handleClickCharacter = (index: number) => {
-    postMessage({
-      event: 'flip',
-      message: `${index}`,
-      clientId,
-      gameId
+    socketConnection?.on('init', (data: any) => {
+      console.log(data);
+      setYourCharacter(data.yourCharacter);
+      setBoard(data.characters.map((name: string) => ({ name, image: `/${name}.png`, alive: true })));
+      setQuestions(data.messageFeed);
+      setMyTurn(data.turn === data.yourCharacter);
+      setWinner(data.winner);
     })
+
+    socketConnection?.on('eliminate', () => {
+      setOpponentRemainingCharacters(prev => prev - 1)
+    });
+
+    socketConnection?.on('revive', () => {
+      setOpponentRemainingCharacters(prev => prev + 1)
+    });
+
+  }, [socketConnection]);
+
+  // Update our local board, and send the event to the server to update opponents counter
+  const handleClickCharacter = (index: number) => {
+    socketConnection?.emit(board[index].alive ? 'eliminate' : 'revive');
+    setBoard(board.map((character, i) => {
+      if (i === index) {
+        return { ...character, alive: !character.alive };
+      }
+      return character;
+    }));
   }
 
   return (
@@ -99,39 +83,17 @@ export default function Game() {
               <CardBody>
                 <Image src={yourCharacter ? `/${yourCharacter}.png` : ''} alt={yourCharacter} width={140} height={140} />
               </CardBody>
+              <CardFooter>
+                <Text>Opponent has {opponentRemainingCharacters} characters remaining</Text>
+              </CardFooter>
             </Card>
           )}
         </Box>
 
         <Box style={{ position: 'absolute', justifyContent: 'center', alignItems: 'center', top: '10%' }}>
-          <Board board={board} handleClickCharacter={handleClickCharacter} rows={ROWS} columns={COLUMNS} />
+          <Board board={board} handleClickCharacter={handleClickCharacter} columns={COLUMNS} />
         </Box>
       </Flex>
     </Center >
   );
-}
-
-// -------
-// HELPERS
-// -------
-
-const shuffleArray = (array: any[]) => {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
-const postMessage = async (message: Message) => {
-  const res = await fetch('/api/pusher', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(message),
-  });
-  if (!res.ok) {
-    console.error('failed to push data');
-  }
 }
