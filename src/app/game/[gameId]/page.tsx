@@ -14,7 +14,7 @@ import { Text, Box, Card, CardBody, CardHeader, Flex, Center } from '@chakra-ui/
 // TODO implement user actions
 
 
-const ROWS = 4;
+const ROWS = 6;
 const COLUMNS = 6;
 
 const characters = ['Abi', 'Ang', 'Anna', 'Boris', 'Carl', 'Chimezi', 'Colin', 'Emily', 'Gwen', 'Guadalupe', 'Imani', 'Jada', 'Jing', 'Kai', 'Karen', 'Kevin', 'Kiki', 'Liza', 'Len', 'Lucy', 'Manu', 'Marcus', 'Maria', 'Martha', 'Meryl', 'Pablo', 'Raquel', 'Robert', 'Samantha', 'Samir', 'Stew', 'Sue', 'Tonto', 'Trae', 'Wendell', 'Waru']
@@ -73,6 +73,7 @@ export default function Game() {
   }, []);
 
   useEffect(() => {
+    // TODO move this to the server
     const randomSubsetOfCharacters = shuffleArray(characters).slice(0, ROWS * COLUMNS);
     setBoard(randomSubsetOfCharacters.map((name: string) => ({ name, image: `/${name}.png`, alive: true })));
   }, []);
