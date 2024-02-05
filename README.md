@@ -9,5 +9,6 @@ Play it for free at [https://guess-who-virid.vercel.app/](https://guess-who-viri
 ## Development
 
 ```bash
+bun install
 bun dev
 ```

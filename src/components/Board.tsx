@@ -14,7 +14,7 @@ export default function Board({ board, handleClickCharacter, columns }: { board:
             <Card className={colorMode === 'light' ? styles.imageHoverLight : styles.imageHoverDark} size="sm" display="flex" justifyContent="center" alignItems="center" w="100%" h="100%">
               <CardBody>
                 <Box >
-                  <Image src={c.alive ? `/${c.name}.png` : "/question-mark.png"} alt={c.name} width={115} height={115} priority={true} placeholder="empty" />
+                  <Image src={c.alive ? `/${c.name}.png` : "/question-mark.png"} alt={c.name} sizes="7vw" style={{ width: '100%', height: 'auto' }} width={100} height={100} priority={true} placeholder="empty" />
                 </Box>
               </CardBody>
               <CardFooter display="flex" alignItems="center" justifyContent="center">
