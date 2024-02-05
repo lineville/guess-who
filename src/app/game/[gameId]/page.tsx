@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Board from '@/components/Board';
 import Character from '@/character';
-import { Box, Flex, useColorMode, IconButton } from '@chakra-ui/react';
+import { Box, Flex, useColorMode, IconButton, Heading, Button } from '@chakra-ui/react';
 import { socket } from '@/socket';
 import { Socket } from 'socket.io-client';
 import { useRouter } from 'next/navigation';
@@ -37,6 +37,7 @@ export default function Game() {
   const [isAsking, setIsAsking] = useState(true);
   const [ready, setReady] = useState(false);
   const [opponentReady, setOpponentReady] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
   const handleOpenQuestionModal = () => setIsQuestionModalOpen(true);
@@ -124,6 +125,11 @@ export default function Game() {
       router.push(`/game/${gameId}`);
     });
 
+    socketConnection?.on('error', (error: string) => {
+      console.error('Error:', error);
+      setErrorMessage(error);
+    });
+
   }, [socketConnection, clientId, router]);
 
   useEffect(() => setYourRemainingCharacters(board.filter(c => c.alive).length), [board]);
@@ -179,35 +185,47 @@ export default function Game() {
   }
 
   return (
-    <Flex direction="row" justify="flex-start" align="stretch" h="90vh" w="96vw" pr={0}>
+    <>
+      {
+        errorMessage.length ? (
+          <>
+            <Heading>Uh oh! Looks like the game you tried to join is already full...</Heading>
+            <Button onClick={() => router.push('/')} variant="solid" colorScheme="teal" size="lg">Back to lobby</Button>
+          </>
+        ) : (
 
-      <IconButton onClick={toggleColorMode} icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />} aria-label={'dark-mode-toggle'} isRound={true} variant='solid' position="fixed" top='1em' right='1em' />
-      {/* <IconButton onClick={generateImages} icon={<StarIcon />} aria-label={'generate-ai-images'} isRound={true} variant='solid' position="fixed" top='1em' right='4em' /> */}
+          <Flex direction="row" justify="flex-start" align="stretch" h="90vh" w="96vw" pr={0}>
 
-      <Box flexGrow={0} mr={2}>
-        <Board board={board} handleClickCharacter={handleClickCharacter} columns={COLUMNS} />
-      </Box>
+            <IconButton onClick={toggleColorMode} icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />} aria-label={'dark-mode-toggle'} isRound={true} variant='solid' position="fixed" top='1em' right='1em' />
+            {/* <IconButton onClick={generateImages} icon={<StarIcon />} aria-label={'generate-ai-images'} isRound={true} variant='solid' position="fixed" top='1em' right='4em' /> */}
 
-      <Box ml="auto" flexGrow={1} right='1em'>
-        <Dialogue
-          playerCount={playerCount}
-          yourCharacter={yourCharacter}
-          isMyTurn={isMyTurn}
-          isAsking={isAsking}
-          yourRemainingCharacters={yourRemainingCharacters}
-          opponentRemainingCharacters={opponentRemainingCharacters}
-          handleOpenQuestionModal={handleOpenQuestionModal}
-          handleOpenAnswerModal={handleOpenAnswerModal}
-          handleGuessCharacter={handleGuessCharacter}
-          dialogues={dialogues}
-          userId={clientId}
-          winner={winner} />
-      </Box>
+            < Box flexGrow={0} mr={2} >
+              <Board board={board} handleClickCharacter={handleClickCharacter} columns={COLUMNS} />
+            </Box >
 
-      {winner && <WinnerModal isOpen={winner !== null} winner={winner} onClose={handleCloseWinnerModal} playAgain={handlePlayAgain} ready={ready} opponentReady={opponentReady} />}
-      <QuestionModal isOpen={isQuestionModalOpen} onClose={handleCloseQuestionModal} onAsk={askQuestion} />
-      <AnswerModal isOpen={isAnswerModalOpen} onClose={handleCloseAnswerModal} onAnswer={answerQuestion} question={dialogues[dialogues.length - 1]?.content} />
-      <GuessCharacterModal isOpen={isGuessCharacterModalOpen} onClose={() => setIsGuessCharacterModalOpen(false)} onGuess={guessCharacter} remainingCharacters={board.filter(c => c.alive)} />
-    </Flex>
+            <Box ml="auto" flexGrow={1} right='1em'>
+              <Dialogue
+                playerCount={playerCount}
+                yourCharacter={yourCharacter}
+                isMyTurn={isMyTurn}
+                isAsking={isAsking}
+                yourRemainingCharacters={yourRemainingCharacters}
+                opponentRemainingCharacters={opponentRemainingCharacters}
+                handleOpenQuestionModal={handleOpenQuestionModal}
+                handleOpenAnswerModal={handleOpenAnswerModal}
+                handleGuessCharacter={handleGuessCharacter}
+                dialogues={dialogues}
+                userId={clientId}
+                winner={winner} />
+            </Box>
+
+            {winner && <WinnerModal isOpen={winner !== null} winner={winner} onClose={handleCloseWinnerModal} playAgain={handlePlayAgain} ready={ready} opponentReady={opponentReady} />}
+            <QuestionModal isOpen={isQuestionModalOpen} onClose={handleCloseQuestionModal} onAsk={askQuestion} />
+            <AnswerModal isOpen={isAnswerModalOpen} onClose={handleCloseAnswerModal} onAnswer={answerQuestion} question={dialogues[dialogues.length - 1]?.content} />
+            <GuessCharacterModal isOpen={isGuessCharacterModalOpen} onClose={() => setIsGuessCharacterModalOpen(false)} onGuess={guessCharacter} remainingCharacters={board.filter(c => c.alive)} />
+          </Flex >
+        )
+      }
+    </>
   );
 }
