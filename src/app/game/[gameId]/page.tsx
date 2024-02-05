@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Board from '@/components/Board';
 import Character from '@/character';
-import { Box, Flex, useColorMode, IconButton, Heading, Button } from '@chakra-ui/react';
+import { Box, Flex, useColorMode, IconButton, Heading, Button, VStack, Text } from '@chakra-ui/react';
 import { socket } from '@/socket';
 import { Socket } from 'socket.io-client';
 import { useRouter } from 'next/navigation';
 import QuestionModal from "@/components/QuestionModal";
 import AnswerModal from "@/components/AnswerModal";
-import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { ArrowLeftIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import Dialogue from '@/components/Dialogue';
 import GuessCharacterModal from '@/components/GuessCharacterModal';
 import WinnerModal from '@/components/WinnerModal';
@@ -37,7 +37,7 @@ export default function Game() {
   const [isAsking, setIsAsking] = useState(true);
   const [ready, setReady] = useState(false);
   const [opponentReady, setOpponentReady] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('err');
 
   const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
   const handleOpenQuestionModal = () => setIsQuestionModalOpen(true);
@@ -188,10 +188,12 @@ export default function Game() {
     <>
       {
         errorMessage.length ? (
-          <>
-            <Heading>Uh oh! Looks like the game you tried to join is already full...</Heading>
-            <Button onClick={() => router.push('/')} variant="solid" colorScheme="teal" size="lg">Back to lobby</Button>
-          </>
+          <VStack justifyContent="center">
+            <Text mb={4}>🚧 Uh oh! Looks like the game you tried to join is already full...</Text>
+            <Box>
+              <Button colorScheme="green" mr={3} onClick={() => router.push("/")} leftIcon={<ArrowLeftIcon />}>Back to Lobby</Button>
+            </Box>
+          </VStack>
         ) : (
 
           <Flex direction="row" justify="flex-start" align="stretch" h="90vh" w="96vw" pr={0}>
