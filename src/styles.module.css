@@ -1,0 +1,25 @@
+/* styles.module.css */
+
+.imageHoverLight {
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.imageHoverLight:hover {
+  transform: scale(1.05);
+  background-color: #f0f0f0; /* Change this to the color you want */
+}
+
+.imageHoverDark {
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.imageHoverDark:hover {
+  transform: scale(1.05);
+  background-color: #070e22; /* Change this to the color you want */
+}
+
+.questionHover:hover {
+  background-color: #f0f0f0; /* Change this to the color you want */
+}
