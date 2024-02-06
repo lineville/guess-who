@@ -1,7 +1,7 @@
 import Character from "@/character";
 import styles from '../styles.module.css'
-import Image from 'next/image'
-import { Card, Heading, Grid, GridItem, CardBody, CardFooter, Box, useColorMode } from "@chakra-ui/react";
+// import Image from 'next/image'
+import { Image, Card, Heading, Grid, GridItem, CardBody, CardFooter, Box, useColorMode } from "@chakra-ui/react";
 
 export default function Board({ board, handleClickCharacter, columns }: { board: Character[], handleClickCharacter: (index: number) => void, columns: number }) {
   const { colorMode } = useColorMode();
@@ -10,11 +10,11 @@ export default function Board({ board, handleClickCharacter, columns }: { board:
     <Grid templateColumns={`repeat(${columns}, 1fr)`} gap={3}>
       {board.map((c, index) => (
         <GridItem key={index} onClick={() => handleClickCharacter(index)}>
-          <Box boxSize="12vw">
-            <Card className={colorMode === 'light' ? styles.imageHoverLight : styles.imageHoverDark} size="sm" display="flex" justifyContent="center" alignItems="center" w="100%" h="100%">
+          <Box minH="100px" minW="100px">
+            <Card className={colorMode === 'light' ? styles.imageHoverLight : styles.imageHoverDark} display="flex" justifyContent="center" alignItems="center" w="100%" h="100%">
               <CardBody>
-                <Box >
-                  <Image src={c.alive ? `/${c.name}.png` : "/question-mark.png"} alt={c.name} sizes="7vw" style={{ width: '100%', height: 'auto' }} width={100} height={100} priority={true} placeholder="empty" />
+                <Box>
+                  <Image src={c.alive ? `/${c.name}.png` : "/question-mark.png"} alt={c.name} fallbackSrc={"/question-mark.png"} />
                 </Box>
               </CardBody>
               <CardFooter display="flex" alignItems="center" justifyContent="center">

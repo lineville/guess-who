@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Board from '@/components/Board';
 import Character from '@/character';
-import { Box, Flex, useColorMode, IconButton, Heading, Button, VStack, Text } from '@chakra-ui/react';
+import { Box, Flex, useColorMode, IconButton, Heading, Button, VStack, Text, useDisclosure, useBreakpointValue, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay } from '@chakra-ui/react';
 import { socket } from '@/socket';
 import { Socket } from 'socket.io-client';
 import { useRouter } from 'next/navigation';
 import QuestionModal from "@/components/QuestionModal";
 import AnswerModal from "@/components/AnswerModal";
-import { ArrowLeftIcon, MoonIcon, StarIcon, SunIcon } from '@chakra-ui/icons';
+import { ArrowLeftIcon, MoonIcon, StarIcon, SunIcon, HamburgerIcon } from '@chakra-ui/icons';
 import Dialogue from '@/components/Dialogue';
 import GuessCharacterModal from '@/components/GuessCharacterModal';
 import WinnerModal from '@/components/WinnerModal';
@@ -18,6 +18,8 @@ import GameState from '@/gameState';
 
 const COLUMNS = 6;
 const ROWS = 4;
+
+// TODO Resize Board and Dialogue to fit on mobile
 
 export default function Game() {
   const { colorMode, toggleColorMode } = useColorMode()
@@ -38,6 +40,8 @@ export default function Game() {
   const [ready, setReady] = useState(false);
   const [opponentReady, setOpponentReady] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
   const handleOpenQuestionModal = () => setIsQuestionModalOpen(true);
@@ -198,29 +202,64 @@ export default function Game() {
 
           <Flex direction="row" justify="flex-start" align="stretch" h="90vh" w="96vw" pr={0}>
 
-            <IconButton onClick={toggleColorMode} icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />} aria-label={'dark-mode-toggle'} isRound={true} variant='solid' position="fixed" top='1em' right='1em' />
-            <IconButton onClick={generateImages} icon={<StarIcon />} aria-label={'generate-ai-images'} isRound={true} variant='solid' position="fixed" top='1em' right='4em' />
+            <IconButton onClick={toggleColorMode} icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />} aria-label={'dark-mode-toggle'} isRound={true} variant='solid' position="fixed" top='1em' left='1em' />
+            {/* <IconButton onClick={generateImages} icon={<StarIcon />} aria-label={'generate-ai-images'} isRound={true} variant='solid' position="fixed" top='1em' right='4em' /> */}
 
-            < Box flexGrow={0} mr={2} >
+            {isMobile && (<IconButton
+              icon={<HamburgerIcon />}
+              onClick={onOpen}
+              aria-label={'Open drawer'}
+              isRound={true}
+              variant='solid'
+              position="fixed"
+              top='1em'
+              right='1em'
+            />)}
+
+            <Box flexGrow={0} mr={2} ml={2} mt={2} maxH="90vh" maxW="75vw">
               <Board board={board} handleClickCharacter={handleClickCharacter} columns={COLUMNS} />
             </Box >
 
-            <Box ml="auto" flexGrow={1} right='1em'>
-              <Dialogue
-                playerCount={playerCount}
-                yourCharacter={yourCharacter}
-                isMyTurn={isMyTurn}
-                isAsking={isAsking}
-                yourRemainingCharacters={yourRemainingCharacters}
-                opponentRemainingCharacters={opponentRemainingCharacters}
-                handleOpenQuestionModal={handleOpenQuestionModal}
-                handleOpenAnswerModal={handleOpenAnswerModal}
-                handleGuessCharacter={handleGuessCharacter}
-                dialogues={dialogues}
-                userId={clientId}
-                winner={winner} />
-            </Box>
-
+            {isMobile ? (
+              <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+                <DrawerOverlay>
+                  <DrawerContent>
+                    <DrawerCloseButton />
+                    <DrawerBody>
+                      <Dialogue
+                        playerCount={playerCount}
+                        yourCharacter={yourCharacter}
+                        isMyTurn={isMyTurn}
+                        isAsking={isAsking}
+                        yourRemainingCharacters={yourRemainingCharacters}
+                        opponentRemainingCharacters={opponentRemainingCharacters}
+                        handleOpenQuestionModal={handleOpenQuestionModal}
+                        handleOpenAnswerModal={handleOpenAnswerModal}
+                        handleGuessCharacter={handleGuessCharacter}
+                        dialogues={dialogues}
+                        userId={clientId}
+                        winner={winner} />
+                    </DrawerBody>
+                  </DrawerContent>
+                </DrawerOverlay>
+              </Drawer>
+            ) : (
+              <Box ml="auto" flexGrow={1} right='1em' maxW='20vw'>
+                <Dialogue
+                  playerCount={playerCount}
+                  yourCharacter={yourCharacter}
+                  isMyTurn={isMyTurn}
+                  isAsking={isAsking}
+                  yourRemainingCharacters={yourRemainingCharacters}
+                  opponentRemainingCharacters={opponentRemainingCharacters}
+                  handleOpenQuestionModal={handleOpenQuestionModal}
+                  handleOpenAnswerModal={handleOpenAnswerModal}
+                  handleGuessCharacter={handleGuessCharacter}
+                  dialogues={dialogues}
+                  userId={clientId}
+                  winner={winner} />
+              </Box>
+            )}
             {winner && <WinnerModal isOpen={winner !== null} winner={winner} onClose={handleCloseWinnerModal} playAgain={handlePlayAgain} ready={ready} opponentReady={opponentReady} />}
             <QuestionModal isOpen={isQuestionModalOpen} onClose={handleCloseQuestionModal} onAsk={askQuestion} />
             <AnswerModal isOpen={isAnswerModalOpen} onClose={handleCloseAnswerModal} onAnswer={answerQuestion} question={dialogues[dialogues.length - 1]?.content} />
