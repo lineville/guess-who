@@ -37,7 +37,7 @@ export default function Game() {
   const [isAsking, setIsAsking] = useState(true);
   const [ready, setReady] = useState(false);
   const [opponentReady, setOpponentReady] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('err');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
   const handleOpenQuestionModal = () => setIsQuestionModalOpen(true);
