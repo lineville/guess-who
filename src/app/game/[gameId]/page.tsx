@@ -9,7 +9,7 @@ import { Socket } from 'socket.io-client';
 import { useRouter } from 'next/navigation';
 import QuestionModal from "@/components/QuestionModal";
 import AnswerModal from "@/components/AnswerModal";
-import { ArrowLeftIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { ArrowLeftIcon, MoonIcon, StarIcon, SunIcon } from '@chakra-ui/icons';
 import Dialogue from '@/components/Dialogue';
 import GuessCharacterModal from '@/components/GuessCharacterModal';
 import WinnerModal from '@/components/WinnerModal';
@@ -199,7 +199,7 @@ export default function Game() {
           <Flex direction="row" justify="flex-start" align="stretch" h="90vh" w="96vw" pr={0}>
 
             <IconButton onClick={toggleColorMode} icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />} aria-label={'dark-mode-toggle'} isRound={true} variant='solid' position="fixed" top='1em' right='1em' />
-            {/* <IconButton onClick={generateImages} icon={<StarIcon />} aria-label={'generate-ai-images'} isRound={true} variant='solid' position="fixed" top='1em' right='4em' /> */}
+            <IconButton onClick={generateImages} icon={<StarIcon />} aria-label={'generate-ai-images'} isRound={true} variant='solid' position="fixed" top='1em' right='4em' />
 
             < Box flexGrow={0} mr={2} >
               <Board board={board} handleClickCharacter={handleClickCharacter} columns={COLUMNS} />

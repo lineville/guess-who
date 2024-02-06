@@ -1,7 +1,7 @@
 import Character from "@/character";
 import styles from '../styles.module.css'
 import Image from 'next/image'
-import { Card, Text, Grid, GridItem, CardBody, CardFooter, Box, useColorMode } from "@chakra-ui/react";
+import { Card, Heading, Grid, GridItem, CardBody, CardFooter, Box, useColorMode } from "@chakra-ui/react";
 
 export default function Board({ board, handleClickCharacter, columns }: { board: Character[], handleClickCharacter: (index: number) => void, columns: number }) {
   const { colorMode } = useColorMode();
@@ -18,7 +18,7 @@ export default function Board({ board, handleClickCharacter, columns }: { board:
                 </Box>
               </CardBody>
               <CardFooter display="flex" alignItems="center" justifyContent="center">
-                <Text>{c.name}</Text>
+                <Heading size="md">{c.name}</Heading>
               </CardFooter>
             </Card>
           </Box>
