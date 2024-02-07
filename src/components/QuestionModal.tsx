@@ -43,13 +43,13 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ isOpen, onClose, onAsk })
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay />
-      <ModalContent overflowY="auto" maxH="60vh" css={{ WebkitOverflowScrolling: 'touch' }}>
+      <ModalContent>
         <ModalHeader textAlign="center">Your turn to ask a question!</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <FormControl>
             <FormLabel>Choose one of the example questions below or write your own</FormLabel>
-            <List spacing={3}>
+            <List spacing={3} overflowY="auto" maxH="60vh" css={{ WebkitOverflowScrolling: 'touch' }}>
               {sampleQuestions.concat(aiQuestions).map((question, index) => (
                 <Box
                   className={styles.questionHover}
