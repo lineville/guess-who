@@ -31,7 +31,7 @@ const Dialogue: React.FC<DialogueProps> = ({ playerCount, yourCharacter, isMyTur
 
   return (
     <VStack spacing={4} align="center">
-      <Flex width="70%" justifyContent="space-between" mb="1em">
+      <Flex width="70%" justifyContent="space-between" mb="1em" mt="1em">
         {Array.from({ length: playerCount }).map((_, index) => (
           <Flex justifyContent={index !== 0 ? "flex-start" : "flex-end"} key={index}>
             <Player character={yourCharacter} isMyTurn={isMyTurn} remainingCharacters={index !== 0 ? yourRemainingCharacters : opponentRemainingCharacters} secret={index === 0} />

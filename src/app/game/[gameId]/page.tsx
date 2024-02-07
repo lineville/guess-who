@@ -216,7 +216,7 @@ export default function Game() {
               right='1em'
             />)}
 
-            <Box flexGrow={0} mr={2} ml={2} mt={2} maxH="90vh" maxW="75vw">
+            <Box mr={2} ml={2} mt={2} w={['90vw', '75vw']}>
               <Board board={board} handleClickCharacter={handleClickCharacter} columns={COLUMNS} />
             </Box >
 
