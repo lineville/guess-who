@@ -7,7 +7,7 @@ export default function Board({ board, handleClickCharacter, columns }: { board:
   const { colorMode } = useColorMode();
 // TODO scroll on AI question modal on mobile
 // TODO store flipped over chars on server
-// 
+
   return (
     <Grid templateColumns={`repeat(${columns}, 1fr)`} gap={3}>
       {board.map((c, index) => (
