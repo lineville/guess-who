@@ -263,7 +263,7 @@ export default function Game() {
             {winner && <WinnerModal isOpen={winner !== null} winner={winner} onClose={handleCloseWinnerModal} playAgain={handlePlayAgain} ready={ready} opponentReady={opponentReady} />}
             <QuestionModal isOpen={isQuestionModalOpen} onClose={handleCloseQuestionModal} onAsk={askQuestion} />
             <AnswerModal isOpen={isAnswerModalOpen} onClose={handleCloseAnswerModal} onAnswer={answerQuestion} question={dialogues[dialogues.length - 1]?.content} />
-            <GuessCharacterModal isOpen={isGuessCharacterModalOpen} onClose={() => setIsGuessCharacterModalOpen(false)} onGuess={guessCharacter} remainingCharacters={board.filter(c => c.alive)} />
+            <GuessCharacterModal isOpen={isGuessCharacterModalOpen} onClose={() => setIsGuessCharacterModalOpen(false)} onGuess={guessCharacter} remainingCharacters={board.filter(c => c.alive).sort((a, b) => a.name.localeCompare(b.name))} />
           </Flex >
         )
       }
