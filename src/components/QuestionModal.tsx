@@ -43,10 +43,10 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ isOpen, onClose, onAsk })
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent overflowY="auto" maxH="60vh" css={{ WebkitOverflowScrolling: 'touch' }}>
         <ModalHeader textAlign="center">Your turn to ask a question!</ModalHeader>
         <ModalCloseButton />
-        <ModalBody overflowY="auto" maxH="70vh">
+        <ModalBody>
           <FormControl>
             <FormLabel>Choose one of the example questions below or write your own</FormLabel>
             <List spacing={3}>
