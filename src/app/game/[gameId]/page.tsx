@@ -19,8 +19,6 @@ import GameState from '@/gameState';
 const COLUMNS = 6;
 const ROWS = 4;
 
-// TODO Resize Board and Dialogue to fit on mobile
-
 export default function Game() {
   const { colorMode, toggleColorMode } = useColorMode()
   const pathname = usePathname();

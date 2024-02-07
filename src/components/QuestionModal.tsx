@@ -8,6 +8,7 @@ interface QuestionModalProps {
   onAsk: (question: string) => void;
 }
 
+// TODO fix scroll on mobile device when modal content is too long
 
 const sampleQuestions = [
   "Are you a fun person to be around?",

@@ -5,8 +5,8 @@ import { Card, Text, Grid, GridItem, CardBody, CardFooter, Box, useColorMode } f
 
 export default function Board({ board, handleClickCharacter, columns }: { board: Character[], handleClickCharacter: (index: number) => void, columns: number }) {
   const { colorMode } = useColorMode();
-// TODO scroll on AI question modal on mobile
-// TODO store flipped over chars on server
+
+  // TODO store flipped over chars state on server
 
   return (
     <Grid templateColumns={`repeat(${columns}, 1fr)`} gap={3}>
