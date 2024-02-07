@@ -21,7 +21,7 @@ const GuessCharacterModal: React.FC<GuessCharacterModalProps> = ({ isOpen, onClo
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside">
+    <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside" blockScrollOnMount={false}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader textAlign="center">Guess the character!</ModalHeader>
