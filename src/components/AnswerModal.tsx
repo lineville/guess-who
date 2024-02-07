@@ -19,7 +19,7 @@ const AnswerModal: React.FC<AnswerModalProps> = ({ isOpen, onClose, onAnswer, qu
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl">
+    <Modal isOpen={isOpen} onClose={onClose} size="xl" blockScrollOnMount={false}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>{question}</ModalHeader>
