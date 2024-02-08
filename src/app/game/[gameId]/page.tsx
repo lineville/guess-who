@@ -89,12 +89,16 @@ export default function Game() {
       setIsMyTurn(userId === clientId);
     })
 
-    socketConnection?.on('eliminate', () => {
-      setOpponentRemainingCharacters(prev => prev - 1)
+    socketConnection?.on('eliminate', (eliminatedIndexes: Set<number>) => {
+      setBoard(prev => prev.map((c, index) => ({ ...c, alive: !eliminatedIndexes.has(index) })));
     });
 
-    socketConnection?.on('revive', () => {
-      setOpponentRemainingCharacters(prev => prev + 1)
+    socketConnection?.on('revive', (eliminatedIndexes: Set<number>) => {
+      setBoard(prev => prev.map((c, index) => ({ ...c, alive: !eliminatedIndexes.has(index) })));
+    });
+
+    socketConnection?.on('eliminated-count', (eliminatedCount: number) => {
+      setOpponentRemainingCharacters(COLUMNS * ROWS - eliminatedCount);
     });
 
     socketConnection?.on('playerCount', (count: number) => {
@@ -140,13 +144,7 @@ export default function Game() {
 
   // Update our local board, and send the event to the server to update opponents counter
   const handleClickCharacter = (index: number) => {
-    socketConnection?.emit(board[index].alive ? 'eliminate' : 'revive');
-    setBoard(board.map((character, i) => {
-      if (i === index) {
-        return { ...character, alive: !character.alive };
-      }
-      return character;
-    }));
+    socketConnection?.emit(board[index].alive ? 'eliminate' : 'revive', index);
   }
 
   const askQuestion = async (question: string) => {
