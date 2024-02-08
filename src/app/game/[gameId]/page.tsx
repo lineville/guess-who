@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Board from '@/components/Board';
 import Character from '@/character';
-import { Box, Flex, useColorMode, IconButton, Heading, Button, VStack, Text, useDisclosure, useBreakpointValue, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay } from '@chakra-ui/react';
+import { Box, Flex, useColorMode, IconButton, Button, VStack, Text, useDisclosure, useBreakpointValue, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerOverlay } from '@chakra-ui/react';
 import { socket } from '@/socket';
 import { Socket } from 'socket.io-client';
 import { useRouter } from 'next/navigation';
@@ -77,8 +77,9 @@ export default function Game() {
   // Hook that handles all the websocket events
   useEffect(() => {
     socketConnection?.on('init', (data: GameState) => {
+      const eliminatedChars = new Set(data.eliminatedCharacters);
       setYourCharacter(data.yourCharacter);
-      setBoard(data.characters.map((name: string) => ({ name, image: `/${name}.png`, alive: true })));
+      setBoard(data.characters.map((name: string, idx: number) => ({ name, image: `/${name}.png`, alive: !eliminatedChars.has(idx) })));
       setIsMyTurn(data.turn === clientId);
       setDialogues(data.dialogues);
       setWinner(data.winner || '');
@@ -90,11 +91,11 @@ export default function Game() {
     })
 
     socketConnection?.on('eliminate', (eliminatedIndexes: Set<number>) => {
-      setBoard(prev => prev.map((c, index) => ({ ...c, alive: !eliminatedIndexes.has(index) })));
+      setBoard(prev => prev.map((c, index) => ({ ...c, alive: !(new Set(eliminatedIndexes).has(index)) })));
     });
 
     socketConnection?.on('revive', (eliminatedIndexes: Set<number>) => {
-      setBoard(prev => prev.map((c, index) => ({ ...c, alive: !eliminatedIndexes.has(index) })));
+      setBoard(prev => prev.map((c, index) => ({ ...c, alive: !(new Set(eliminatedIndexes).has(index)) })));
     });
 
     socketConnection?.on('eliminated-count', (eliminatedCount: number) => {

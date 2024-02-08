@@ -8,4 +8,5 @@ export default interface GameState {
   isAsking: boolean;
   dialogues: Message[];
   yourCharacter: string;
+  eliminatedCharacters: number[];
 }
