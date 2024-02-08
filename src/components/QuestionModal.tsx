@@ -8,8 +8,6 @@ interface QuestionModalProps {
   onAsk: (question: string) => void;
 }
 
-// TODO fix scroll on mobile device when modal content is too long
-
 const sampleQuestions = [
   "Are you a fun person to be around?",
   "Have you thought about the Roman Empire today?",
@@ -44,10 +42,10 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ isOpen, onClose, onAsk })
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside" blockScrollOnMount={false}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent maxH="75vh">
         <ModalHeader textAlign="center">Your turn to ask a question!</ModalHeader>
         <ModalCloseButton />
-        <ModalBody maxH="70vh">
+        <ModalBody overflowY="auto" style={{ touchAction: 'auto' }}>
           <FormControl>
             <FormLabel>Choose one of the example questions below or write your own</FormLabel>
             <List spacing={3}>

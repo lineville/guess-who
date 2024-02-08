@@ -27,10 +27,10 @@ const WinnerModal: React.FC<WinnerModalProps> = ({ winner, isOpen, onClose, play
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside" blockScrollOnMount={false}>
       <ModalOverlay />
-      <ModalContent textAlign="center">
+      <ModalContent textAlign="center" maxH="75vh">
         <ModalHeader>{winner === clientId ? '🎉 You nailed it! Nice guess, you won this round!' : "😭 Your opponent guessed you... You'll get the next one!"}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody justifyContent="center">
+        <ModalBody justifyContent="center" overflowY="auto" style={{ touchAction: 'auto' }}>
           {(ready && !opponentReady) && (<Text>Waiting on opponent to ready up...</Text>)}
           {(opponentReady && !ready) && (<Text>Opponent is waiting on you to ready up...</Text>)}
           {(ready || opponentReady) && (<Progress size='lg' isIndeterminate />)}

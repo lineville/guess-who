@@ -21,10 +21,10 @@ const AnswerModal: React.FC<AnswerModalProps> = ({ isOpen, onClose, onAnswer, qu
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside" blockScrollOnMount={false}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent maxH="75vh">
         <ModalHeader>{question}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
+        <ModalBody overflowY="auto" style={{ touchAction: 'auto' }}>
           <List spacing={3}>
             <Box
               className={styles.questionHover}

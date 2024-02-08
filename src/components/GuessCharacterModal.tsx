@@ -23,10 +23,10 @@ const GuessCharacterModal: React.FC<GuessCharacterModalProps> = ({ isOpen, onClo
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside" blockScrollOnMount={false}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent maxH="75vh">
         <ModalHeader textAlign="center">Guess the character!</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
+        <ModalBody overflowY="auto" style={{ touchAction: 'auto' }}>
           <Flex justify="center">
             <Menu>
               <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
