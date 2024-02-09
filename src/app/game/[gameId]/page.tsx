@@ -19,6 +19,10 @@ import GameState from '@/gameState';
 const COLUMNS = 6;
 const ROWS = 4;
 
+// TODO extract logic into custom hooks
+// TODO add some transitions to messages
+// TODO add a notification when it's your turn (especially on mobile or on a tab when not focused)
+
 export default function Game() {
   const { colorMode, toggleColorMode } = useColorMode()
   const pathname = usePathname();
