@@ -1,6 +1,6 @@
 # Guess Who
 
-Web based game to play Guess Who with your friends. Inspired by the Hasbro board game but using AI generated cartoon characters.
+Web based game to play Guess Who with your friends. Inspired by the Hasbro board game but using AI generated cartoon characters and question prompts.
 
 Play it for free at [https://guess-who-virid.vercel.app/](https://guess-who-virid.vercel.app/)
 
