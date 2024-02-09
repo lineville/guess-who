@@ -25,7 +25,7 @@ const WinnerModal: React.FC<WinnerModalProps> = ({ winner, isOpen, onClose, play
 
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside" blockScrollOnMount={false}>
+    <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside">
       <ModalOverlay />
       <ModalContent textAlign="center" maxH="75vh">
         <ModalHeader>{winner === clientId ? '🎉 You nailed it! Nice guess, you won this round!' : "😭 Your opponent guessed you... You'll get the next one!"}</ModalHeader>

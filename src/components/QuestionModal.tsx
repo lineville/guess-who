@@ -40,7 +40,7 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ isOpen, onClose, onAsk })
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside" blockScrollOnMount={false}>
+    <Modal isOpen={true} onClose={onClose} size="xl" scrollBehavior="inside">
       <ModalOverlay />
       <ModalContent maxH="75vh">
         <ModalHeader textAlign="center">Your turn to ask a question!</ModalHeader>
