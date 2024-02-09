@@ -225,7 +225,7 @@ export default function Game() {
               <Drawer isOpen={isOpen} placement="right" onClose={onClose} blockScrollOnMount={false}>
                 <DrawerOverlay w="full" h="full">
                   <DrawerContent>
-                    <DrawerCloseButton />
+                    <DrawerCloseButton onClick={onClose} />
                     <DrawerBody>
                       <Dialogue
                         playerCount={playerCount}

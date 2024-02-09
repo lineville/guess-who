@@ -23,16 +23,16 @@ const GuessCharacterModal: React.FC<GuessCharacterModalProps> = ({ isOpen, onClo
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside">
       <ModalOverlay />
-      <ModalContent maxH="75vh">
+      <ModalContent>
         <ModalHeader textAlign="center">Guess the character!</ModalHeader>
         <ModalCloseButton />
-        <ModalBody overflowY="auto" style={{ touchAction: 'auto' }}>
+        <ModalBody>
           <Flex justify="center">
             <Menu>
               <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                 Select Character
               </MenuButton>
-              <MenuList>
+              <MenuList maxH="75vh" overflowY="auto" style={{ touchAction: 'auto' }}>
                 {remainingCharacters?.map((c, index) => (
                   <MenuItem key={index} onClick={() => setCharacter(c.name)}>
                     <Box display="flex" alignItems="center">

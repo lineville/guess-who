@@ -18,7 +18,7 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ isOpen, onClose, onAsk })
   const [question, setQuestion] = useState("");
   const [placeholder, setPlaceholder] = useState("");
   const [isFetchingQuestions, setIsFetchingQuestions] = useState(false);
-  const [aiQuestions, setAiQuestions] = useState([]);
+  const [aiQuestions, setAiQuestions] = useState<string[]>([]);
 
   const handleAskQuestion = async () => {
     await onAsk(question);
@@ -26,13 +26,12 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ isOpen, onClose, onAsk })
     onClose();
   };
 
-
   const handleAskAI = async () => {
     setIsFetchingQuestions(true);
     try {
       const response = await fetch('/api/questions');
       const data = await response.json();
-      setAiQuestions(data.questions);
+      setAiQuestions(prev => [...prev, ...data.questions])
     } catch (error) {
       console.error('Failed to fetch AI questions:', error);
     }
