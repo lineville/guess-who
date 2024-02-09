@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body style={{ WebkitOverflowScrolling: 'touch' }}>
         <Providers>
           <Container maxW="100vw">
             <Heading mt={4} mb={4} textAlign="center">{metadata.title as string}</Heading>
