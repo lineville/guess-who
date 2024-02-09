@@ -218,8 +218,8 @@ export default function Game() {
             </Box >
 
             {isMobile ? (
-              <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
-                <DrawerOverlay>
+              <Drawer isOpen={isOpen} placement="right" onClose={onClose} blockScrollOnMount={false}>
+                <DrawerOverlay w="full" h="full">
                   <DrawerContent>
                     <DrawerCloseButton />
                     <DrawerBody>
