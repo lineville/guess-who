@@ -32,7 +32,6 @@ import WinnerModal from "@/components/WinnerModal";
 import { COLUMNS } from "@/lib/constants";
 import { useSocket } from "@/hooks/useSocket";
 
-// TODO add some transitions to messages
 // TODO add a notification when it's your turn
 
 export default function Game() {
@@ -87,7 +86,7 @@ export default function Game() {
   } = useSocket(clientId);
 
   // ----------------- User Action Handlers -----------------
-  
+
   // Flip the character card
   const handleClickCharacter = (index: number) => {
     socketConnection?.emit(board[index].alive ? "eliminate" : "revive", index);

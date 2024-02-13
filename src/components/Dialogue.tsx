@@ -13,6 +13,7 @@ import {
   Heading,
   Avatar,
   HStack,
+  SlideFade,
 } from "@chakra-ui/react";
 import { CheckIcon, CopyIcon } from "@chakra-ui/icons";
 import Player from "@/components/Player";
@@ -61,21 +62,20 @@ const Dialogue: React.FC<DialogueProps> = ({
     <VStack spacing={4} align="center">
       <Flex width="70%" justifyContent="space-between" mb="1em" mt="1em">
         {Array.from({ length: playerCount }).map((_, index) => (
-          <Flex
-            justifyContent={index !== 0 ? "flex-start" : "flex-end"}
-            key={index}
-          >
-            <Player
-              character={yourCharacter}
-              isMyTurn={isMyTurn}
-              remainingCharacters={
-                index !== 0
-                  ? yourRemainingCharacters
-                  : opponentRemainingCharacters
-              }
-              secret={index === 0}
-            />
-          </Flex>
+          <SlideFade in={true} offsetX="50px" key={index}>
+            <Flex justifyContent={index !== 0 ? "flex-start" : "flex-end"}>
+              <Player
+                character={yourCharacter}
+                isMyTurn={isMyTurn}
+                remainingCharacters={
+                  index !== 0
+                    ? yourRemainingCharacters
+                    : opponentRemainingCharacters
+                }
+                secret={index === 0}
+              />
+            </Flex>
+          </SlideFade>
         ))}
       </Flex>
 
@@ -97,34 +97,35 @@ const Dialogue: React.FC<DialogueProps> = ({
 
         <CardBody>
           {dialogues.map(({ content, clientId }, index) => (
-            <Flex
-              justifyContent={userId === clientId ? "flex-end" : "flex-start"}
-              alignItems="flex-end"
-              key={index}
-              mb={2}
-            >
-              <Avatar
-                name={userId === clientId ? yourCharacter : "question-mark"}
-                src={
-                  userId === clientId
-                    ? `/${yourCharacter}.png`
-                    : "/question-mark.png"
-                }
-                order={userId === clientId ? 2 : 1}
-                size="sm"
-                ml="1em"
-                mr="1em"
-              />
-              <Box
-                p={3}
-                borderRadius="lg"
-                bg={colorMode === "light" ? "#f0f0f0" : "#070e22"}
-                maxWidth="80%"
-                order={userId === clientId ? 1 : 2}
+            <SlideFade in={true} offsetY="20px" offsetX="20px" key={index}>
+              <Flex
+                justifyContent={userId === clientId ? "flex-end" : "flex-start"}
+                alignItems="flex-end"
+                mb={2}
               >
-                <Text>{content}</Text>
-              </Box>
-            </Flex>
+                <Avatar
+                  name={userId === clientId ? yourCharacter : "question-mark"}
+                  src={
+                    userId === clientId
+                      ? `/${yourCharacter}.png`
+                      : "/question-mark.png"
+                  }
+                  order={userId === clientId ? 2 : 1}
+                  size="sm"
+                  ml="1em"
+                  mr="1em"
+                />
+                <Box
+                  p={3}
+                  borderRadius="lg"
+                  bg={colorMode === "light" ? "#f0f0f0" : "#070e22"}
+                  maxWidth="80%"
+                  order={userId === clientId ? 1 : 2}
+                >
+                  <Text>{content}</Text>
+                </Box>
+              </Flex>
+            </SlideFade>
           ))}
         </CardBody>
 

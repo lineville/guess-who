@@ -11,6 +11,7 @@ import {
   Box,
   useColorMode,
 } from "@chakra-ui/react";
+import FlipCard from "react-card-flip";
 
 export default function Board({
   board,
@@ -41,9 +42,9 @@ export default function Board({
               h={["150", "180"]}
             >
               <CardBody p={2}>
-                <Box>
+                <FlipCard isFlipped={!c.alive} flipDirection="vertical">
                   <Image
-                    src={c.alive ? `/${c.name}.png` : "/question-mark.png"}
+                    src={`/${c.name}.png`}
                     alt={c.name}
                     placeholder="empty"
                     priority={true}
@@ -52,7 +53,18 @@ export default function Board({
                     height={100}
                     objectFit="cover"
                   />
-                </Box>
+
+                  <Image
+                    src="/question-mark.png"
+                    alt="question mark"
+                    placeholder="empty"
+                    priority={true}
+                    sizes="(max-width: 768px) 100px, 130px"
+                    width={100}
+                    height={100}
+                    objectFit="cover"
+                  />
+                </FlipCard>
               </CardBody>
               <CardFooter
                 display="flex"
