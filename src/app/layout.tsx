@@ -1,25 +1,27 @@
-import type { Metadata } from 'next'
-import { Providers } from './providers'
-import { Container, Heading, Spacer } from '@chakra-ui/react'
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import type { Metadata } from "next";
+import { Providers } from "./providers";
+import { Container, Heading, Spacer } from "@chakra-ui/react";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
-  title: 'Guess Who?',
-  description: 'Guess Who?',
-}
+  title: "Guess Who?",
+  description: "Guess Who?",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body style={{ WebkitOverflowScrolling: 'touch' }}>
+      <body style={{ WebkitOverflowScrolling: "touch" }}>
         <Providers>
           <Container maxW="100vw">
-            <Heading mt={4} mb={4} textAlign="center">{metadata.title as string}</Heading>
+            <Heading mt={4} mb={4} textAlign="center">
+              {metadata.title as string}
+            </Heading>
             <Spacer />
             {children}
             <Analytics />
@@ -28,5 +30,5 @@ export default function RootLayout({
         </Providers>
       </body>
     </html>
-  )
+  );
 }

@@ -1,6 +1,20 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter, FormControl, FormLabel, Textarea, Button, List, Box } from "@chakra-ui/react";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  ModalFooter,
+  FormControl,
+  FormLabel,
+  Textarea,
+  Button,
+  List,
+  Box,
+} from "@chakra-ui/react";
 import { useState } from "react";
-import styles from '../styles.module.css'
+import styles from "../styles.module.css";
 
 interface QuestionModalProps {
   isOpen: boolean;
@@ -14,7 +28,11 @@ const sampleQuestions = [
   "Do you think we should go back to the 'Good Old Days'?",
 ];
 
-const QuestionModal: React.FC<QuestionModalProps> = ({ isOpen, onClose, onAsk }) => {
+const QuestionModal: React.FC<QuestionModalProps> = ({
+  isOpen,
+  onClose,
+  onAsk,
+}) => {
   const [question, setQuestion] = useState("");
   const [placeholder, setPlaceholder] = useState("");
   const [isFetchingQuestions, setIsFetchingQuestions] = useState(false);
@@ -29,11 +47,11 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ isOpen, onClose, onAsk })
   const handleAskAI = async () => {
     setIsFetchingQuestions(true);
     try {
-      const response = await fetch('/api/questions');
+      const response = await fetch("/api/questions");
       const data = await response.json();
-      setAiQuestions(prev => [...prev, ...data.questions])
+      setAiQuestions((prev) => [...prev, ...data.questions]);
     } catch (error) {
-      console.error('Failed to fetch AI questions:', error);
+      console.error("Failed to fetch AI questions:", error);
     }
     setIsFetchingQuestions(false);
   };
@@ -42,11 +60,15 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ isOpen, onClose, onAsk })
     <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside">
       <ModalOverlay />
       <ModalContent maxH="75vh">
-        <ModalHeader textAlign="center">Your turn to ask a question!</ModalHeader>
+        <ModalHeader textAlign="center">
+          Your turn to ask a question!
+        </ModalHeader>
         <ModalCloseButton />
-        <ModalBody overflowY="auto" style={{ touchAction: 'auto' }}>
+        <ModalBody overflowY="auto" style={{ touchAction: "auto" }}>
           <FormControl>
-            <FormLabel>Choose one of the example questions below or write your own</FormLabel>
+            <FormLabel>
+              Choose one of the example questions below or write your own
+            </FormLabel>
             <List spacing={3}>
               {sampleQuestions.concat(aiQuestions).map((question, index) => (
                 <Box
@@ -66,8 +88,19 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ isOpen, onClose, onAsk })
                 </Box>
               ))}
             </List>
-            <Button isLoading={isFetchingQuestions} onClick={handleAskAI} mt={4}>Ask AI ✨</Button>
-            <Textarea value={question} onChange={(e) => setQuestion(e.target.value)} placeholder={placeholder} marginTop="1em" />
+            <Button
+              isLoading={isFetchingQuestions}
+              onClick={handleAskAI}
+              mt={4}
+            >
+              Ask AI ✨
+            </Button>
+            <Textarea
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              placeholder={placeholder}
+              marginTop="1em"
+            />
           </FormControl>
         </ModalBody>
 
@@ -75,7 +108,9 @@ const QuestionModal: React.FC<QuestionModalProps> = ({ isOpen, onClose, onAsk })
           <Button colorScheme="blue" mr={3} onClick={handleAskQuestion}>
             Ask
           </Button>
-          <Button variant="ghost" onClick={onClose}>Cancel</Button>
+          <Button variant="ghost" onClick={onClose}>
+            Cancel
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
