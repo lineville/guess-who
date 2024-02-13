@@ -16,6 +16,7 @@ import {
   DrawerCloseButton,
   DrawerContent,
   DrawerOverlay,
+  useToast,
 } from "@chakra-ui/react";
 import QuestionModal from "@/components/QuestionModal";
 import AnswerModal from "@/components/AnswerModal";
@@ -32,7 +33,6 @@ import WinnerModal from "@/components/WinnerModal";
 import { COLUMNS } from "@/lib/constants";
 import { useSocket } from "@/hooks/useSocket";
 
-// TODO add a notification when it's your turn
 
 export default function Game() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -84,6 +84,32 @@ export default function Game() {
     setIsMyTurn,
     router,
   } = useSocket(clientId);
+
+  const toast = useToast();
+
+  useEffect(() => {
+    if (isMyTurn && playerCount > 1) {
+      toast({
+        title: "Your Turn",
+        description: "It's your turn to play!",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+
+      const link = document.querySelector("link[rel*='icon']") as HTMLLinkElement;
+      console.log(link)
+      if (!link) return;
+
+      link.href = "/notification-favicon.ico";
+    }
+
+    return () => {
+      const link = document.querySelector("link[rel*='icon']") as HTMLLinkElement;
+      if (!link) return;
+      link.href = "/favicon.ico";
+    };
+  }, [isMyTurn, toast, playerCount]);
 
   // ----------------- User Action Handlers -----------------
 
