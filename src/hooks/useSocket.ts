@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Socket } from "socket.io-client";
 import { usePathname } from "next/navigation";
-import { socket } from "@/socket";
-import GameState from "@/gameState";
-import Message from "@/message";
-import { COLUMNS, ROWS } from "@/constants";
+import { socket } from "@/lib/socket";
+import GameState from "@/lib/gameState";
+import Message from "@/lib/message";
+import { COLUMNS, ROWS } from "@/lib/constants";
 
 export const useSocket = (clientId: string) => {
   const pathname = usePathname();
@@ -18,13 +18,13 @@ export const useSocket = (clientId: string) => {
   const [dialogues, setDialogues] = useState<Message[]>([]);
   const [winner, setWinner] = useState("");
   const [isAsking, setIsAsking] = useState(true);
+  const [playerCount, setPlayerCount] = useState<number>(1);
+  const [opponentReady, setOpponentReady] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [opponentRemainingCharacters, setOpponentRemainingCharacters] =
     useState<number>(COLUMNS * ROWS);
   const [yourRemainingCharacters, setYourRemainingCharacters] =
     useState<number>(COLUMNS * ROWS);
-  const [playerCount, setPlayerCount] = useState<number>(1);
-  const [opponentReady, setOpponentReady] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
 
   // Hook that handles the socket connection
   useEffect(() => {

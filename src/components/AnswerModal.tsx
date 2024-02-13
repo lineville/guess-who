@@ -13,7 +13,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import styles from "../styles.module.css";
+import styles from "../styles/styles.module.css";
 
 interface AnswerModalProps {
   isOpen: boolean;

@@ -7,9 +7,11 @@ import { ArrowRightIcon } from "@chakra-ui/icons";
 export default function Home() {
   const router = useRouter();
 
+  // Generate a new clientId and gameId
   const createGame = () => {
     const clientId = uuidv4();
     localStorage.setItem("clientId", clientId);
+    
     const gameId = uuidv4();
     router.push(`/game/${gameId}`);
   };

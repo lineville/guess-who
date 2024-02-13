@@ -29,7 +29,7 @@ import {
 import Dialogue from "@/components/Dialogue";
 import GuessCharacterModal from "@/components/GuessCharacterModal";
 import WinnerModal from "@/components/WinnerModal";
-import { COLUMNS } from "@/constants";
+import { COLUMNS } from "@/lib/constants";
 import { useSocket } from "@/hooks/useSocket";
 
 // TODO add some transitions to messages
@@ -87,10 +87,13 @@ export default function Game() {
   } = useSocket(clientId);
 
   // ----------------- User Action Handlers -----------------
+  
+  // Flip the character card
   const handleClickCharacter = (index: number) => {
     socketConnection?.emit(board[index].alive ? "eliminate" : "revive", index);
   };
 
+  // Ask a question to your opponent
   const askQuestion = async (question: string) => {
     await socketConnection?.emit("ask", question);
     setIsMyTurn(false);
@@ -101,6 +104,7 @@ export default function Game() {
     ]);
   };
 
+  // Answer your opponent's question
   const answerQuestion = async (answer: string) => {
     await socketConnection?.emit("answer", answer);
     setIsAsking(true);
@@ -110,6 +114,7 @@ export default function Game() {
     ]);
   };
 
+  // Guess your opponent's character
   const guessCharacter = async (character: string) => {
     await socketConnection?.emit("guess", character);
     closeGuessCharacterModal();
@@ -124,16 +129,12 @@ export default function Game() {
     ]);
   };
 
-  const handleGuessCharacter = () => {
-    openGuessCharacterModal();
-  };
-
-  const handleCloseWinnerModal = () => setWinner("");
-
+  // Ready up for a new game
   const handleReady = async () => {
     await socketConnection?.emit("ready");
   };
 
+  // Generate 5 new AI images (for testing purposes only)
   const generateImages = async () => {
     fetch("/api/images")
       .then((response) => {
@@ -232,7 +233,7 @@ export default function Game() {
                       opponentRemainingCharacters={opponentRemainingCharacters}
                       handleOpenQuestionModal={openQuestionModal}
                       handleOpenAnswerModal={openAnswerModal}
-                      handleGuessCharacter={handleGuessCharacter}
+                      handleGuessCharacter={openGuessCharacterModal}
                       dialogues={dialogues}
                       userId={clientId}
                       winner={winner}
@@ -252,7 +253,7 @@ export default function Game() {
                 opponentRemainingCharacters={opponentRemainingCharacters}
                 handleOpenQuestionModal={openQuestionModal}
                 handleOpenAnswerModal={openAnswerModal}
-                handleGuessCharacter={handleGuessCharacter}
+                handleGuessCharacter={openGuessCharacterModal}
                 dialogues={dialogues}
                 userId={clientId}
                 winner={winner}
@@ -263,7 +264,7 @@ export default function Game() {
             <WinnerModal
               isOpen={winner !== null}
               winner={winner}
-              onClose={handleCloseWinnerModal}
+              onClose={() => setWinner("")}
               handleReady={handleReady}
               opponentReady={opponentReady}
             />

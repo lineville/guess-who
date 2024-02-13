@@ -17,7 +17,7 @@ import {
 import { CheckIcon, CopyIcon } from "@chakra-ui/icons";
 import Player from "@/components/Player";
 import { useState } from "react";
-import Message from "@/message";
+import Message from "@/lib/message";
 
 interface DialogueProps {
   playerCount: number;

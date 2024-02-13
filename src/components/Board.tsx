@@ -1,5 +1,5 @@
-import Character from "@/character";
-import styles from "../styles.module.css";
+import Character from "@/lib/character";
+import styles from "../styles/styles.module.css";
 import Image from "next/image";
 import {
   Card,
