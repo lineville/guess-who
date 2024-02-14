@@ -166,6 +166,9 @@ export default function Game() {
     await socketConnection?.emit("ready");
   };
 
+  // Reset the winner when winner modal is closed
+  const resetWinner = () => setWinner("");
+
   // Generate 5 new AI images (for testing purposes only)
   const generateImages = async () => {
     fetch("/api/images")
@@ -296,7 +299,7 @@ export default function Game() {
             <WinnerModal
               isOpen={winner !== null}
               winner={winner}
-              onClose={() => setWinner("")}
+              onClose={resetWinner}
               handleReady={handleReady}
               opponentReady={opponentReady}
             />
