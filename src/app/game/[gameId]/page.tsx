@@ -32,14 +32,20 @@ import GuessCharacterModal from "@/components/GuessCharacterModal";
 import WinnerModal from "@/components/WinnerModal";
 import { COLUMNS } from "@/lib/constants";
 import { useSocket } from "@/hooks/useSocket";
-
+import { v4 as uuidv4 } from "uuid";
 
 export default function Game() {
   const { colorMode, toggleColorMode } = useColorMode();
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   const [clientId, setClientId] = useState<string>("");
-  useEffect(() => setClientId(localStorage.getItem("clientId") || ""), []);
+  useEffect(() => {
+    const clientId = localStorage.getItem("clientId");
+    if (!clientId) {
+      localStorage.setItem("clientId", uuidv4());
+    }
+    setClientId(localStorage.getItem("clientId") as string);
+  }, []);
 
   const {
     isOpen: isDrawerOpen,
@@ -97,15 +103,19 @@ export default function Game() {
         isClosable: true,
       });
 
-      const link = document.querySelector("link[rel*='icon']") as HTMLLinkElement;
-      console.log(link)
+      const link = document.querySelector(
+        "link[rel*='icon']"
+      ) as HTMLLinkElement;
+      console.log(link);
       if (!link) return;
 
       link.href = "/notification-favicon.ico";
     }
 
     return () => {
-      const link = document.querySelector("link[rel*='icon']") as HTMLLinkElement;
+      const link = document.querySelector(
+        "link[rel*='icon']"
+      ) as HTMLLinkElement;
       if (!link) return;
       link.href = "/favicon.ico";
     };
@@ -125,7 +135,7 @@ export default function Game() {
     setIsAsking(false);
     setDialogues((prev) => [
       ...prev,
-      { content: question, clientId: localStorage.getItem("clientId") },
+      { content: question, clientId: clientId },
     ]);
   };
 
@@ -133,10 +143,7 @@ export default function Game() {
   const answerQuestion = async (answer: string) => {
     await socketConnection?.emit("answer", answer);
     setIsAsking(true);
-    setDialogues((prev) => [
-      ...prev,
-      { content: answer, clientId: localStorage.getItem("clientId") },
-    ]);
+    setDialogues((prev) => [...prev, { content: answer, clientId: clientId }]);
   };
 
   // Guess your opponent's character
@@ -149,7 +156,7 @@ export default function Game() {
       ...prev,
       {
         content: `Are you ${character}?`,
-        clientId: localStorage.getItem("clientId"),
+        clientId: clientId,
       },
     ]);
   };
