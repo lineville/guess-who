@@ -38,6 +38,6 @@ describe("Home", () => {
     const button = screen.getByRole("button", { name: /New Game/i });
     fireEvent.click(button);
 
-    expect(mockPush).toHaveBeenCalled();
+    expect(mockPush).toHaveBeenCalledTimes(1);
   });
 });
