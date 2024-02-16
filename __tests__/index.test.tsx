@@ -4,6 +4,9 @@ import Home from "@/app/page";
 import Header from "@/components/Header";
 
 const mockPush = jest.fn();
+const mockGameId = "123e4567-e89b-12d3-a456-426614174000";
+
+jest.mock("uuid", () => ({ v4: jest.fn(() => mockGameId) }));
 
 jest.mock("next/navigation", () => ({
   useRouter: () => ({
@@ -17,7 +20,7 @@ jest.mock("next/navigation", () => ({
 
 describe("Header", () => {
   it("renders a header with the correct text", () => {
-    render(<Header title="Guess Who?"/>);
+    render(<Header title="Guess Who?" />);
 
     const heading = screen.getByText("Guess Who?");
     expect(heading).toBeInTheDocument();
@@ -39,5 +42,6 @@ describe("Home", () => {
     fireEvent.click(button);
 
     expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockPush).toHaveBeenCalledWith(`/game/${mockGameId}`);
   });
 });

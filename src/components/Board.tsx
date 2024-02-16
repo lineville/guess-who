@@ -25,7 +25,12 @@ export default function Board({
   const { colorMode } = useColorMode();
 
   return (
-    <Grid templateColumns={`repeat(${columns}, 1fr)`} gap={3}>
+    <Grid
+      templateColumns={`repeat(${columns}, 1fr)`}
+      gap={3}
+      rowGap={3}
+      data-testid="board"
+    >
       {board.map((c, index) => (
         <GridItem key={index} onClick={() => handleClickCharacter(index)}>
           <Box>
