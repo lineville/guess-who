@@ -92,6 +92,7 @@ const QuestionModal: React.FC<QuestionModalProps> = ({
               isLoading={isFetchingQuestions}
               onClick={handleAskAI}
               mt={4}
+              loadingText="Thinking 🤔 ..."
             >
               Ask AI ✨
             </Button>

@@ -34,9 +34,7 @@ import { COLUMNS } from "@/lib/constants";
 import { useSocket } from "@/hooks/useSocket";
 
 // TODO If player goes back to lobby from winner modal, don't leave the opponent hanging -- instead remove the play again button and show a message that opponent left and the only option they have it to go back to the lobby
-// TODO make the winner modal not closable
 // TODO swap out a few more of the characters
-// TODO improve the AI spinner loading
 // TODO improve typography
 
 // TODO Feature idea from the main lobby when creating a new game user can have a bit more options to get started

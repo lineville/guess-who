@@ -49,7 +49,6 @@ const WinnerModal: React.FC<WinnerModalProps> = ({
             ? "🎉 You nailed it! Nice guess, you won this round!"
             : "😭 Your opponent guessed you... You'll get the next one!"}
         </ModalHeader>
-        <ModalCloseButton />
         <ModalBody
           justifyContent="center"
           overflowY="auto"
