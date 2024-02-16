@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "ci": "bun install && bun run test && bun install --production"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
