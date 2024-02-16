@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --coverage",
-    "test:watch": "jest --watch",
+    "test": "jest --collectCoverage",
+    "test:watch": "bun run test --watchAll",
     "ci": "bun install && bun run test && bun install --production"
   },
   "dependencies": {
@@ -26,6 +26,7 @@
     "react-dom": "^18",
     "react-icons": "^5.0.1",
     "socket.io-client": "^4.7.4",
+    "socket.io-mock": "^1.3.2",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "uuid": "^9.0.1"

@@ -1,10 +1,11 @@
 import "@testing-library/jest-dom";
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Game from "@/components/Game";
-// import { socket } from "@/lib/socket";
+import React from "react";
 
 const mockGameId = "123e4567-e89b-12d3-a456-426614174000";
 const mockClientId = "123e4567-e89b-12d3-a456-426614174001";
+
 
 jest.mock("@chakra-ui/react", () => ({
   ...jest.requireActual("@chakra-ui/react"),

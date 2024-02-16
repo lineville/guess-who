@@ -90,7 +90,7 @@ const Dialogue: React.FC<DialogueProps> = ({
               aria-label={"copy invite link"}
             >
               Copy Invite
-              {isInviteCopied ? <CheckIcon ml={2} /> : <CopyIcon ml={2} />}
+              {isInviteCopied ? <CheckIcon ml={2} data-testid="check"/> : <CopyIcon ml={2} data-testid="copy"/>}
             </Button>
           </CardHeader>
         )}
