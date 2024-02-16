@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Providers } from "./providers";
-import { Container, Heading, Spacer } from "@chakra-ui/react";
+import { Container, Spacer } from "@chakra-ui/react";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "Guess Who?",
@@ -22,9 +23,7 @@ export default function RootLayout({
       <body style={{ WebkitOverflowScrolling: "touch" }}>
         <Providers>
           <Container maxW="100vw">
-            <Heading mt={4} mb={4} textAlign="center">
-              {metadata.title as string}
-            </Heading>
+            <Header title={metadata.title as string}/>
             <Spacer />
             {children}
             <Analytics />
