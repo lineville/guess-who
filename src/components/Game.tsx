@@ -33,13 +33,16 @@ import WinnerModal from "@/components/WinnerModal";
 import { COLUMNS } from "@/lib/constants";
 import { useSocket } from "@/hooks/useSocket";
 
-// TODO If player goes back to lobby from winner modal, don't leave the opponent hanging -- instead remove the play again button and show a message that opponent left and the only option they have it to go back to the lobby
+// TODO If player goes back to lobby from winner modal, don't leave the opponent hanging
+// -- instead remove the play again button and show a message that opponent left and the only option they have it to go back to the lobby
+
 // TODO swap out a few more of the characters
-// TODO improve typography
 
 // TODO Feature idea from the main lobby when creating a new game user can have a bit more options to get started
 // - They can leave the default character models
 // - They can choose from a set of defined types of characters (super heroes, celebs, cartoon, realistic etc.) This will load a game using a different folder of characters and images
+
+// TODO Feature idea: allow public or private games. Private games means you send the link to a friend as it works now. Public games means you can join a random game with a random person
 
 interface GameProps {
   clientId: string;
