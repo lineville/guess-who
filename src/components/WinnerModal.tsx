@@ -7,12 +7,11 @@ import {
   ModalBody,
   Button,
   ModalFooter,
-  ModalCloseButton,
   Text,
   Progress,
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface WinnerModalProps {
   winner: string;
@@ -20,6 +19,7 @@ interface WinnerModalProps {
   onClose: () => void;
   handleReady: () => void;
   opponentReady: boolean;
+  playerCount: number;
 }
 
 const WinnerModal: React.FC<WinnerModalProps> = ({
@@ -28,6 +28,7 @@ const WinnerModal: React.FC<WinnerModalProps> = ({
   onClose,
   handleReady,
   opponentReady,
+  playerCount,
 }) => {
   const clientId = localStorage.getItem("clientId") as string;
   const router = useRouter();
@@ -40,6 +41,12 @@ const WinnerModal: React.FC<WinnerModalProps> = ({
     setReady(true);
   };
 
+  useEffect(() => {
+    if (playerCount < 2) {
+      setShowPlayAgain(false);
+    }
+  }, [playerCount]);
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside">
       <ModalOverlay />
@@ -47,20 +54,23 @@ const WinnerModal: React.FC<WinnerModalProps> = ({
         <ModalHeader>
           {winner === clientId
             ? "🎉 You nailed it! Nice guess, you won this round!"
-            : "😭 Your opponent guessed you... You'll get the next one!"}
+            : "😭 Your opponent guessed you! You'll get the next one!"}
         </ModalHeader>
         <ModalBody
           justifyContent="center"
           overflowY="auto"
           style={{ touchAction: "auto" }}
         >
+          {playerCount < 2 && <Text>Your opponent has left the game</Text>}
           {ready && !opponentReady && (
-            <Text>Waiting on opponent to ready up...</Text>
+            <Text>Waiting on opponent to ready up</Text>
           )}
           {opponentReady && !ready && (
-            <Text>Opponent is waiting on you to ready up...</Text>
+            <Text>Opponent is waiting on you to ready up</Text>
           )}
-          {(ready || opponentReady) && <Progress size="lg" isIndeterminate />}
+          {(ready || opponentReady) && playerCount >= 2 && (
+            <Progress size="lg" isIndeterminate />
+          )}
         </ModalBody>
         <ModalFooter justifyContent="center">
           <Button

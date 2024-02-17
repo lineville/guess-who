@@ -33,10 +33,9 @@ import WinnerModal from "@/components/WinnerModal";
 import { COLUMNS } from "@/lib/constants";
 import { useSocket } from "@/hooks/useSocket";
 
-// TODO If player goes back to lobby from winner modal, don't leave the opponent hanging
-// -- instead remove the play again button and show a message that opponent left and the only option they have it to go back to the lobby
-
 // TODO swap out a few more of the characters
+// TODO back a more interesting landing page with some instructions and a fun graphic
+// TODO maybe migrate tests to just use bun test instead of jest
 
 // TODO Feature idea from the main lobby when creating a new game user can have a bit more options to get started
 // - They can leave the default character models
@@ -308,6 +307,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
               onClose={resetWinner}
               handleReady={handleReady}
               opponentReady={opponentReady}
+              playerCount={playerCount}
             />
           )}
           <QuestionModal

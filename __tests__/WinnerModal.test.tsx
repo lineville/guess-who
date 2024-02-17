@@ -38,6 +38,7 @@ describe("WinnerModal", () => {
           throw new Error("Function not implemented.");
         }}
         opponentReady={false}
+        playerCount={2}
       />
     );
 
@@ -56,6 +57,7 @@ describe("WinnerModal", () => {
           throw new Error("Function not implemented.");
         }}
         opponentReady={false}
+        playerCount={2}
       />
     );
 
@@ -76,12 +78,13 @@ describe("WinnerModal", () => {
           throw new Error("Function not implemented.");
         }}
         opponentReady={false}
+        playerCount={2}
       />
     );
 
     expect(
       screen.getByText(
-        "😭 Your opponent guessed you... You'll get the next one!"
+        "😭 Your opponent guessed you! You'll get the next one!"
       )
     ).toBeInTheDocument();
   });
@@ -98,11 +101,12 @@ describe("WinnerModal", () => {
           throw new Error("Function not implemented.");
         }}
         opponentReady={true}
+        playerCount={2}
       />
     );
 
     expect(
-      screen.getByText("Opponent is waiting on you to ready up...")
+      screen.getByText("Opponent is waiting on you to ready up")
     ).toBeInTheDocument();
   });
 
@@ -118,6 +122,7 @@ describe("WinnerModal", () => {
           throw new Error("Function not implemented.");
         }}
         opponentReady={false}
+        playerCount={2}
       />
     );
 
@@ -127,6 +132,25 @@ describe("WinnerModal", () => {
     expect(
       screen.getByRole("button", { name: /Back to Lobby/i })
     ).toBeInTheDocument();
+  });
+
+  it("renders the opponent left the game text when the player count is less than 2", () => {
+    render(
+      <WinnerModal
+        winner={clientId}
+        isOpen={true}
+        onClose={function (): void {
+          throw new Error("Function not implemented.");
+        }}
+        handleReady={function (): void {
+          throw new Error("Function not implemented.");
+        }}
+        opponentReady={false}
+        playerCount={1}
+      />
+    );
+
+    expect(screen.getByText("Your opponent has left the game")).toBeInTheDocument();
   });
 
   it("calls the handleReady function when the play again button is clicked", async () => {
@@ -140,6 +164,7 @@ describe("WinnerModal", () => {
         }}
         handleReady={handleReady}
         opponentReady={false}
+        playerCount={2}
       />
     );
 
@@ -162,6 +187,7 @@ describe("WinnerModal", () => {
           throw new Error("Function not implemented.");
         }}
         opponentReady={false}
+        playerCount={2}
       />
     );
 
