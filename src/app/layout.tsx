@@ -20,9 +20,27 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body style={{ WebkitOverflowScrolling: "touch" }}>
+      <body
+        style={{
+          WebkitOverflowScrolling: "touch",
+          margin: 0,
+          padding: 0,
+          width: "100%",
+          height: "100%",
+        }}
+      >
         <Providers>
-          <Container maxW="100vw">
+          <Container
+            bgGradient="linear(to-l, #7928CA, #FF0080)"
+            bgSize={"cover"}
+            top={0}
+            bottom={0}
+            overflow={'auto'}
+            pos={"fixed"}
+            bgPos={"center"}
+            centerContent
+            maxW="100%"
+          >
             <Header title={metadata.title as string} />
             <Spacer />
             {children}

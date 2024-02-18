@@ -34,8 +34,8 @@ import { COLUMNS } from "@/lib/constants";
 import { useSocket } from "@/hooks/useSocket";
 
 // TODO swap out a few more of the characters
-// TODO back a more interesting landing page with some instructions and a fun graphic
-// TODO maybe migrate tests to just use bun test instead of jest
+// TODO create a more interesting landing page with some instructions and a fun graphic
+// TODO add a footer with some links
 
 // TODO Feature idea from the main lobby when creating a new game user can have a bit more options to get started
 // - They can leave the default character models

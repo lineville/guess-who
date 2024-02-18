@@ -14,14 +14,6 @@ const theme = extendTheme({
     heading: "Fredoka, Arial, sans-serif",
     body: "Fredoka, Arial, sans-serif",
   },
-  // styles: {
-  //   global: {
-  //     'body': {
-  //       background: "linear-gradient(300deg,deepskyblue,darkviolet,blue)",
-  //       "background-size": "100% 100%",
-  //     },
-  //   },
-  // },
 });
 
 export function Providers({ children }: { children: React.ReactNode }) {

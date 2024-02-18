@@ -6,7 +6,7 @@ interface HeaderProps {
 
 export default function Header({ title }: HeaderProps): JSX.Element {
   return (
-    <Heading mt={4} mb={4} textAlign="center">
+    <Heading mt={4} mb={4} textAlign="center" size="2xl">
       {title}
     </Heading>
   );
