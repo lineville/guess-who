@@ -23,8 +23,8 @@ export default function Instructions(): JSX.Element {
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   return (
-    <Card bottom={isMobile ? '2vh' : '25vh'}>
-      <CardHeader>
+    <Card bottom={isMobile ? '2vh' : '25vh'} zIndex={-1}>
+      <CardHeader p={isMobile ? 5 : 10}>
         <Heading size={isMobile ? "md" : "xl"}>How it works</Heading>
       </CardHeader>
       <CardBody>
@@ -32,7 +32,7 @@ export default function Instructions(): JSX.Element {
           <ListItem mb={3}>
             <ListIcon as={CheckCircleIcon} color="green.500" />
             <strong className={styles["how-to-header"]}>Goal</strong>
-            <Code ml={2}>
+            <Code ml={isMobile ? 0 : 2} mt={isMobile ? 2 : 0}>
               {
                 "Guess your opponent's secret character before they guess who you are."
               }
@@ -41,14 +41,14 @@ export default function Instructions(): JSX.Element {
           <ListItem mb={3}>
             <ListIcon as={ArrowRightIcon} />
             <strong className={styles["how-to-header"]}>Start Up</strong>
-            <Code ml={2}>
+            <Code ml={isMobile ? 0 : 2} mt={isMobile ? 2 : 0}>
               {"Copy the invite link in the game room and send it to a friend."}
             </Code>
           </ListItem>
           <ListItem mb={3}>
             <ListIcon as={RepeatIcon} color="blue.500" />
             <strong className={styles["how-to-header"]}>Playing</strong>
-            <Code ml={2}>
+            <Code ml={isMobile ? 0 : 2} mt={isMobile ? 2 : 0}>
               {
                 "You and your opponent take turns asking and answering questions."
               }
@@ -57,7 +57,7 @@ export default function Instructions(): JSX.Element {
           <ListItem mb={3}>
             <ListIcon as={ChatIcon} color="green.500" />
             <strong className={styles["how-to-header"]}>Your Turn</strong>
-            <Code ml={2}>
+            <Code ml={isMobile ? 0 : 2} mt={isMobile ? 2 : 0}>
               {
                 "Answer your opponent's question, then ask your opponent a question about their secret character."
               }
@@ -66,7 +66,7 @@ export default function Instructions(): JSX.Element {
           <ListItem mb={3}>
             <ListIcon as={SpinnerIcon} />
             <strong className={styles["how-to-header"]}>Their Turn</strong>
-            <Code ml={2}>
+            <Code ml={isMobile ? 0 : 2} mt={isMobile ? 2 : 0}>
               {
                 "Eliminate characters on your board while your opponent thinks of their next question."
               }
@@ -75,7 +75,7 @@ export default function Instructions(): JSX.Element {
           <ListItem mb={3}>
             <ListIcon as={StarIcon} color="yellow.500" />
             <strong className={styles["how-to-header"]}>Winning</strong>
-            <Code ml={2}>
+            <Code ml={isMobile ? 0 : 2} mt={isMobile ? 2 : 0}>
               {"Guess your opponent's secret character correctly!"}
             </Code>
           </ListItem>
