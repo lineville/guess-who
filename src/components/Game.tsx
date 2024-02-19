@@ -213,16 +213,18 @@ export default function Game({ clientId }: GameProps): JSX.Element {
           pr={0}
           data-testid="game-container"
         >
-          {process.env.NODE_ENV === 'development' && (<IconButton
-            onClick={generateImages}
-            icon={<StarIcon />}
-            aria-label={"generate-ai-images"}
-            isRound={true}
-            variant="solid"
-            position="fixed"
-            top="1em"
-            right="4em"
-          />)}
+          {process.env.NODE_ENV === "development" && (
+            <IconButton
+              onClick={generateImages}
+              icon={<StarIcon />}
+              aria-label={"generate-ai-images"}
+              isRound={true}
+              variant="solid"
+              position="fixed"
+              top="1em"
+              right="4em"
+            />
+          )}
 
           {isMobile && (
             <IconButton
@@ -252,9 +254,9 @@ export default function Game({ clientId }: GameProps): JSX.Element {
               onClose={closeDrawer}
               blockScrollOnMount={false}
             >
-              <DrawerOverlay w="full" h="full" pos={"fixed"} top={0} right={0} bottom={0} left={0}>
+              <DrawerOverlay>
                 <DrawerContent>
-                  <DrawerCloseButton onClick={closeDrawer} />
+                  <DrawerCloseButton onClick={closeDrawer} zIndex={2} />
                   <DrawerBody overflowY="auto" style={{ touchAction: "auto" }}>
                     <Dialogue
                       playerCount={playerCount}
