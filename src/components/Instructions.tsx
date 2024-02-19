@@ -107,7 +107,7 @@ export default function Instructions(): JSX.Element {
             <strong className={styles["how-to-header"]}>Theme</strong>
             <Code ml={isMobile ? 0 : 2} mt={isMobile ? 2 : 0}>
               {
-                "Toggle dark and light mode by clicking the button in the top right."
+                "Toggle dark and light mode by clicking the button in the top left."
               }
             </Code>
           </ListItem>
