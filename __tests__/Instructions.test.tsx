@@ -6,7 +6,6 @@ jest.mock("@chakra-ui/react", () => {
   return {
     ...jest.requireActual("@chakra-ui/react"),
     useBreakpointValue: jest.fn(() => true),
-    useColorMode: jest.fn(() => ({ colorMode: "light" })),
   };
 });
 

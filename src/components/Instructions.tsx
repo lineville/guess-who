@@ -2,6 +2,7 @@ import {
   ArrowRightIcon,
   ChatIcon,
   CheckCircleIcon,
+  InfoOutlineIcon,
   MoonIcon,
   RepeatIcon,
   SpinnerIcon,
@@ -23,6 +24,7 @@ import {
   Link,
   ButtonGroup,
   useColorMode,
+  Kbd,
 } from "@chakra-ui/react";
 import { HeartFillIcon, MarkGithubIcon } from "@primer/octicons-react";
 import styles from "../styles/styles.module.css";
@@ -30,7 +32,6 @@ import NextLink from "next/link";
 
 export default function Instructions(): JSX.Element {
   const isMobile = useBreakpointValue({ base: true, md: false });
-  const { colorMode } = useColorMode();
 
   return (
     <Card>
@@ -75,6 +76,17 @@ export default function Instructions(): JSX.Element {
             </Code>
           </ListItem>
           <ListItem mb={3}>
+            <ListIcon as={InfoOutlineIcon} color="blue.500" />
+            <strong className={styles["how-to-header"]}>Tip</strong>
+            <Code ml={isMobile ? 0 : 2} mt={isMobile ? 2 : 0}>
+              {"If you can't think of a question, click the "}
+            </Code>
+            <Kbd ml={2} mr={2}>
+              Ask AI ✨
+            </Kbd>
+            <Code>{" button for some inspiration!"}</Code>
+          </ListItem>
+          <ListItem mb={3}>
             <ListIcon as={SpinnerIcon} />
             <strong className={styles["how-to-header"]}>Their Turn</strong>
             <Code ml={isMobile ? 0 : 2} mt={isMobile ? 2 : 0}>
@@ -109,19 +121,20 @@ export default function Instructions(): JSX.Element {
         </List>
       </CardBody>
       <Divider />
-      <CardFooter>
-        <ButtonGroup display={"flex"} alignItems={"flex-end"}>
+      <CardFooter
+        display={"flex"}
+        justifyContent={"flex-end"}
+        alignItems={"flex-end"}
+      >
+        <ButtonGroup gap={3}>
           <Link as={NextLink} href="https://github.com/sponsors/lineville">
             <Button colorScheme="pink" leftIcon={<HeartFillIcon />}>
               Donate
             </Button>
           </Link>
           <Link as={NextLink} href="https://github.com/lineville/guess-who">
-            <Button
-              colorScheme={colorMode === "light" ? "blackAlpha" : "whiteAlpha"}
-              leftIcon={<MarkGithubIcon />}
-            >
-              GitHub
+            <Button colorScheme={"blackAlpha"} leftIcon={<MarkGithubIcon />}>
+              Source Code
             </Button>
           </Link>
         </ButtonGroup>
