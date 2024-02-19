@@ -14,6 +14,10 @@ const config: Config = {
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
+  moduleNameMapper: {
+    "@fontsource/*": "<rootDir>/__mocks__/fileMock.ts",
+  },
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
 };
 
 export default createJestConfig(config);

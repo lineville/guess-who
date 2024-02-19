@@ -2,6 +2,7 @@ import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 import Home from "@/app/page";
 import Header from "@/components/Header";
+import { Providers } from "@/app/providers";
 
 const mockPush = jest.fn();
 const mockGameId = "123e4567-e89b-12d3-a456-426614174000";
@@ -18,6 +19,15 @@ jest.mock("next/navigation", () => ({
   }),
 }));
 
+jest.mock("@chakra-ui/react", () => {
+  const chakra = jest.requireActual("@chakra-ui/react");
+
+  return {
+    ...chakra,
+    useBreakpointValue: jest.fn(() => true),
+  };
+});
+
 describe("Header", () => {
   it("renders a header with the correct text", () => {
     render(<Header title="Guess Who?" />);
@@ -29,14 +39,22 @@ describe("Header", () => {
 
 describe("Home", () => {
   it("renders a new game button", () => {
-    render(<Home />);
+    render(
+      <Providers>
+        <Home />
+      </Providers>
+    );
 
     const heading = screen.getByText("New Game");
     expect(heading).toBeInTheDocument();
   });
 
   it("has a clickable button", () => {
-    render(<Home />);
+    render(
+      <Providers>
+        <Home />
+      </Providers>
+    );
 
     const button = screen.getByRole("button", { name: /New Game/i });
     fireEvent.click(button);
