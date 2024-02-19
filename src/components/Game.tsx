@@ -31,8 +31,6 @@ import { useSocket } from "@/hooks/useSocket";
 
 // TODO fix the drawer close button on mobile (not working)
 
-// TODO create an API to to return 24 characters out of the available images that the server can call
-
 // TODO Feature idea from the main lobby when creating a new game user can have a bit more options to get started
 // - They can leave the default character models
 // - They can choose from a set of defined types of characters (super heroes, celebs, cartoon, realistic etc.) This will load a game using a different folder of characters and images
@@ -215,7 +213,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
           pr={0}
           data-testid="game-container"
         >
-          <IconButton
+          {process.env.NODE_ENV === 'development' && (<IconButton
             onClick={generateImages}
             icon={<StarIcon />}
             aria-label={"generate-ai-images"}
@@ -224,7 +222,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
             position="fixed"
             top="1em"
             right="4em"
-          />
+          />)}
 
           {isMobile && (
             <IconButton
@@ -254,10 +252,10 @@ export default function Game({ clientId }: GameProps): JSX.Element {
               onClose={closeDrawer}
               blockScrollOnMount={false}
             >
-              <DrawerOverlay w="full" h="full">
+              <DrawerOverlay w="full" h="full" pos={"fixed"} top={0} right={0} bottom={0} left={0}>
                 <DrawerContent>
                   <DrawerCloseButton onClick={closeDrawer} />
-                  <DrawerBody>
+                  <DrawerBody overflowY="auto" style={{ touchAction: "auto" }}>
                     <Dialogue
                       playerCount={playerCount}
                       yourCharacter={yourCharacter}
