@@ -213,7 +213,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
           pr={0}
           data-testid="game-container"
         >
-          <IconButton
+          {/* <IconButton
             onClick={generateImages}
             icon={<StarIcon />}
             aria-label={"generate-ai-images"}
@@ -222,7 +222,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
             position="fixed"
             top="1em"
             right="4em"
-          />
+          /> */}
 
           {isMobile && (
             <IconButton
