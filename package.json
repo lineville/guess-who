@@ -20,6 +20,7 @@
     "@primer/octicons-react": "^19.8.0",
     "@vercel/analytics": "^1.1.2",
     "@vercel/speed-insights": "^1.0.9",
+    "cors": "^2.8.5",
     "framer-motion": "^11.0.3",
     "next": "14.1.0",
     "openai": "^4.25.0",
