@@ -29,8 +29,6 @@ import { useSocket } from "@/hooks/useSocket";
 // TODO swap out a few more of the characters
 // - Make all of them the more cartoonish style
 
-// TODO fix the drawer close button on mobile (not working)
-
 // TODO Feature idea from the main lobby when creating a new game user can have a bit more options to get started
 // - They can leave the default character models
 // - They can choose from a set of defined types of characters (super heroes, celebs, cartoon, realistic etc.) This will load a game using a different folder of characters and images
@@ -103,7 +101,6 @@ export default function Game({ clientId }: GameProps): JSX.Element {
       const link = document.querySelector(
         "link[rel*='icon']"
       ) as HTMLLinkElement;
-      console.log(link);
       if (!link) return;
 
       link.href = "/notification-favicon.ico";
