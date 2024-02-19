@@ -2,6 +2,7 @@ import {
   ArrowRightIcon,
   ChatIcon,
   CheckCircleIcon,
+  MoonIcon,
   RepeatIcon,
   SpinnerIcon,
   StarIcon,
@@ -16,17 +17,27 @@ import {
   CardHeader,
   CardBody,
   useBreakpointValue,
+  Divider,
+  CardFooter,
+  Button,
+  Link,
+  ButtonGroup,
+  useColorMode,
 } from "@chakra-ui/react";
+import { HeartFillIcon, MarkGithubIcon } from "@primer/octicons-react";
 import styles from "../styles/styles.module.css";
+import NextLink from "next/link";
 
 export default function Instructions(): JSX.Element {
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const { colorMode } = useColorMode();
 
   return (
-    <Card bottom={isMobile ? '2vh' : '25vh'} zIndex={-1}>
+    <Card>
       <CardHeader p={isMobile ? 5 : 10}>
         <Heading size={isMobile ? "md" : "xl"}>How it works</Heading>
       </CardHeader>
+      <Divider />
       <CardBody>
         <List className="how-to">
           <ListItem mb={3}>
@@ -79,8 +90,39 @@ export default function Instructions(): JSX.Element {
               {"Guess your opponent's secret character correctly!"}
             </Code>
           </ListItem>
+          <ListItem mb={3}>
+            <ListIcon as={MoonIcon} color="black.500" />
+            <strong className={styles["how-to-header"]}>Theme</strong>
+            <Code ml={isMobile ? 0 : 2} mt={isMobile ? 2 : 0}>
+              {
+                "Toggle dark and light mode by clicking the button in the top right."
+              }
+            </Code>
+          </ListItem>
+          <ListItem mb={3}>
+            <ListIcon as={HeartFillIcon} color="red.500" />
+            <strong className={styles["how-to-header"]}>Donate</strong>
+            <Code ml={isMobile ? 0 : 2} mt={isMobile ? 2 : 0}>
+              {"Support this project by sponsoring me on GitHub"}
+            </Code>
+          </ListItem>
         </List>
       </CardBody>
+      <Divider />
+      <CardFooter>
+        <ButtonGroup display={"flex"} alignItems={"flex-end"}>
+          <Link as={NextLink} href="https://github.com/sponsors/lineville">
+            <Button colorScheme="pink" leftIcon={<HeartFillIcon />}>
+              Donate
+            </Button>
+          </Link>
+          <Link as={NextLink} href="https://github.com/lineville/guess-who">
+            <Button colorScheme={colorMode === 'light' ? "blackAlpha" : "whiteAlpha"} leftIcon={<MarkGithubIcon />}>
+              GitHub
+            </Button>
+          </Link>
+        </ButtonGroup>
+      </CardFooter>
     </Card>
   );
 }

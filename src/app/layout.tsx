@@ -1,5 +1,4 @@
 import { Providers } from "./providers";
-import { Container, Spacer } from "@chakra-ui/react";
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -30,23 +29,10 @@ export default function RootLayout({
         }}
       >
         <Providers>
-          <Container
-            bgGradient="linear(to-l, #7928CA, #FF0080)"
-            bgSize={"cover"}
-            top={0}
-            bottom={0}
-            overflow={'auto'}
-            pos={"fixed"}
-            bgPos={"center"}
-            centerContent
-            maxW="100%"
-          >
-            <Header title={metadata.title as string} />
-            <Spacer />
-            {children}
-            <Analytics />
-            <SpeedInsights />
-          </Container>
+          <Header title="Guess Who" />
+          {children}
+          <Analytics />
+          <SpeedInsights />
         </Providers>
       </body>
     </html>

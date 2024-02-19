@@ -4,7 +4,6 @@ import Board from "@/components/Board";
 import {
   Box,
   Flex,
-  useColorMode,
   IconButton,
   Button,
   VStack,
@@ -22,9 +21,6 @@ import QuestionModal from "@/components/QuestionModal";
 import AnswerModal from "@/components/AnswerModal";
 import {
   ArrowLeftIcon,
-  MoonIcon,
-  StarIcon,
-  SunIcon,
   HamburgerIcon,
 } from "@chakra-ui/icons";
 import Dialogue from "@/components/Dialogue";
@@ -48,7 +44,6 @@ interface GameProps {
 }
 
 export default function Game({ clientId }: GameProps): JSX.Element {
-  const { colorMode, toggleColorMode } = useColorMode();
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   const {
@@ -220,16 +215,6 @@ export default function Game({ clientId }: GameProps): JSX.Element {
           pr={0}
           data-testid="game-container"
         >
-          <IconButton
-            onClick={toggleColorMode}
-            icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-            aria-label={"dark-mode-toggle"}
-            isRound={true}
-            variant="solid"
-            position="fixed"
-            top="1em"
-            left="1em"
-          />
           {/* <IconButton onClick={generateImages} icon={<StarIcon />} aria-label={'generate-ai-images'} isRound={true} variant='solid' position="fixed" top='1em' right='4em' /> */}
 
           {isMobile && (

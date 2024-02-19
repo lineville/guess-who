@@ -17,6 +17,7 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@fontsource/fredoka": "^5.0.8",
+    "@primer/octicons-react": "^19.8.0",
     "@vercel/analytics": "^1.1.2",
     "@vercel/speed-insights": "^1.0.9",
     "framer-motion": "^11.0.3",

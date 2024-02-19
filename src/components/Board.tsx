@@ -10,6 +10,7 @@ import {
   CardFooter,
   Box,
   useColorMode,
+  SlideFade,
 } from "@chakra-ui/react";
 import FlipCard from "react-card-flip";
 
@@ -33,57 +34,59 @@ export default function Board({
     >
       {board.map((c, index) => (
         <GridItem key={index} onClick={() => handleClickCharacter(index)}>
-          <Box>
-            <Card
-              className={
-                colorMode === "light"
-                  ? styles.imageHoverLight
-                  : styles.imageHoverDark
-              }
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              w={["120", "150"]}
-              h={["150", "180"]}
-            >
-              <CardBody p={2}>
-                <FlipCard isFlipped={!c.alive} flipDirection="vertical">
-                  <Image
-                    src={`/${c.name}.png`}
-                    alt={c.name}
-                    placeholder="empty"
-                    priority={true}
-                    sizes="(max-width: 768px) 100px, 130px"
-                    width={100}
-                    height={100}
-                    objectFit="cover"
-                  />
-
-                  <Image
-                    src="/question-mark.png"
-                    alt="question mark"
-                    placeholder="empty"
-                    priority={true}
-                    sizes="(max-width: 768px) 100px, 130px"
-                    width={100}
-                    height={100}
-                    objectFit="cover"
-                  />
-                </FlipCard>
-              </CardBody>
-              <CardFooter
+          <SlideFade in={true} offsetX={'-200vw'}>
+            <Box>
+              <Card
+                className={
+                  colorMode === "light"
+                    ? styles.imageHoverLight
+                    : styles.imageHoverDark
+                }
                 display="flex"
-                alignItems="center"
                 justifyContent="center"
-                w="100%"
-                h="100%"
+                alignItems="center"
+                w={["120", "150"]}
+                h={["150", "180"]}
               >
-                <Text fontSize={["10px", "20px"]} maxW={["100", "300"]}>
-                  {c.name}
-                </Text>
-              </CardFooter>
-            </Card>
-          </Box>
+                <CardBody p={2}>
+                  <FlipCard isFlipped={!c.alive} flipDirection="vertical">
+                    <Image
+                      src={`/${c.name}.png`}
+                      alt={c.name}
+                      placeholder="empty"
+                      priority={true}
+                      sizes="(max-width: 768px) 100px, 130px"
+                      width={100}
+                      height={100}
+                      objectFit="cover"
+                    />
+
+                    <Image
+                      src="/question-mark.png"
+                      alt="question mark"
+                      placeholder="empty"
+                      priority={true}
+                      sizes="(max-width: 768px) 100px, 130px"
+                      width={100}
+                      height={100}
+                      objectFit="cover"
+                    />
+                  </FlipCard>
+                </CardBody>
+                <CardFooter
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  w="100%"
+                  h="100%"
+                >
+                  <Text fontSize={["10px", "20px"]} maxW={["100", "300"]}>
+                    {c.name}
+                  </Text>
+                </CardFooter>
+              </Card>
+            </Box>
+          </SlideFade>
         </GridItem>
       ))}
     </Grid>
