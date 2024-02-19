@@ -5,6 +5,7 @@ import path from "path";
 
 const cors = Cors({
   methods: ["POST", "GET", "HEAD"],
+  origin: "guess-who-service.azurewebsites.net",
 });
 
 function runMiddleware(
