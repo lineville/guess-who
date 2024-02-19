@@ -19,10 +19,7 @@ import {
 } from "@chakra-ui/react";
 import QuestionModal from "@/components/QuestionModal";
 import AnswerModal from "@/components/AnswerModal";
-import {
-  ArrowLeftIcon,
-  HamburgerIcon,
-} from "@chakra-ui/icons";
+import { ArrowLeftIcon, HamburgerIcon } from "@chakra-ui/icons";
 import Dialogue from "@/components/Dialogue";
 import GuessCharacterModal from "@/components/GuessCharacterModal";
 import WinnerModal from "@/components/WinnerModal";
@@ -30,8 +27,7 @@ import { COLUMNS } from "@/lib/constants";
 import { useSocket } from "@/hooks/useSocket";
 
 // TODO swap out a few more of the characters
-// TODO create a more interesting landing page with some instructions and a fun graphic
-// TODO add a footer with some links
+// TODO add a footer with some links in the game page
 
 // TODO Feature idea from the main lobby when creating a new game user can have a bit more options to get started
 // - They can leave the default character models

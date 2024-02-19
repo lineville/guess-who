@@ -117,7 +117,10 @@ export default function Instructions(): JSX.Element {
             </Button>
           </Link>
           <Link as={NextLink} href="https://github.com/lineville/guess-who">
-            <Button colorScheme={colorMode === 'light' ? "blackAlpha" : "whiteAlpha"} leftIcon={<MarkGithubIcon />}>
+            <Button
+              colorScheme={colorMode === "light" ? "blackAlpha" : "whiteAlpha"}
+              leftIcon={<MarkGithubIcon />}
+            >
               GitHub
             </Button>
           </Link>
