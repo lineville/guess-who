@@ -64,7 +64,7 @@ const GuessCharacterModal: React.FC<GuessCharacterModalProps> = ({
                     <Box display="flex" alignItems="center">
                       <Avatar
                         name={c.name}
-                        src={`/${c.name}.png`}
+                        src={`/characters/${c.name}.png`}
                         size="xs"
                         mr="2"
                       />
@@ -79,7 +79,7 @@ const GuessCharacterModal: React.FC<GuessCharacterModalProps> = ({
           {character && (
             <Flex justify="center" mt={4}>
               <HStack>
-                <Avatar name={character} src={`/${character}.png`} size="lg" />
+                <Avatar name={character} src={`/characters/${character}.png`} size="lg" />
                 <Text fontSize="2xl" ml="4">
                   {character}
                 </Text>

@@ -51,7 +51,7 @@ export default function Board({
                 <CardBody p={2}>
                   <FlipCard isFlipped={!c.alive} flipDirection="vertical">
                     <Image
-                      src={`/${c.name}.png`}
+                      src={`/characters/${c.name}.png`}
                       alt={c.name}
                       placeholder="empty"
                       priority={true}

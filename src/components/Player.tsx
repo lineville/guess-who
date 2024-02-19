@@ -27,7 +27,7 @@ const Player: React.FC<PlayerProps> = ({
     <VStack>
       <Avatar
         name={!secret ? character : undefined}
-        src={!secret && character ? `/${character}.png` : "/question-mark.png"}
+        src={!secret && character ? `/characters/${character}.png` : "/question-mark.png"}
         w={["40px", "60px"]}
         h={["40px", "60px"]}
       >

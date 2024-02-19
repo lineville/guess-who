@@ -114,7 +114,7 @@ const Dialogue: React.FC<DialogueProps> = ({
                     name={userId === clientId ? yourCharacter : "question-mark"}
                     src={
                       userId === clientId
-                        ? `/${yourCharacter}.png`
+                        ? `/characters/${yourCharacter}.png`
                         : "/question-mark.png"
                     }
                     order={userId === clientId ? 2 : 1}

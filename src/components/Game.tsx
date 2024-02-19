@@ -27,6 +27,9 @@ import { COLUMNS } from "@/lib/constants";
 import { useSocket } from "@/hooks/useSocket";
 
 // TODO swap out a few more of the characters
+// - Make all of them the more cartoonish style
+
+// TODO create an API to to return 24 characters out of the available images that the server can call
 
 // TODO Feature idea from the main lobby when creating a new game user can have a bit more options to get started
 // - They can leave the default character models
