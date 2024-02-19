@@ -22,23 +22,33 @@ export default function Home() {
 
   return (
     <GradientBackground>
-      <Flex justifyContent={"center"} alignItems={"center"}>
-        <Header title="Guess Who" />
-        <Button
-          onClick={createGame}
-          size="lg"
-          colorScheme="teal"
-          rightIcon={<ArrowRightIcon />}
-          pos={"absolute"}
-          top={isMobile ? "10vh" : "15vh"}
-        >
-          New Game
-        </Button>
+      <Flex
+        direction="column"
+        align="center"
+        h="100vh"
+        overflow="auto"
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
+        <Box mb={isMobile ? 4 : 20}>
+          <Header title="Guess Who" />
+        </Box>
+        <Box mb={isMobile ? 4 : 30}>
+          <Button
+            onClick={createGame}
+            size="lg"
+            colorScheme="teal"
+            rightIcon={<ArrowRightIcon />}
+          >
+            New Game
+          </Button>
+        </Box>
         <Box
-          pos={"absolute"}
-          bottom={isMobile ? "2vh" : "20vh"}
           ml={isMobile ? 2 : 0}
           mr={isMobile ? 2 : 0}
+          flex={1}
+          overflowY={"auto"}
+          mb={4}
         >
           <Instructions />
         </Box>

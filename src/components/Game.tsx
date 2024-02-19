@@ -29,6 +29,8 @@ import { useSocket } from "@/hooks/useSocket";
 // TODO swap out a few more of the characters
 // - Make all of them the more cartoonish style
 
+// TODO fix the drawer close button on mobile (not working)
+
 // TODO create an API to to return 24 characters out of the available images that the server can call
 
 // TODO Feature idea from the main lobby when creating a new game user can have a bit more options to get started
@@ -213,7 +215,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
           pr={0}
           data-testid="game-container"
         >
-          {/* <IconButton
+          <IconButton
             onClick={generateImages}
             icon={<StarIcon />}
             aria-label={"generate-ai-images"}
@@ -222,7 +224,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
             position="fixed"
             top="1em"
             right="4em"
-          /> */}
+          />
 
           {isMobile && (
             <IconButton
