@@ -26,9 +26,6 @@ import WinnerModal from "@/components/WinnerModal";
 import { COLUMNS } from "@/lib/constants";
 import { useSocket } from "@/hooks/useSocket";
 
-// TODO swap out a few more of the characters
-// - Make all of them the more cartoonish style
-
 // TODO Feature idea from the main lobby when creating a new game user can have a bit more options to get started
 // - They can leave the default character models
 // - They can choose from a set of defined types of characters (super heroes, celebs, cartoon, realistic etc.) This will load a game using a different folder of characters and images
