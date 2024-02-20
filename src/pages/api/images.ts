@@ -9,11 +9,11 @@ const imageSpec = `Generate a 3D, Pixar-style cartoonish character.
 The character should be drawn from the shoulders up, similar to a portrait or avatar and be the central figure on a white background.`;
 
 const prompts = [
-  "Create a character of a young Aboriginal boy with a happy expression and traditional attire.",
-  "Create a character of a bougie, high-society white woman with a snooty expression and a designer outfit.",
-  "Create a character of an intellectual, elegant middle aged white woman with a sophisticated expression and a chic outfit.",
-  "Create a character of a gorgeous red-haired white woman with a sultry expression and a glamorous outfit.",
-  "Create a character of a sweet elderly Mexican woman with a warm expression and traditional attire.",
+  "Create a character of a young Ukrainian girl with a scarf wrapped around her head and a warm expression.", //Anna
+  "Create a character of a middle aged chubby red haired bearded man with a big smile and blue eyes.", //Carl
+  "Create a character of an elderly African man with a traditional head wrap and a wise expression.", //Chimezi
+  "Create a character of a beautiful black woman with wavy hair and a confident expression.", //Gwen
+  "Create a character of a nerdy white student with glasses and an eager smile", //Kevin
 ];
 
 export default async function handler(
