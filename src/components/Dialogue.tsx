@@ -35,7 +35,7 @@ interface DialogueProps {
   handleGuessCharacter: () => void;
 }
 
-const Dialogue: React.FC<DialogueProps> = ({
+export default function Dialogue({
   playerCount,
   yourCharacter,
   isMyTurn,
@@ -48,7 +48,7 @@ const Dialogue: React.FC<DialogueProps> = ({
   dialogues,
   userId,
   winner,
-}) => {
+}: DialogueProps): JSX.Element {
   const { colorMode } = useColorMode();
 
   const [isInviteCopied, setIsInviteCopied] = useState(false);
@@ -181,6 +181,4 @@ const Dialogue: React.FC<DialogueProps> = ({
       </VStack>
     </SlideFade>
   );
-};
-
-export default Dialogue;
+}

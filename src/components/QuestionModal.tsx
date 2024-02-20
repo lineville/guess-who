@@ -28,11 +28,11 @@ const sampleQuestions = [
   "Do you think we should go back to the 'Good Old Days'?",
 ];
 
-const QuestionModal: React.FC<QuestionModalProps> = ({
+export default function QuestionModal({
   isOpen,
   onClose,
   onAsk,
-}) => {
+}: QuestionModalProps): JSX.Element {
   const [question, setQuestion] = useState("");
   const [placeholder, setPlaceholder] = useState("");
   const [isFetchingQuestions, setIsFetchingQuestions] = useState(false);
@@ -116,6 +116,4 @@ const QuestionModal: React.FC<QuestionModalProps> = ({
       </ModalContent>
     </Modal>
   );
-};
-
-export default QuestionModal;
+}

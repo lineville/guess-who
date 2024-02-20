@@ -22,7 +22,7 @@ export default function Board({
   board: Character[];
   handleClickCharacter: (index: number) => void;
   columns: number;
-}) {
+}): JSX.Element {
   const { colorMode } = useColorMode();
 
   return (
@@ -34,7 +34,7 @@ export default function Board({
     >
       {board.map((c, index) => (
         <GridItem key={index} onClick={() => handleClickCharacter(index)}>
-          <SlideFade in={true} offsetX={'-200vw'}>
+          <SlideFade in={true} offsetX={"-200vw"}>
             <Box>
               <Card
                 className={

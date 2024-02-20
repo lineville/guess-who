@@ -22,12 +22,12 @@ interface AnswerModalProps {
   question: string;
 }
 
-const AnswerModal: React.FC<AnswerModalProps> = ({
+export default function AnswerModal({
   isOpen,
   onClose,
   onAnswer,
   question,
-}) => {
+}: AnswerModalProps): JSX.Element {
   const [answer, setAnswer] = useState("");
 
   const handleAnswer = async () => {
@@ -88,6 +88,4 @@ const AnswerModal: React.FC<AnswerModalProps> = ({
       </ModalContent>
     </Modal>
   );
-};
-
-export default AnswerModal;
+}

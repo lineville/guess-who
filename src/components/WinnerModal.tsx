@@ -22,14 +22,14 @@ interface WinnerModalProps {
   playerCount: number;
 }
 
-const WinnerModal: React.FC<WinnerModalProps> = ({
+export default function WinnerModal({
   winner,
   isOpen,
   onClose,
   handleReady,
   opponentReady,
   playerCount,
-}) => {
+}: WinnerModalProps): JSX.Element {
   const clientId = localStorage.getItem("clientId") as string;
   const router = useRouter();
   const [showPlayAgain, setShowPlayAgain] = useState(true);
@@ -95,6 +95,4 @@ const WinnerModal: React.FC<WinnerModalProps> = ({
       </ModalContent>
     </Modal>
   );
-};
-
-export default WinnerModal;
+}

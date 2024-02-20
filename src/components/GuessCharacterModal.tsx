@@ -28,12 +28,12 @@ interface GuessCharacterModalProps {
   remainingCharacters: Character[];
 }
 
-const GuessCharacterModal: React.FC<GuessCharacterModalProps> = ({
+export default function GuessCharacterModal({
   isOpen,
   onClose,
   onGuess,
   remainingCharacters,
-}) => {
+}: GuessCharacterModalProps): JSX.Element {
   const [character, setCharacter] = useState("");
 
   const handleGuessCharacter = async () => {
@@ -80,7 +80,11 @@ const GuessCharacterModal: React.FC<GuessCharacterModalProps> = ({
           {character && (
             <Flex justify="center" mt={4}>
               <HStack>
-                <Avatar name={character} src={`/characters/${character}.png`} size="lg" />
+                <Avatar
+                  name={character}
+                  src={`/characters/${character}.png`}
+                  size="lg"
+                />
                 <Text fontSize="2xl" ml="4">
                   {character}
                 </Text>
@@ -98,6 +102,4 @@ const GuessCharacterModal: React.FC<GuessCharacterModalProps> = ({
       </ModalContent>
     </Modal>
   );
-};
-
-export default GuessCharacterModal;
+}

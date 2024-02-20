@@ -23,7 +23,6 @@ import {
   Button,
   Link,
   ButtonGroup,
-  useColorMode,
   Kbd,
 } from "@chakra-ui/react";
 import { HeartFillIcon, MarkGithubIcon } from "@primer/octicons-react";

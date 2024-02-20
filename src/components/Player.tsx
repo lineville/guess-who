@@ -17,37 +17,41 @@ interface PlayerProps {
   secret?: boolean;
 }
 
-const Player: React.FC<PlayerProps> = ({
+export default function Player({
   character,
   isMyTurn,
   remainingCharacters,
   secret = true,
-}) => (
-  <Box marginLeft="0.5em" marginRight="0.5em">
-    <VStack>
-      <Avatar
-        name={!secret ? character : undefined}
-        src={!secret && character ? `/characters/${character}.png` : "/question-mark.png"}
-        w={["40px", "60px"]}
-        h={["40px", "60px"]}
-      >
-        <AvatarBadge
-          boxSize="1.25em"
-          bg={
-            (isMyTurn && !secret) || (!isMyTurn && secret)
-              ? "green.500"
-              : "red.500"
+}: PlayerProps): JSX.Element {
+  return (
+    <Box marginLeft="0.5em" marginRight="0.5em">
+      <VStack>
+        <Avatar
+          name={!secret ? character : undefined}
+          src={
+            !secret && character
+              ? `/characters/${character}.png`
+              : "/question-mark.png"
           }
-        />
-      </Avatar>
-      <Badge colorScheme="green">
-        <HStack>
-          <Icon as={BsFillPersonBadgeFill} />
-          <Text>{remainingCharacters}</Text>
-        </HStack>
-      </Badge>
-    </VStack>
-  </Box>
-);
-
-export default Player;
+          w={["40px", "60px"]}
+          h={["40px", "60px"]}
+        >
+          <AvatarBadge
+            boxSize="1.25em"
+            bg={
+              (isMyTurn && !secret) || (!isMyTurn && secret)
+                ? "green.500"
+                : "red.500"
+            }
+          />
+        </Avatar>
+        <Badge colorScheme="green">
+          <HStack>
+            <Icon as={BsFillPersonBadgeFill} />
+            <Text>{remainingCharacters}</Text>
+          </HStack>
+        </Badge>
+      </VStack>
+    </Box>
+  );
+}
