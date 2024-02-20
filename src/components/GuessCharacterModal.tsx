@@ -58,6 +58,7 @@ const GuessCharacterModal: React.FC<GuessCharacterModalProps> = ({
                 maxH="60vh"
                 overflowY="auto"
                 style={{ touchAction: "auto" }}
+                zIndex={2}
               >
                 {remainingCharacters?.map((c, index) => (
                   <MenuItem key={index} onClick={() => setCharacter(c.name)}>
