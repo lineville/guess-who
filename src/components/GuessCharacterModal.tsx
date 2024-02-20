@@ -55,7 +55,7 @@ const GuessCharacterModal: React.FC<GuessCharacterModalProps> = ({
                 Select Character
               </MenuButton>
               <MenuList
-                maxH="75vh"
+                maxH="60vh"
                 overflowY="auto"
                 style={{ touchAction: "auto" }}
               >
