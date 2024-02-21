@@ -9,10 +9,10 @@ const imageSpec = `Generate a 3D, Pixar style character of a Marvel Super Hero.
 The character should be drawn from the shoulders up, similar to a portrait or avatar and be the central figure on a white background.`;
 
 const prompts = [
-  "Create a character of Thor",
+  "Create a character of Miss Captain Marvel",
   "Create a character of Cat Woman",
   "Create a character of Batman",
-  "Create a character of Hawkeye",
+  "Create a character of Thanos",
   "Create a character of Ant man",
 ];
 
