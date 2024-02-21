@@ -11,9 +11,8 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  IconButton,
 } from "@chakra-ui/react";
-import { ArrowRightIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import Instructions from "@/components/Instructions";
 import GradientBackground from "@/components/GradientBackground";
 import Header from "@/components/Header";
@@ -63,7 +62,7 @@ export default function Home() {
               style={{ touchAction: "auto" }}
               zIndex={2}
             >
-              {(["default", "super-heroes", "celebs"] as GameType[]).map(
+              {(["default", "super-heroes"] as GameType[]).map(
                 (type: GameType, index) => (
                   <MenuItem key={index} onClick={() => setGameType(type)}>
                     <Box display="flex" alignItems="center">
