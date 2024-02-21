@@ -13,16 +13,21 @@ import {
   SlideFade,
 } from "@chakra-ui/react";
 import FlipCard from "react-card-flip";
+import { GameType } from "@/lib/gameType";
+
+interface BoardProps {
+  board: Character[];
+  handleClickCharacter: (index: number) => void;
+  columns: number;
+  gameType: GameType;
+}
 
 export default function Board({
   board,
   handleClickCharacter,
   columns,
-}: {
-  board: Character[];
-  handleClickCharacter: (index: number) => void;
-  columns: number;
-}): JSX.Element {
+  gameType,
+}: BoardProps): JSX.Element {
   const { colorMode } = useColorMode();
 
   return (
@@ -51,7 +56,7 @@ export default function Board({
                 <CardBody p={2}>
                   <FlipCard isFlipped={!c.alive} flipDirection="vertical">
                     <Image
-                      src={`/characters/${c.name}.png`}
+                      src={`/${gameType}/${c.name}.png`}
                       alt={c.name}
                       placeholder="empty"
                       priority={true}

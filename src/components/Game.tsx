@@ -25,6 +25,7 @@ import GuessCharacterModal from "@/components/GuessCharacterModal";
 import WinnerModal from "@/components/WinnerModal";
 import { COLUMNS } from "@/lib/constants";
 import { useSocket } from "@/hooks/useSocket";
+import { GameType } from "@/lib/gameType";
 
 // TODO Feature idea from the main lobby when creating a new game user can have a bit more options to get started
 // - They can leave the default character models
@@ -34,9 +35,13 @@ import { useSocket } from "@/hooks/useSocket";
 
 interface GameProps {
   clientId: string;
+  gameType: GameType;
 }
 
-export default function Game({ clientId }: GameProps): JSX.Element {
+export default function Game({
+  clientId,
+  gameType = "default",
+}: GameProps): JSX.Element {
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   const {
@@ -81,7 +86,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
     setWinner,
     setIsMyTurn,
     router,
-  } = useSocket(clientId);
+  } = useSocket(clientId, gameType);
 
   const toast = useToast();
 
@@ -238,6 +243,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
               board={board}
               handleClickCharacter={handleClickCharacter}
               columns={COLUMNS}
+              gameType={gameType}
             />
           </Box>
 
@@ -265,6 +271,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
                       dialogues={dialogues}
                       userId={clientId}
                       winner={winner}
+                      gameType={gameType}
                     />
                   </DrawerBody>
                 </DrawerContent>
@@ -285,6 +292,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
                 dialogues={dialogues}
                 userId={clientId}
                 winner={winner}
+                gameType={gameType}
               />
             </Box>
           )}
@@ -313,6 +321,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
             isOpen={isGuessCharacterModalOpen}
             onClose={closeGuessCharacterModal}
             onGuess={guessCharacter}
+            gameType={gameType}
             remainingCharacters={board
               .filter((c) => c.alive)
               .sort((a, b) => a.name.localeCompare(b.name))}

@@ -20,12 +20,14 @@ import {
 import { useState } from "react";
 import Character from "@/lib/character";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import { GameType } from "@/lib/gameType";
 
 interface GuessCharacterModalProps {
   isOpen: boolean;
   onClose: () => void;
   onGuess: (character: string) => void;
   remainingCharacters: Character[];
+  gameType: GameType;
 }
 
 export default function GuessCharacterModal({
@@ -33,6 +35,7 @@ export default function GuessCharacterModal({
   onClose,
   onGuess,
   remainingCharacters,
+  gameType,
 }: GuessCharacterModalProps): JSX.Element {
   const [character, setCharacter] = useState("");
 
@@ -65,7 +68,7 @@ export default function GuessCharacterModal({
                     <Box display="flex" alignItems="center">
                       <Avatar
                         name={c.name}
-                        src={`/characters/${c.name}.png`}
+                        src={`/${gameType}/${c.name}.png`}
                         size="xs"
                         mr="2"
                       />
@@ -82,7 +85,7 @@ export default function GuessCharacterModal({
               <HStack>
                 <Avatar
                   name={character}
-                  src={`/characters/${character}.png`}
+                  src={`/${gameType}/${character}.png`}
                   size="lg"
                 />
                 <Text fontSize="2xl" ml="4">

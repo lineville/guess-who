@@ -19,6 +19,7 @@ import { CheckIcon, CopyIcon } from "@chakra-ui/icons";
 import Player from "@/components/Player";
 import { useState } from "react";
 import Message from "@/lib/message";
+import { GameType } from "@/lib/gameType";
 
 interface DialogueProps {
   playerCount: number;
@@ -30,6 +31,7 @@ interface DialogueProps {
   yourRemainingCharacters: number;
   opponentRemainingCharacters: number;
   dialogues: Message[];
+  gameType: GameType;
   handleOpenQuestionModal: () => void;
   handleOpenAnswerModal: () => void;
   handleGuessCharacter: () => void;
@@ -47,6 +49,7 @@ export default function Dialogue({
   handleGuessCharacter,
   dialogues,
   userId,
+  gameType,
   winner,
 }: DialogueProps): JSX.Element {
   const { colorMode } = useColorMode();
@@ -74,6 +77,7 @@ export default function Dialogue({
                       : opponentRemainingCharacters
                   }
                   secret={index === 0}
+                  gameType={gameType}
                 />
               </Flex>
             </SlideFade>
@@ -114,7 +118,7 @@ export default function Dialogue({
                     name={userId === clientId ? yourCharacter : "question-mark"}
                     src={
                       userId === clientId
-                        ? `/characters/${yourCharacter}.png`
+                        ? `/${gameType}/${yourCharacter}.png`
                         : "/question-mark.png"
                     }
                     order={userId === clientId ? 2 : 1}

@@ -6,8 +6,9 @@ import { socket } from "@/lib/socket";
 import GameState from "@/lib/gameState";
 import Message from "@/lib/message";
 import { COLUMNS, ROWS } from "@/lib/constants";
+import { GameType } from "@/lib/gameType";
 
-export const useSocket = (clientId: string) => {
+export const useSocket = (clientId: string, gameType: GameType) => {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -29,7 +30,7 @@ export const useSocket = (clientId: string) => {
   // Hook that handles the socket connection
   useEffect(() => {
     const gameId = (pathname as string).substring("/game/".length);
-    const newSocket = socket(gameId, clientId);
+    const newSocket = socket(gameId, clientId, gameType);
     setSocketConnection(newSocket);
 
     return () => {
@@ -37,7 +38,7 @@ export const useSocket = (clientId: string) => {
         newSocket.disconnect();
       }
     };
-  }, [pathname, clientId]);
+  }, [pathname, clientId, gameType]);
 
   useEffect(
     () => setYourRemainingCharacters(board.filter((c) => c.alive).length),

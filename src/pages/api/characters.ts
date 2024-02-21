@@ -29,7 +29,9 @@ export default async function handler(
   res: NextApiResponse
 ) {
   await runMiddleware(req, res, cors);
-  const dirPath = path.join(process.cwd(), "public/characters");
+
+  const gameType = req.query.gameType || "default";
+  const dirPath = path.join(process.cwd(), `public/${gameType}`);
 
   fs.readdir(dirPath, (err, files) => {
     if (err) {

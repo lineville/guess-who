@@ -1,3 +1,4 @@
+import { GameType } from "@/lib/gameType";
 import {
   Avatar,
   AvatarBadge,
@@ -15,6 +16,7 @@ interface PlayerProps {
   isMyTurn: boolean;
   remainingCharacters: number;
   secret?: boolean;
+  gameType: GameType;
 }
 
 export default function Player({
@@ -22,6 +24,7 @@ export default function Player({
   isMyTurn,
   remainingCharacters,
   secret = true,
+  gameType,
 }: PlayerProps): JSX.Element {
   return (
     <Box marginLeft="0.5em" marginRight="0.5em">
@@ -30,7 +33,7 @@ export default function Player({
           name={!secret ? character : undefined}
           src={
             !secret && character
-              ? `/characters/${character}.png`
+              ? `/${gameType}/${character}.png`
               : "/question-mark.png"
           }
           w={["40px", "60px"]}
