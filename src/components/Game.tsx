@@ -35,7 +35,7 @@ import { GameType } from "@/lib/gameType";
 
 interface GameProps {
   clientId: string;
-  gameType: GameType;
+  gameType?: GameType;
 }
 
 export default function Game({

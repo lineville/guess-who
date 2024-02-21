@@ -18,6 +18,8 @@ export default function Home() {
 
     const gameId = uuidv4();
     router.push(`/game/${gameId}`);
+
+    // TODO add a dropdown of different gameTypes and pass that value to the game component
   };
 
   return (
