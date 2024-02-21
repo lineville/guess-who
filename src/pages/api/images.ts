@@ -9,11 +9,11 @@ const imageSpec = `Generate a 3D, Pixar style character of a Marvel Super Hero.
 The character should be drawn from the shoulders up, similar to a portrait or avatar and be the central figure on a white background.`;
 
 const prompts = [
-  "Create a character of Miss Captain Marvel",
-  "Create a character of Cat Woman",
-  "Create a character of Batman",
-  "Create a character of Thanos",
-  "Create a character of Ant man",
+  "Create a character of Mr. Incredible from the Pixar movie the Incredibles",
+  "Create a character of Elasti-Girl from the Pixar movie the Incredibles",
+  "Create a character of Dash from the Pixar movie the Incredibles",
+  "Create a character of Violet from the Pixar movie the Incredibles",
+  "Create a character of Jack Jack from the Pixar movie the Incredibles",
 ];
 
 export default async function handler(
