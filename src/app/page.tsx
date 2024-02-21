@@ -54,7 +54,7 @@ export default function Home() {
         <Box mb={isMobile ? 4 : 30}>
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-              Game Type
+              Game Type: {gameType}
             </MenuButton>
             <MenuList
               maxH="60vh"
