@@ -5,15 +5,15 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY as string,
 });
 
-const imageSpec = `Generate a 3D, Pixar style character of the Incredibles characters. 
+const imageSpec = `Generate a 3D, Pixar style character. 
 The character should be drawn from the shoulders up, similar to a portrait or avatar and be the central figure on a white background.`;
 
 const prompts = [
-  "Create a character of Mr. Incredible from the Pixar movie the Incredibles",
-  "Create a character of Elasti-Girl from the Pixar movie the Incredibles",
-  "Create a character of Dash from the Pixar movie the Incredibles",
-  "Create a character of Violet from the Pixar movie the Incredibles",
-  "Create a character of Jack Jack from the Pixar movie the Incredibles",
+  "Create a character of IronMan",
+  "Create a character of AquaMan",
+  "Create a character of Doctor Strange",
+  "Create a character of Groot from the Marvel movie Guardians of the Galaxy",
+  "Create a character of the Joker from BatMan",
 ];
 
 export default async function handler(
