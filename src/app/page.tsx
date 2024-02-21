@@ -1,8 +1,19 @@
 "use client";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
-import { Flex, Button, useBreakpointValue, Box } from "@chakra-ui/react";
-import { ArrowRightIcon } from "@chakra-ui/icons";
+import {
+  Flex,
+  Button,
+  useBreakpointValue,
+  Box,
+  Text,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  IconButton,
+} from "@chakra-ui/react";
+import { ArrowRightIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import Instructions from "@/components/Instructions";
 import GradientBackground from "@/components/GradientBackground";
 import Header from "@/components/Header";
@@ -21,8 +32,6 @@ export default function Home() {
 
     const gameId = uuidv4();
     router.push(`/game/${gameType}/${gameId}`);
-
-    // TODO add a dropdown of different gameTypes and pass that value to the game component
   };
 
   return (
@@ -39,15 +48,34 @@ export default function Home() {
           <Header title="Guess Who" />
         </Box>
         <Box mb={isMobile ? 4 : 30}>
-          <Button
-            onClick={createGame}
-            size="lg"
-            colorScheme="teal"
-            rightIcon={<ArrowRightIcon />}
-          >
+          <Button onClick={createGame} size="lg" colorScheme="teal">
             New Game
           </Button>
         </Box>
+        <Box mb={isMobile ? 4 : 30}>
+          <Menu>
+            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+              Game Type
+            </MenuButton>
+            <MenuList
+              maxH="60vh"
+              overflowY="auto"
+              style={{ touchAction: "auto" }}
+              zIndex={2}
+            >
+              {(["default", "super-heroes", "celebs"] as GameType[]).map(
+                (type: GameType, index) => (
+                  <MenuItem key={index} onClick={() => setGameType(type)}>
+                    <Box display="flex" alignItems="center">
+                      <Text>{type.toString()}</Text>
+                    </Box>
+                  </MenuItem>
+                )
+              )}
+            </MenuList>
+          </Menu>
+        </Box>
+
         <Box
           ml={isMobile ? 2 : 0}
           mr={isMobile ? 2 : 0}
