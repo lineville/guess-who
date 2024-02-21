@@ -60,6 +60,6 @@ describe("Home", () => {
     fireEvent.click(button);
 
     expect(mockPush).toHaveBeenCalledTimes(1);
-    expect(mockPush).toHaveBeenCalledWith(`/game/${mockGameId}`);
+    expect(mockPush).toHaveBeenCalledWith(`/game/default/${mockGameId}`);
   });
 });

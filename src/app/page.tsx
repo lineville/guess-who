@@ -6,10 +6,13 @@ import { ArrowRightIcon } from "@chakra-ui/icons";
 import Instructions from "@/components/Instructions";
 import GradientBackground from "@/components/GradientBackground";
 import Header from "@/components/Header";
+import { GameType } from "@/lib/gameType";
+import { useState } from "react";
 
 export default function Home() {
   const router = useRouter();
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const [gameType, setGameType] = useState<GameType>("default");
 
   // Generate a new clientId and gameId
   const createGame = () => {
@@ -17,7 +20,7 @@ export default function Home() {
     localStorage.setItem("clientId", clientId);
 
     const gameId = uuidv4();
-    router.push(`/game/${gameId}`);
+    router.push(`/game/${gameType}/${gameId}`);
 
     // TODO add a dropdown of different gameTypes and pass that value to the game component
   };

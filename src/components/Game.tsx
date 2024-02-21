@@ -26,6 +26,7 @@ import WinnerModal from "@/components/WinnerModal";
 import { COLUMNS } from "@/lib/constants";
 import { useSocket } from "@/hooks/useSocket";
 import { GameType } from "@/lib/gameType";
+import { usePathname } from "next/navigation";
 
 // TODO Feature idea from the main lobby when creating a new game user can have a bit more options to get started
 // - They can leave the default character models
@@ -35,14 +36,15 @@ import { GameType } from "@/lib/gameType";
 
 interface GameProps {
   clientId: string;
-  gameType?: GameType;
 }
 
-export default function Game({
-  clientId,
-  gameType = "default",
-}: GameProps): JSX.Element {
+export default function Game({ clientId }: GameProps): JSX.Element {
   const isMobile = useBreakpointValue({ base: true, md: false });
+
+  const path = usePathname();
+  const pathSections = (path as string).substring("/game/".length).split("/");
+  const gameType = pathSections[0] as GameType;
+  const gameId = pathSections[1];
 
   const {
     isOpen: isDrawerOpen,
@@ -86,7 +88,7 @@ export default function Game({
     setWinner,
     setIsMyTurn,
     router,
-  } = useSocket(clientId, gameType);
+  } = useSocket(gameId, clientId, gameType);
 
   const toast = useToast();
 
