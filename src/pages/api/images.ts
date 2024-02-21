@@ -5,7 +5,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY as string,
 });
 
-const imageSpec = `Generate a 3D, Pixar style character of a Marvel Super Hero. 
+const imageSpec = `Generate a 3D, Pixar style character of the Incredibles characters. 
 The character should be drawn from the shoulders up, similar to a portrait or avatar and be the central figure on a white background.`;
 
 const prompts = [

@@ -238,7 +238,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
             <Board
               board={board}
               handleClickCharacter={handleClickCharacter}
-              columns={COLUMNS}
+              columns={isMobile ? COLUMNS - 2 : COLUMNS}
               gameType={gameType}
             />
           </Box>
