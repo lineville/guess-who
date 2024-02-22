@@ -85,7 +85,15 @@ export default function Board({
                   w="100%"
                   h="100%"
                 >
-                  <Text fontSize={["10px", "20px"]} maxW={["100", "300"]}>
+                  <Text
+                    fontSize={["10px", "20px"]}
+                    maxW={["100", "300"]}
+                    sx={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
                     {c.name}
                   </Text>
                 </CardFooter>
