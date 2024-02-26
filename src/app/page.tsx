@@ -75,15 +75,7 @@ export default function Home() {
           </Menu>
         </Box>
 
-        <Box
-          ml={isMobile ? 2 : 0}
-          mr={isMobile ? 2 : 0}
-          flex={1}
-          overflowY={"auto"}
-          mb={4}
-        >
-          <Instructions />
-        </Box>
+        <Instructions />
       </Flex>
     </GradientBackground>
   );

@@ -27,6 +27,7 @@ import { COLUMNS } from "@/lib/constants";
 import { useSocket } from "@/hooks/useSocket";
 import { GameType } from "@/lib/gameType";
 import { usePathname } from "next/navigation";
+import InstructionsModal from "./InstructionsModal";
 
 interface GameProps {
   clientId: string;
@@ -63,6 +64,11 @@ export default function Game({ clientId }: GameProps): JSX.Element {
     onOpen: openGuessCharacterModal,
     onClose: closeGuessCharacterModal,
   } = useDisclosure();
+
+  const {
+    isOpen: isInstructionsModalOpen,
+    onClose: closeInstructionsModal,
+  } = useDisclosure({ defaultIsOpen: true });
 
   const {
     socketConnection,
@@ -302,6 +308,10 @@ export default function Game({ clientId }: GameProps): JSX.Element {
               playerCount={playerCount}
             />
           )}
+          <InstructionsModal
+            isOpen={isInstructionsModalOpen}
+            onClose={closeInstructionsModal}
+          />
           <QuestionModal
             isOpen={isQuestionModalOpen}
             onClose={closeQuestionModal}

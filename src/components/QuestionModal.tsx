@@ -106,7 +106,7 @@ export default function QuestionModal({
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={handleAskQuestion}>
+          <Button colorScheme="blue" mr={3} onClick={handleAskQuestion} isDisabled={!question.trim()}>
             Ask
           </Button>
           <Button variant="ghost" onClick={onClose}>
