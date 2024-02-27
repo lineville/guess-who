@@ -7,7 +7,11 @@ import Message from "@/lib/message";
 import { COLUMNS, ROWS } from "@/lib/constants";
 import { GameType } from "@/lib/gameType";
 
-export const useSocket = (gameId: string, clientId: string, gameType: GameType) => {
+export const useSocket = (
+  gameId: string,
+  clientId: string,
+  gameType: GameType
+) => {
   const router = useRouter();
 
   const [socketConnection, setSocketConnection] = useState<Socket>();
@@ -27,7 +31,6 @@ export const useSocket = (gameId: string, clientId: string, gameType: GameType) 
 
   // Hook that handles the socket connection
   useEffect(() => {
-
     const newSocket = socket(gameId, clientId, gameType);
     setSocketConnection(newSocket);
 
@@ -39,7 +42,7 @@ export const useSocket = (gameId: string, clientId: string, gameType: GameType) 
   }, [clientId, gameId, gameType]);
 
   useEffect(
-    () => setYourRemainingCharacters(board.filter((c) => c.alive).length),
+    () => setYourRemainingCharacters(board?.filter((c) => c.alive).length),
     [board]
   );
 
@@ -49,7 +52,7 @@ export const useSocket = (gameId: string, clientId: string, gameType: GameType) 
       const eliminatedChars = new Set(data.eliminatedCharacters);
       setYourCharacter(data.yourCharacter);
       setBoard(
-        data.characters.map((name: string, idx: number) => ({
+        data.characters?.map((name: string, idx: number) => ({
           name,
           image: `/${name}.png`,
           alive: !eliminatedChars.has(idx),
