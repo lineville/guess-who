@@ -5,3 +5,4 @@ window.matchMedia = window.matchMedia || function() {
       removeListener: function() {}
   };
 };
+(global as any).setImmediate = (global as any).setTimeout;

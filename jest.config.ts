@@ -16,6 +16,7 @@ const config: Config = {
   },
   moduleNameMapper: {
     "@fontsource/*": "<rootDir>/__mocks__/fileMock.ts",
+    "^@/(.*)$": "<rootDir>/src/$1",
   },
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
 };
