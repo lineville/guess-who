@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ✅ Checkout code
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Bun
+        uses: oven-sh/setup-bun@v1.1.1
+
+      - name: 📦 Install dependencies
+        run: bun install
+
+      - name: 🧪 Run tests with Jest
+        run: bun run test
+
+      - name: Jest badges generation action
+        uses: jpb06/jest-badges-action@v1.9.18
+    

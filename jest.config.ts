@@ -10,6 +10,7 @@ const config: Config = {
   collectCoverage: true,
   coverageDirectory: "coverage",
   coverageProvider: "v8",
+  coverageReporters: ["json-summary"],
   testEnvironment: "jsdom",
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
