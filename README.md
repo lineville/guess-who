@@ -1,4 +1,11 @@
-# Guess Who
+# Guess Who 
+
+![Vercel Deploy](https://therealsujitk-vercel-badge.vercel.app/?app=guess-who-virid)
+![Jest coverage](./badges/coverage-jest%20coverage.svg)
+![Branches](./badges/coverage-branches.svg)
+![Functions](./badges/coverage-functions.svg)
+![Lines](./badges/coverage-lines.svg)
+![Statements](./badges/coverage-statements.svg)
 
 Web based game to play Guess Who with your friends. Inspired by the Hasbro board game but using AI generated cartoon characters and question prompts.
 
