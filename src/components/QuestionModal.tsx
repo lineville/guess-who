@@ -83,6 +83,7 @@ export default function QuestionModal({
                   borderRadius="md"
                   p={3}
                   mb={2}
+                  data-testid={`question-${index}`}
                 >
                   {question}
                 </Box>
@@ -106,7 +107,12 @@ export default function QuestionModal({
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={handleAskQuestion} isDisabled={!question.trim()}>
+          <Button
+            colorScheme="blue"
+            mr={3}
+            onClick={handleAskQuestion}
+            isDisabled={!question.trim()}
+          >
             Ask
           </Button>
           <Button variant="ghost" onClick={onClose}>
