@@ -1,4 +1,4 @@
-import { Box, Container, useColorMode } from "@chakra-ui/react";
+import { Container, useColorMode } from "@chakra-ui/react";
 import "@/styles/globals.css";
 
 export default function GradientBackground({
