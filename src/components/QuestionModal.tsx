@@ -12,6 +12,7 @@ import {
   Button,
   List,
   Box,
+  SlideFade,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import styles from "../styles/styles.module.css";
@@ -49,7 +50,7 @@ export default function QuestionModal({
     try {
       const response = await fetch("/api/questions");
       const data = await response.json();
-      setAiQuestions((prev) => [...prev, ...data.questions]);
+      setAiQuestions((prev) => [...data.questions, ...prev]);
     } catch (error) {
       console.error("Failed to fetch AI questions:", error);
     }
@@ -67,36 +68,39 @@ export default function QuestionModal({
         <ModalBody overflowY="auto" style={{ touchAction: "auto" }}>
           <FormControl>
             <FormLabel>
-              Choose one of the example questions below or write your own
+              Choose a sample question, ask AI for help or write your own
             </FormLabel>
-            <List spacing={3}>
-              {sampleQuestions.concat(aiQuestions).map((question, index) => (
-                <Box
-                  className={styles.questionHover}
-                  key={index}
-                  onClick={() => setQuestion(question)}
-                  onMouseEnter={() => setPlaceholder(question)}
-                  onMouseLeave={() => setPlaceholder("")}
-                  cursor="pointer"
-                  color="blue.500"
-                  borderWidth="1px"
-                  borderRadius="md"
-                  p={3}
-                  mb={2}
-                  data-testid={`question-${index}`}
-                >
-                  {question}
-                </Box>
-              ))}
-            </List>
             <Button
               isLoading={isFetchingQuestions}
               onClick={handleAskAI}
-              mt={4}
+              mt={2}
+              mb={4}
               loadingText="Thinking 🤔 ..."
             >
               Ask AI ✨
             </Button>
+            <List spacing={3}>
+              {aiQuestions.concat(sampleQuestions).map((question, index) => (
+                <SlideFade in={true} offsetX={"200vw"} key={index}>
+                  <Box
+                    className={styles.questionHover}
+                    onClick={() => setQuestion(question)}
+                    onMouseEnter={() => setPlaceholder(question)}
+                    onMouseLeave={() => setPlaceholder("")}
+                    cursor="pointer"
+                    color="blue.500"
+                    borderWidth="1px"
+                    borderRadius="md"
+                    p={2}
+                    mb={2}
+                    data-testid={`question-${index}`}
+                  >
+                    {question}
+                  </Box>
+                </SlideFade>
+              ))}
+            </List>
+
             <Textarea
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
