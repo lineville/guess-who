@@ -13,6 +13,8 @@ import {
   List,
   Box,
   SlideFade,
+  CloseButton,
+  Text
 } from "@chakra-ui/react";
 import { useState } from "react";
 import styles from "../styles/styles.module.css";
@@ -23,7 +25,7 @@ interface QuestionModalProps {
   onAsk: (question: string) => void;
 }
 
-const sampleQuestions = [
+const INITIAL_SAMPLE_QUESTIONS = [
   "Are you a fun person to be around?",
   "Have you thought about the Roman Empire today?",
   "Do you think we should go back to the 'Good Old Days'?",
@@ -37,7 +39,9 @@ export default function QuestionModal({
   const [question, setQuestion] = useState("");
   const [placeholder, setPlaceholder] = useState("");
   const [isFetchingQuestions, setIsFetchingQuestions] = useState(false);
-  const [aiQuestions, setAiQuestions] = useState<string[]>([]);
+  const [questions, setQuestions] = useState<string[]>(
+    INITIAL_SAMPLE_QUESTIONS
+  );
 
   const handleAskQuestion = async () => {
     await onAsk(question);
@@ -50,11 +54,16 @@ export default function QuestionModal({
     try {
       const response = await fetch("/api/questions");
       const data = await response.json();
-      setAiQuestions((prev) => [...data.questions, ...prev]);
+      setQuestions((prev) => [...data.questions, ...prev]);
     } catch (error) {
       console.error("Failed to fetch AI questions:", error);
     }
     setIsFetchingQuestions(false);
+  };
+
+  const handleRemoveQuestion = (e: React.MouseEvent, question: string) => {
+    e.stopPropagation();
+    setQuestions((prev) => prev.filter((q) => q !== question));
   };
 
   return (
@@ -80,7 +89,7 @@ export default function QuestionModal({
               Ask AI ✨
             </Button>
             <List spacing={3}>
-              {aiQuestions.concat(sampleQuestions).map((question, index) => (
+              {questions.map((question, index) => (
                 <SlideFade in={true} offsetX={"200vw"} key={index}>
                   <Box
                     className={styles.questionHover}
@@ -95,7 +104,12 @@ export default function QuestionModal({
                     mb={2}
                     data-testid={`question-${index}`}
                   >
-                    {question}
+                    <Text sx={{pr: 2}}>{question}</Text>
+                    <CloseButton
+                      size="sm"
+                      onClick={(e) => handleRemoveQuestion(e, question)}
+                      sx={{ pos: "absolute", top: 2, right: 2, ml: 2 }}
+                    />
                   </Box>
                 </SlideFade>
               ))}
