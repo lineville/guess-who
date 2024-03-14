@@ -99,8 +99,8 @@ describe("Game", () => {
     const gameContainer = screen.getByTestId("game-container");
     expect(gameContainer).toBeInTheDocument();
 
-    const hamburgerButton = screen.getByLabelText("Open drawer");
-    expect(hamburgerButton).toBeInTheDocument();
+    const chatButton = screen.getByLabelText("Open drawer");
+    expect(chatButton).toBeInTheDocument();
   });
 
   it("renders error message when there is an error", () => {

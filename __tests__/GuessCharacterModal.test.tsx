@@ -2,6 +2,7 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import GuessCharacterModal from "@/components/GuessCharacterModal";
 import { act } from "react-dom/test-utils";
+import { GameType } from "@/lib/gameType";
 
 const mockOnGuess = jest.fn();
 const mockOnClose = jest.fn();
@@ -25,7 +26,7 @@ describe("GuessCharacterModal", () => {
         onClose={mockOnClose}
         onGuess={mockOnGuess}
         remainingCharacters={characters}
-        gameType="default"
+        gameType={GameType.Pixar}
       />
     );
 
@@ -51,7 +52,7 @@ describe("GuessCharacterModal", () => {
         onClose={mockOnClose}
         onGuess={mockOnGuess}
         remainingCharacters={characters}
-        gameType="default"
+        gameType={GameType.Pixar}
       />
     );
 

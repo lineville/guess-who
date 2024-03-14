@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
-import Home from "@/app/page";
+import Home, { formatMenuItem } from "@/app/page";
 import Header from "@/components/Header";
 import { Providers } from "@/app/providers";
 
@@ -61,5 +61,17 @@ describe("Home", () => {
 
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(`/game/default/${mockGameId}`);
+  });
+});
+
+describe("formatMenuItem", () => {
+  it("formats a string correctly", () => {
+    const formatted = formatMenuItem("Pixar");
+    expect(formatted).toEqual("Pixar");
+  });
+
+  it("formats a string correctly", () => {
+    const formatted = formatMenuItem("single-player");
+    expect(formatted).toEqual("Single Player");
   });
 });

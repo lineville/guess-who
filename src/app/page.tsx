@@ -6,23 +6,40 @@ import {
   Button,
   useBreakpointValue,
   Box,
+  HStack,
   Text,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
+  Avatar,
 } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import { ArrowRightIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import Instructions from "@/components/Instructions";
 import GradientBackground from "@/components/GradientBackground";
 import Header from "@/components/Header";
 import { GameType } from "@/lib/gameType";
 import { useState } from "react";
+import { GameMode } from "@/lib/gameMode";
+
+export const formatMenuItem = (str: string): string => {
+  return str
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
+// TODO
+// export const menuItemImage = (gameType: GameType): string => {
+
+// };
+
 
 export default function Home() {
   const router = useRouter();
   const isMobile = useBreakpointValue({ base: true, md: false });
-  const [gameType, setGameType] = useState<GameType>("default");
+  const [gameType, setGameType] = useState<GameType>(GameType.Pixar);
+  const [gameMode, setGameMode] = useState<GameMode>(GameMode.SinglePlayer);
 
   // Generate a new clientId and gameId
   const createGame = () => {
@@ -46,34 +63,90 @@ export default function Home() {
         <Box mb={isMobile ? 4 : 20}>
           <Header title="Guess Who" />
         </Box>
-        <Box mb={isMobile ? 4 : 30}>
-          <Button onClick={createGame} size="lg" colorScheme="teal">
-            New Game
+
+        <HStack spacing={4} mb={isMobile ? 4 : 30}>
+          <Box>
+            <Text fontSize="sm" mb={2}>
+              Game Mode:
+            </Text>
+            <Menu>
+              <MenuButton
+                as={Button}
+                rightIcon={<ChevronDownIcon />}
+                colorScheme="blue"
+                size="lg"
+              >
+                {formatMenuItem(gameMode)}
+              </MenuButton>
+              <MenuList
+                maxH="60vh"
+                overflowY="auto"
+                style={{ touchAction: "auto" }}
+                zIndex={2}
+              >
+                {(Object.values(GameMode) as GameMode[]).map(
+                  (mode: GameMode, index) => (
+                    <MenuItem key={index} onClick={() => setGameMode(mode)}>
+                      <Box display="flex" alignItems="center">
+                        <Text mr={2}>{mode === GameMode.SinglePlayer ? '🤖' : '👬'}</Text>
+                        <Text>{formatMenuItem(mode)}</Text>
+                      </Box>
+                    </MenuItem>
+                  )
+                )}
+              </MenuList>
+            </Menu>
+          </Box>
+          <Box>
+            <Text fontSize="sm" mb={2}>
+              Game Type:
+            </Text>
+            <Menu>
+              <MenuButton
+                as={Button}
+                rightIcon={<ChevronDownIcon />}
+                colorScheme="blue"
+                size="lg"
+              >
+                {formatMenuItem(gameType)}
+              </MenuButton>
+              <MenuList
+                maxH="60vh"
+                overflowY="auto"
+                style={{ touchAction: "auto" }}
+                zIndex={2}
+              >
+                {(Object.values(GameType) as GameType[]).map(
+                  (type: GameType, index) => (
+                    <MenuItem key={index} onClick={() => setGameType(type)}>
+                      <Box display="flex" alignItems="center">
+                        <Avatar
+                          name="Tonto"
+                          src={`/pixar/Tonto.png`} // TODO dynamically pic a random one of correct type
+                          size="xs"
+                          mr="2"
+                        />
+                        <Text>{formatMenuItem(type)}</Text>
+                      </Box>
+                    </MenuItem>
+                  )
+                )}
+              </MenuList>
+            </Menu>
+          </Box>
+          <Button
+            onClick={createGame}
+            size="lg"
+            colorScheme="blue"
+            ml={2}
+            rightIcon={<ArrowRightIcon />}
+            mt={8}
+          >
+            Play
           </Button>
-        </Box>
-        <Box mb={isMobile ? 4 : 30}>
-          <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-              Game Type: {gameType}
-            </MenuButton>
-            <MenuList
-              maxH="60vh"
-              overflowY="auto"
-              style={{ touchAction: "auto" }}
-              zIndex={2}
-            >
-              {(["default", "super-heroes"] as GameType[]).map(
-                (type: GameType, index) => (
-                  <MenuItem key={index} onClick={() => setGameType(type)}>
-                    <Box display="flex" alignItems="center">
-                      <Text>{type.toString()}</Text>
-                    </Box>
-                  </MenuItem>
-                )
-              )}
-            </MenuList>
-          </Menu>
-        </Box>
+        </HStack>
+
+        <Box mb={isMobile ? 4 : 30}></Box>
 
         <Instructions />
       </Flex>

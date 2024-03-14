@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import QuestionModal from "@/components/QuestionModal";
 import AnswerModal from "@/components/AnswerModal";
-import { ArrowLeftIcon, HamburgerIcon, StarIcon } from "@chakra-ui/icons";
+import { ArrowLeftIcon, ChatIcon, StarIcon } from "@chakra-ui/icons";
 import Dialogue from "@/components/Dialogue";
 import GuessCharacterModal from "@/components/GuessCharacterModal";
 import WinnerModal from "@/components/WinnerModal";
@@ -229,7 +229,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
 
           {isMobile && (
             <IconButton
-              icon={<HamburgerIcon />}
+              icon={<ChatIcon />}
               onClick={openDrawer}
               aria-label={"Open drawer"}
               isRound={true}
