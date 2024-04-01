@@ -8,10 +8,10 @@ const URL =
 export const socket = (
   gameId: string,
   clientId: string,
-  gameType: GameType = "default"
+  gameType: GameType = GameType.Pixar
 ) => {
   return io(URL, {
     path: "/clients/socketio/hubs/Hub",
-    query: { gameId: gameId, clientId: clientId, gameType: gameType },
+    query: { gameId: gameId, clientId: clientId, gameType: gameType.toString() },
   });
 };

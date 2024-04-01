@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import Home from "@/app/page";
 import Header from "@/components/Header";
 import { Providers } from "@/app/providers";
+import { formatMenuItem } from "@/lib/menuHelpers";
 
 const mockPush = jest.fn();
 const mockGameId = "123e4567-e89b-12d3-a456-426614174000";
@@ -45,7 +46,7 @@ describe("Home", () => {
       </Providers>
     );
 
-    const heading = screen.getByText("New Game");
+    const heading = screen.getByText("Play");
     expect(heading).toBeInTheDocument();
   });
 
@@ -56,10 +57,22 @@ describe("Home", () => {
       </Providers>
     );
 
-    const button = screen.getByRole("button", { name: /New Game/i });
+    const button = screen.getByText("Play");
     fireEvent.click(button);
 
     expect(mockPush).toHaveBeenCalledTimes(1);
-    expect(mockPush).toHaveBeenCalledWith(`/game/default/${mockGameId}`);
+    expect(mockPush).toHaveBeenCalledWith(`/game/pixar/${mockGameId}`);
+  });
+});
+
+describe("formatMenuItem", () => {
+  it("formats a string correctly", () => {
+    const formatted = formatMenuItem("Pixar");
+    expect(formatted).toEqual("Pixar");
+  });
+
+  it("formats a string correctly", () => {
+    const formatted = formatMenuItem("single-player");
+    expect(formatted).toEqual("Single Player");
   });
 });
