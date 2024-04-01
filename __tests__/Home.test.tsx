@@ -45,7 +45,7 @@ describe("Home", () => {
       </Providers>
     );
 
-    const heading = screen.getByText("New Game");
+    const heading = screen.getByText("Play");
     expect(heading).toBeInTheDocument();
   });
 
@@ -56,11 +56,11 @@ describe("Home", () => {
       </Providers>
     );
 
-    const button = screen.getByRole("button", { name: /New Game/i });
+    const button = screen.getByText("Play");
     fireEvent.click(button);
 
     expect(mockPush).toHaveBeenCalledTimes(1);
-    expect(mockPush).toHaveBeenCalledWith(`/game/default/${mockGameId}`);
+    expect(mockPush).toHaveBeenCalledWith(`/game/pixar/${mockGameId}`);
   });
 });
 

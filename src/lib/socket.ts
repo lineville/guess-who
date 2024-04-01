@@ -8,7 +8,7 @@ const URL =
 export const socket = (
   gameId: string,
   clientId: string,
-  gameType: GameType = GameType.Default
+  gameType: GameType = GameType.Pixar
 ) => {
   return io(URL, {
     path: "/clients/socketio/hubs/Hub",

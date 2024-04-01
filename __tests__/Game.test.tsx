@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Game from "@/components/Game";
 import React from "react";
 import { useBreakpointValue } from "@chakra-ui/react";
@@ -29,7 +29,7 @@ jest.mock("next/navigation", () => ({
     query: "",
     asPath: "/",
   }),
-  usePathname: jest.fn(() => `/game/${mockGameId}`),
+  usePathname: jest.fn(() => `/game/pixar/${mockGameId}`),
 }));
 
 jest.mock("@/hooks/useSocket");
