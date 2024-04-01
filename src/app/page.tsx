@@ -29,17 +29,22 @@ export const formatMenuItem = (str: string): string => {
     .join(" ");
 };
 
-// TODO
-// export const menuItemImage = (gameType: GameType): string => {
-
-// };
+export const menuItemImage = (gameType: GameType): string => {
+  switch (gameType) {
+    case GameType.Pixar:
+      return "/pixar/Tonto.png";
+    case GameType.SuperHeroes:
+      return "/super-heroes/Hulk.png";
+  }
+  return "/pixar/Tonto.png";
+};
 
 
 export default function Home() {
   const router = useRouter();
   const isMobile = useBreakpointValue({ base: true, md: false });
   const [gameType, setGameType] = useState<GameType>(GameType.Pixar);
-  const [gameMode, setGameMode] = useState<GameMode>(GameMode.SinglePlayer);
+  const [gameMode, setGameMode] = useState<GameMode>(GameMode.MultiPlayer);
 
   // Generate a new clientId and gameId
   const createGame = () => {
@@ -86,7 +91,7 @@ export default function Home() {
               >
                 {(Object.values(GameMode) as GameMode[]).map(
                   (mode: GameMode, index) => (
-                    <MenuItem key={index} onClick={() => setGameMode(mode)}>
+                    <MenuItem key={index} onClick={() => setGameMode(mode)} isDisabled={mode === GameMode.SinglePlayer}>
                       <Box display="flex" alignItems="center">
                         <Text mr={2}>{mode === GameMode.SinglePlayer ? '🤖' : '👬'}</Text>
                         <Text>{formatMenuItem(mode)}</Text>
@@ -122,7 +127,7 @@ export default function Home() {
                       <Box display="flex" alignItems="center">
                         <Avatar
                           name="Tonto"
-                          src={`/pixar/Tonto.png`} // TODO dynamically pic a random one of correct type
+                          src={menuItemImage(type)}
                           size="xs"
                           mr="2"
                         />
