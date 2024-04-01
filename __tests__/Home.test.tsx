@@ -1,8 +1,9 @@
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
-import Home, { formatMenuItem } from "@/app/page";
+import Home from "@/app/page";
 import Header from "@/components/Header";
 import { Providers } from "@/app/providers";
+import { formatMenuItem } from "@/lib/menuHelpers";
 
 const mockPush = jest.fn();
 const mockGameId = "123e4567-e89b-12d3-a456-426614174000";

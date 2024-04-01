@@ -21,24 +21,7 @@ import Header from "@/components/Header";
 import { GameType } from "@/lib/gameType";
 import { useState } from "react";
 import { GameMode } from "@/lib/gameMode";
-
-export const formatMenuItem = (str: string): string => {
-  return str
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-};
-
-export const menuItemImage = (gameType: GameType): string => {
-  switch (gameType) {
-    case GameType.Pixar:
-      return "/pixar/Tonto.png";
-    case GameType.SuperHeroes:
-      return "/super-heroes/Hulk.png";
-  }
-  return "/pixar/Tonto.png";
-};
-
+import { formatMenuItem, menuItemImage } from "@/lib/menuHelpers";
 
 export default function Home() {
   const router = useRouter();
