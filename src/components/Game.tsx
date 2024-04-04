@@ -28,6 +28,7 @@ import { useSocket } from "@/hooks/useSocket";
 import { GameType } from "@/lib/gameType";
 import { usePathname } from "next/navigation";
 import InstructionsModal from "./InstructionsModal";
+import { GameMode } from "@/lib/gameMode";
 
 interface GameProps {
   clientId: string;
@@ -38,8 +39,9 @@ export default function Game({ clientId }: GameProps): JSX.Element {
 
   const path = usePathname();
   const pathSections = (path as string).substring("/game/".length).split("/");
-  const gameType = pathSections[0] as GameType;
-  const gameId = pathSections[1];
+  const gameMode = pathSections[0] as GameMode;
+  const gameType = pathSections[1] as GameType;
+  const gameId = pathSections[2];
 
   const {
     isOpen: isDrawerOpen,
@@ -88,7 +90,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
     setWinner,
     setIsMyTurn,
     router,
-  } = useSocket(gameId, clientId, gameType);
+  } = useSocket(gameId, clientId, gameType, gameMode);
 
   const toast = useToast();
 

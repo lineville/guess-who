@@ -61,7 +61,7 @@ describe("Home", () => {
     fireEvent.click(button);
 
     expect(mockPush).toHaveBeenCalledTimes(1);
-    expect(mockPush).toHaveBeenCalledWith(`/game/pixar/${mockGameId}`);
+    expect(mockPush).toHaveBeenCalledWith(`/game/multi-player/pixar/${mockGameId}`);
   });
 });
 

@@ -35,7 +35,7 @@ export default function Home() {
     localStorage.setItem("clientId", clientId);
 
     const gameId = uuidv4();
-    router.push(`/game/${gameType}/${gameId}`);
+    router.push(`/game/${gameMode}/${gameType}/${gameId}`);
   };
 
   return (
@@ -74,7 +74,7 @@ export default function Home() {
               >
                 {(Object.values(GameMode) as GameMode[]).map(
                   (mode: GameMode, index) => (
-                    <MenuItem key={index} onClick={() => setGameMode(mode)} isDisabled={mode === GameMode.SinglePlayer}>
+                    <MenuItem key={index} onClick={() => setGameMode(mode)}>
                       <Box display="flex" alignItems="center">
                         <Text mr={2}>{mode === GameMode.SinglePlayer ? '🤖' : '👬'}</Text>
                         <Text>{formatMenuItem(mode)}</Text>
