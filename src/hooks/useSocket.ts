@@ -41,7 +41,7 @@ export const useSocket = (
         newSocket.disconnect();
       }
     };
-  }, [clientId, gameId, gameType, board, yourCharacter, gameMode]);
+  }, [clientId, gameId, gameType,gameMode]);
 
   useEffect(
     () => setYourRemainingCharacters(board?.filter((c) => c.alive).length),
