@@ -27,7 +27,7 @@ export default function Home() {
   const router = useRouter();
   const isMobile = useBreakpointValue({ base: true, md: false });
   const [gameType, setGameType] = useState<GameType>(GameType.Pixar);
-  const [gameMode, setGameMode] = useState<GameMode>(GameMode.MultiPlayer);
+  const [gameMode, setGameMode] = useState<GameMode>(GameMode.SinglePlayer);
 
   // Generate a new clientId and gameId
   const createGame = () => {
