@@ -160,6 +160,22 @@ describe("useSocket", () => {
     expect(result.current.playerCount).toBe(1);
   });
 
+  it("should set the player count to 2 for single player", () => {
+    const { result } = renderHook(() =>
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.SinglePlayer)
+    );
+    act(() => {
+      // Find the 'playerCount' event and trigger it
+      const playerCountEvent = mockSocket.on.mock.calls.find(
+        ([eventName]) => eventName === "playerCount"
+      );
+      if (playerCountEvent) {
+        playerCountEvent[1](1);
+      }
+    });
+    expect(result.current.playerCount).toBe(2);
+  });
+
   it("should handle the turn event", () => {
     const { result } = renderHook(() =>
       useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)

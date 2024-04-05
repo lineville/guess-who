@@ -93,7 +93,7 @@ export const useSocket = (
     });
 
     socketConnection?.on("playerCount", (count: number) => {
-      setPlayerCount(count);
+      setPlayerCount(gameMode === GameMode.MultiPlayer ? count : count + 1);
     });
 
     socketConnection?.on("ask", (question: string) => {
