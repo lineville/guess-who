@@ -1,6 +1,8 @@
 import { renderHook, act } from "@testing-library/react-hooks";
 import { useSocket } from "@/hooks/useSocket";
 import * as SocketLib from "@/lib/socket";
+import { GameType } from "@/lib/gameType";
+import { GameMode } from "@/lib/gameMode";
 
 const mockGameId = "123e4567-e89b-12d3-a456-426614174000";
 const mockClientId = "123e4567-e89b-12d3-a456-426614174001";
@@ -46,19 +48,19 @@ describe("useSocket", () => {
 
   it("should create a socket connection on mount", () => {
     renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
     expect(SocketLib.socket).toHaveBeenCalledWith(
       mockGameId,
       mockClientId,
-      "pixar",
-      "multi-player"
+      GameType.Pixar,
+      GameMode.MultiPlayer
     );
   });
 
   it("should disconnect the socket connection on unmount", () => {
     const { unmount } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
     unmount();
     expect(mockSocket.disconnect).toHaveBeenCalled();
@@ -66,14 +68,14 @@ describe("useSocket", () => {
 
   it("should set the socket connection", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
     expect(result.current.socketConnection).toBe(mockSocket);
   });
 
   it("should set the your character", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
     act(() => {
       mockSocket.on.mock.calls[0][1]({
@@ -86,7 +88,7 @@ describe("useSocket", () => {
 
   it("should set the board", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
     act(() => {
       mockSocket.on.mock.calls[0][1]({
@@ -100,7 +102,7 @@ describe("useSocket", () => {
 
   it("should set the turn", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
     act(() => {
       mockSocket.on.mock.calls[0][1]({
@@ -112,7 +114,7 @@ describe("useSocket", () => {
 
   it("should set the dialogues", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
     act(() => {
       mockSocket.on.mock.calls[0][1]({
@@ -124,7 +126,7 @@ describe("useSocket", () => {
 
   it("should set the winner", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
     act(() => {
       mockSocket.on.mock.calls[0][1]({
@@ -136,7 +138,7 @@ describe("useSocket", () => {
 
   it("should set isAsking", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
     act(() => {
       mockSocket.on.mock.calls[0][1]({
@@ -148,7 +150,7 @@ describe("useSocket", () => {
 
   it("should set the player count", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
     act(() => {
       mockSocket.on.mock.calls[0][1]({
@@ -160,7 +162,7 @@ describe("useSocket", () => {
 
   it("should handle the turn event", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
 
     const turnCallback = mockSocket.on.mock.calls.find(
@@ -176,7 +178,7 @@ describe("useSocket", () => {
 
   it("should handle the eliminate event", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
 
     const initCallback = mockSocket.on.mock.calls.find(
@@ -201,7 +203,7 @@ describe("useSocket", () => {
 
   it("should handle the revive event", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
 
     const initCallback = mockSocket.on.mock.calls.find(
@@ -239,7 +241,7 @@ describe("useSocket", () => {
 
   it("should handle the eliminated-count event", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
 
     const initCallback = mockSocket.on.mock.calls.find(
@@ -260,7 +262,7 @@ describe("useSocket", () => {
 
   it("should handle the playerCount event", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
 
     const playerCountCallback = mockSocket.on.mock.calls.find(
@@ -276,7 +278,7 @@ describe("useSocket", () => {
 
   it("should handle the ask event", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
 
     const askCallback = mockSocket.on.mock.calls.find(
@@ -296,7 +298,7 @@ describe("useSocket", () => {
 
   it("should handle the answer event", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
 
     const answerCallback = mockSocket.on.mock.calls.find(
@@ -313,7 +315,7 @@ describe("useSocket", () => {
 
   it("should handle the winner event", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
 
     const winnerCallback = mockSocket.on.mock.calls.find(
@@ -329,7 +331,7 @@ describe("useSocket", () => {
 
   it("should handle the bad-guess event", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
 
     const badGuessCallback = mockSocket.on.mock.calls.find(
@@ -347,7 +349,7 @@ describe("useSocket", () => {
 
   it("should handle the ready event", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
 
     const newGameCallback = mockSocket.on.mock.calls.find(
@@ -363,7 +365,7 @@ describe("useSocket", () => {
 
   it("should handle the new-game event", () => {
     renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
 
     const newGameCallback = mockSocket.on.mock.calls.find(
@@ -379,7 +381,7 @@ describe("useSocket", () => {
 
   it("should handle the error event", () => {
     const { result } = renderHook(() =>
-      useSocket(mockGameId, mockClientId, "pixar", "multi-player")
+      useSocket(mockGameId, mockClientId, GameType.Pixar, GameMode.MultiPlayer)
     );
 
     const errorCallback = mockSocket.on.mock.calls.find(
