@@ -132,7 +132,7 @@ export const useSocket = (
       console.error("Error:", error);
       setErrorMessage(error);
     });
-  }, [socketConnection, clientId, router, gameType]);
+  }, [socketConnection, clientId, router, gameType, gameMode]);
 
   return {
     socketConnection,
