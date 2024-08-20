@@ -11,7 +11,7 @@ Web based game to play Guess Who with your friends. Inspired by the Hasbro board
 
 Play it for free at [https://guess-who-ai.vercel.app](https://guess-who-ai.vercel.app/)
 
-![Image 8-20-24 at 1 16 PM](https://github.com/user-attachments/assets/c86ac598-1a15-484a-8d28-028c6c57fbb7)
+![Image 8-20-24 at 1 35 PM](https://github.com/user-attachments/assets/d2fd1040-2458-40c4-8b63-a5dbae54b0aa)
 
 ---
 
