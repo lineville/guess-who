@@ -16,7 +16,7 @@
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
-    "@fontsource/fredoka": "^5.0.8",
+    "@fontsource/poppins": "^5.0.15",
     "@primer/octicons-react": "^19.8.0",
     "@vercel/analytics": "^1.1.2",
     "@vercel/speed-insights": "^1.0.9",
