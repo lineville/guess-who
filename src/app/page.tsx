@@ -90,7 +90,7 @@ export default function Home() {
           </Box>
           <Box>
             <Text fontSize="sm" mb={2}>
-              Game Type:
+              Character Style:
             </Text>
             <Menu>
               <MenuButton
