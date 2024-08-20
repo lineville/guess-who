@@ -9,11 +9,13 @@
 
 Web based game to play Guess Who with your friends. Inspired by the Hasbro board game but using AI generated cartoon characters and question prompts.
 
-Play it for free at [https://guess-who-virid.vercel.app](https://guess-who-virid.vercel.app)
+Play it for free at [https://guess-who-ai.vercel.app](https://guess-who-ai.vercel.app/)
 
-![0ABD41D7-4999-41DC-8B50-8258A5C3280D](https://github.com/lineville/guess-who/assets/25349044/6f37e6fa-5327-4841-adbb-3870c8562ce0)
+![Image 8-20-24 at 1 16 PM](https://github.com/user-attachments/assets/c86ac598-1a15-484a-8d28-028c6c57fbb7)
 
-![D1353216-52A2-42C8-B279-02374D08A3D6](https://github.com/lineville/guess-who/assets/25349044/cb0a5891-182a-4b8a-ba81-fdf487b8d22a)
+---
+
+![Image 8-20-24 at 1 16 PM (1)](https://github.com/user-attachments/assets/4c9662c0-3924-49fa-b1e5-17720b6a8982)
 
 
 ## Development
