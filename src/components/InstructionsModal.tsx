@@ -25,7 +25,7 @@ export default function InstructionsModal({
       <ModalContent>
         <ModalCloseButton onClick={onClose} />
         <ModalBody overflowY="auto" style={{ touchAction: "auto" }} mr={6}>
-          <Instructions variant="filled" />
+          <Instructions />
         </ModalBody>
       </ModalContent>
     </Modal>
