@@ -64,7 +64,7 @@ export default function Dialogue({
   return (
     <SlideFade in={true} offsetX={"200vw"}>
       <VStack spacing={4} align="center">
-        <Flex width="70%" justifyContent="space-between" mb="1em" mt="1em">
+        <Flex width="95%" justifyContent="space-between" mb="1em" mt="1em">
           {Array.from({ length: playerCount }).map((_, index) => (
             <SlideFade in={true} offsetX="50px" key={index}>
               <Flex justifyContent={index !== 0 ? "flex-start" : "flex-end"}>
