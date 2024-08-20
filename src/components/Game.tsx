@@ -16,6 +16,8 @@ import {
   DrawerContent,
   DrawerOverlay,
   useToast,
+  Divider,
+  Stack,
 } from "@chakra-ui/react";
 import QuestionModal from "@/components/QuestionModal";
 import AnswerModal from "@/components/AnswerModal";
@@ -67,10 +69,8 @@ export default function Game({ clientId }: GameProps): JSX.Element {
     onClose: closeGuessCharacterModal,
   } = useDisclosure();
 
-  const {
-    isOpen: isInstructionsModalOpen,
-    onClose: closeInstructionsModal,
-  } = useDisclosure({ defaultIsOpen: true });
+  const { isOpen: isInstructionsModalOpen, onClose: closeInstructionsModal } =
+    useDisclosure({ defaultIsOpen: true });
 
   const {
     socketConnection,
@@ -212,7 +212,6 @@ export default function Game({ clientId }: GameProps): JSX.Element {
           justify="flex-start"
           align="stretch"
           h="90vh"
-          w="96vw"
           pr={0}
           data-testid="game-container"
         >
@@ -242,7 +241,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
             />
           )}
 
-          <Box mr={2} ml={2} mt={2} w={["90vw", "75vw"]}>
+          <Box mr={1} ml={4} mt={2} w={["90vw", "75vw"]}>
             <Board
               board={board}
               handleClickCharacter={handleClickCharacter}
@@ -282,22 +281,25 @@ export default function Game({ clientId }: GameProps): JSX.Element {
               </DrawerOverlay>
             </Drawer>
           ) : (
-            <Box ml="auto" flexGrow={1} right="1em" maxW="20vw">
-              <Dialogue
-                playerCount={playerCount}
-                yourCharacter={yourCharacter}
-                isMyTurn={isMyTurn}
-                isAsking={isAsking}
-                yourRemainingCharacters={yourRemainingCharacters}
-                opponentRemainingCharacters={opponentRemainingCharacters}
-                handleOpenQuestionModal={openQuestionModal}
-                handleOpenAnswerModal={openAnswerModal}
-                handleGuessCharacter={openGuessCharacterModal}
-                dialogues={dialogues}
-                userId={clientId}
-                winner={winner}
-                gameType={gameType}
-              />
+            <Box flexGrow={1} right="1em" mr={2} ml={1}>
+              <Stack direction="row" height="90%" p={4}>
+                <Divider orientation="vertical" mr={2} borderWidth={'4px'} borderRadius={10} />
+                <Dialogue
+                  playerCount={playerCount}
+                  yourCharacter={yourCharacter}
+                  isMyTurn={isMyTurn}
+                  isAsking={isAsking}
+                  yourRemainingCharacters={yourRemainingCharacters}
+                  opponentRemainingCharacters={opponentRemainingCharacters}
+                  handleOpenQuestionModal={openQuestionModal}
+                  handleOpenAnswerModal={openAnswerModal}
+                  handleGuessCharacter={openGuessCharacterModal}
+                  dialogues={dialogues}
+                  userId={clientId}
+                  winner={winner}
+                  gameType={gameType}
+                />
+              </Stack>
             </Box>
           )}
           {winner && (

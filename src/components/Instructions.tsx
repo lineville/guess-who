@@ -77,60 +77,17 @@ export default function Instructions({
               <strong className={styles["how-to-header"]}>Playing</strong>
               <Code ml={isMobile ? 0 : 2} mt={isMobile ? 2 : 0}>
                 {
-                  "You and your opponent take turns asking and answering questions."
+                  "Take turns asking and answering questions to uncover each others secret characters."
                 }
               </Code>
-            </ListItem>
-            <ListItem mb={3}>
-              <ListIcon as={ChatIcon} color="green.500" />
-              <strong className={styles["how-to-header"]}>Your Turn</strong>
-              <Code ml={isMobile ? 0 : 2} mt={isMobile ? 2 : 0}>
-                {
-                  "Answer your opponent's question, then ask your opponent a question about their secret character."
-                }
-              </Code>
-            </ListItem>
-            <ListItem mb={3}>
-              <ListIcon as={InfoOutlineIcon} color="blue.500" />
-              <strong className={styles["how-to-header"]}>Tip</strong>
-              <Code ml={isMobile ? 0 : 2} mt={isMobile ? 2 : 0}>
-                {"If you can't think of a question, click the "}
-              </Code>
-              <Kbd ml={2} mr={2}>
-                Ask AI ✨
-              </Kbd>
-              <Code>{" button for some inspiration!"}</Code>
             </ListItem>
             <ListItem mb={3}>
               <ListIcon as={SpinnerIcon} />
               <strong className={styles["how-to-header"]}>Their Turn</strong>
               <Code ml={isMobile ? 0 : 2} mt={isMobile ? 2 : 0}>
                 {
-                  "Eliminate characters on your board while your opponent thinks of their next question."
+                  "Eliminate characters from your board while your opponent crafts their next question."
                 }
-              </Code>
-            </ListItem>
-            <ListItem mb={3}>
-              <ListIcon as={StarIcon} color="yellow.500" />
-              <strong className={styles["how-to-header"]}>Winning</strong>
-              <Code ml={isMobile ? 0 : 2} mt={isMobile ? 2 : 0}>
-                {"Guess your opponent's secret character correctly!"}
-              </Code>
-            </ListItem>
-            <ListItem mb={3}>
-              <ListIcon as={MoonIcon} color="black.500" />
-              <strong className={styles["how-to-header"]}>Theme</strong>
-              <Code ml={isMobile ? 0 : 2} mt={isMobile ? 2 : 0}>
-                {
-                  "Toggle dark and light mode by clicking the button in the top left."
-                }
-              </Code>
-            </ListItem>
-            <ListItem mb={3}>
-              <ListIcon as={HeartFillIcon} color="red.500" />
-              <strong className={styles["how-to-header"]}>Donate</strong>
-              <Code ml={isMobile ? 0 : 2} mt={isMobile ? 2 : 0}>
-                {"Support this project by sponsoring me on GitHub"}
               </Code>
             </ListItem>
           </List>

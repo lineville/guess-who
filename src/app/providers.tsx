@@ -1,5 +1,5 @@
 "use client";
-import "@fontsource/fredoka";
+import "@fontsource/poppins";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { extendTheme, type ThemeConfig } from "@chakra-ui/react";
 
@@ -11,8 +11,8 @@ const config: ThemeConfig = {
 const theme = extendTheme({
   config,
   fonts: {
-    heading: "Fredoka, Arial, sans-serif",
-    body: "Fredoka, Arial, sans-serif",
+    heading: "Poppins, Arial, sans-serif",
+    body: "Poppins, Arial, sans-serif",
   },
 });
 

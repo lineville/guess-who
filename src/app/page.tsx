@@ -64,7 +64,8 @@ export default function Home() {
                 colorScheme="blue"
                 size="lg"
               >
-                {formatMenuItem(gameMode)}
+                {(gameMode === GameMode.SinglePlayer ? "🧍‍♂️ " : "👬 ") +
+                  formatMenuItem(gameMode)}
               </MenuButton>
               <MenuList
                 maxH="60vh"
@@ -76,7 +77,9 @@ export default function Home() {
                   (mode: GameMode, index) => (
                     <MenuItem key={index} onClick={() => setGameMode(mode)}>
                       <Box display="flex" alignItems="center">
-                        <Text mr={2}>{mode === GameMode.SinglePlayer ? '🤖' : '👬'}</Text>
+                        <Text mr={2}>
+                          {mode === GameMode.SinglePlayer ? "🧍‍♂️" : "👬"}
+                        </Text>
                         <Text>{formatMenuItem(mode)}</Text>
                       </Box>
                     </MenuItem>
@@ -96,6 +99,12 @@ export default function Home() {
                 colorScheme="blue"
                 size="lg"
               >
+                <Avatar
+                  name="Tonto"
+                  src={menuItemImage(gameType)}
+                  size="xs"
+                  mr="2"
+                />
                 {formatMenuItem(gameType)}
               </MenuButton>
               <MenuList
