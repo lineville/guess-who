@@ -13,6 +13,7 @@ import {
   MenuItem,
   MenuList,
   Avatar,
+  Highlight,
 } from "@chakra-ui/react";
 import { ArrowRightIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import Instructions from "@/components/Instructions";
@@ -27,7 +28,7 @@ export default function Home() {
   const router = useRouter();
   const isMobile = useBreakpointValue({ base: true, md: false });
   const [gameType, setGameType] = useState<GameType>(GameType.Pixar);
-  const [gameMode, setGameMode] = useState<GameMode>(GameMode.SinglePlayer);
+  const [gameMode, setGameMode] = useState<GameMode>(GameMode.MultiPlayer);
 
   // Generate a new clientId and gameId
   const createGame = () => {
@@ -75,12 +76,28 @@ export default function Home() {
               >
                 {(Object.values(GameMode) as GameMode[]).map(
                   (mode: GameMode, index) => (
-                    <MenuItem key={index} onClick={() => setGameMode(mode)}>
+                    <MenuItem
+                      key={index}
+                      onClick={() => setGameMode(mode)}
+                      isDisabled={mode === GameMode.SinglePlayer}
+                    >
                       <Box display="flex" alignItems="center">
                         <Text mr={2}>
                           {mode === GameMode.SinglePlayer ? "🧍‍♂️" : "👬"}
                         </Text>
-                        <Text>{formatMenuItem(mode)}</Text>
+                        <Text>
+                          {formatMenuItem(mode)}
+                          {mode === GameMode.SinglePlayer ? (
+                            <Highlight
+                              query="Coming soon"
+                              styles={{ px: '1', py: '0.5', rounded: 'full', bg: 'blue.500' }}
+                            >
+                              {"  Coming soon"}
+                            </Highlight>
+                          ) : (
+                            ""
+                          )}
+                        </Text>
                       </Box>
                     </MenuItem>
                   )
