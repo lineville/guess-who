@@ -53,7 +53,7 @@ export default function Home() {
           <Header title="Guess Who" />
         </Box>
 
-        <HStack spacing={4} mb={isMobile ? 4 : 30}>
+        <HStack spacing={[2, 4]} mb={isMobile ? 4 : 30}>
           <Box>
             <Text fontSize="sm" mb={2}>
               Game Mode:
@@ -63,7 +63,7 @@ export default function Home() {
                 as={Button}
                 rightIcon={<ChevronDownIcon />}
                 colorScheme="blue"
-                size="lg"
+                size={["sm", "lg"]}
               >
                 {(gameMode === GameMode.SinglePlayer ? "🧍‍♂️ " : "👬 ") +
                   formatMenuItem(gameMode)}
@@ -90,7 +90,12 @@ export default function Home() {
                           {mode === GameMode.SinglePlayer ? (
                             <Highlight
                               query="Coming soon"
-                              styles={{ px: '1', py: '0.5', rounded: 'full', bg: 'blue.500' }}
+                              styles={{
+                                px: "1",
+                                py: "0.5",
+                                rounded: "full",
+                                bg: "blue.500",
+                              }}
                             >
                               {"  Coming soon"}
                             </Highlight>
@@ -114,15 +119,17 @@ export default function Home() {
                 as={Button}
                 rightIcon={<ChevronDownIcon />}
                 colorScheme="blue"
-                size="lg"
+                size={["sm", "lg"]}
               >
-                <Avatar
-                  name="Tonto"
-                  src={menuItemImage(gameType)}
-                  size="xs"
-                  mr="2"
-                />
-                {formatMenuItem(gameType)}
+                <Flex alignItems="center">
+                  <Avatar
+                    name="Tonto"
+                    src={menuItemImage(gameType)}
+                    size="xs"
+                    mr="2"
+                  />
+                  {formatMenuItem(gameType)}
+                </Flex>
               </MenuButton>
               <MenuList
                 maxH="60vh"
@@ -150,7 +157,7 @@ export default function Home() {
           </Box>
           <Button
             onClick={createGame}
-            size="lg"
+            size={["sm", "lg"]}
             colorScheme="blue"
             ml={2}
             rightIcon={<ArrowRightIcon />}
