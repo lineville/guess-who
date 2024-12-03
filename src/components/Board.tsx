@@ -31,7 +31,7 @@ export default function Board({
   const { colorMode } = useColorMode();
 
   return (
-    <Grid
+    (<Grid
       templateColumns={`repeat(${columns}, 1fr)`}
       gap={3}
       rowGap={3}
@@ -60,22 +60,28 @@ export default function Board({
                       alt={c.name}
                       placeholder="empty"
                       priority={true}
-                      sizes="(max-width: 768px) 100px, 130px"
                       width={100}
                       height={100}
-                      objectFit="cover"
-                    />
+                      sizes="(max-width: 768px) 100px, 130px"
+                      style={{
+                        maxWidth: "100%",
+                        height: "auto",
+                        objectFit: "cover"
+                      }} />
 
                     <Image
                       src="/question-mark.png"
                       alt="question mark"
                       placeholder="empty"
                       priority={true}
-                      sizes="(max-width: 768px) 100px, 130px"
                       width={100}
                       height={100}
-                      objectFit="cover"
-                    />
+                      sizes="(max-width: 768px) 100px, 130px"
+                      style={{
+                        maxWidth: "100%",
+                        height: "auto",
+                        objectFit: "cover"
+                      }} />
                   </FlipCard>
                 </CardBody>
                 <CardFooter
@@ -102,6 +108,6 @@ export default function Board({
           </SlideFade>
         </GridItem>
       ))}
-    </Grid>
+    </Grid>)
   );
 }
