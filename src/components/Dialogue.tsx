@@ -166,17 +166,17 @@ export default function Dialogue({
           ) : (
             <>
               {!winner && (
-                <Box>
-                  <Text textAlign="center" mr={2} ml={2}>
-                    Waiting on opponent to{" "}
+                <Box sx={{mx: 2}}>
+                  <Text textAlign="center" mr={4} ml={4}>
+                    Waiting on opponent{" "}
                     {playerCount === 1
-                      ? "join"
+                      ? ""
                       : isAsking || dialogues.length === 0
-                      ? "ask a question"
-                      : "answer you"}
+                      ? "to ask a question"
+                      : "to answer you"}
                     ...
                   </Text>
-                  <Progress size="md" isIndeterminate />
+                  <Progress size="md" isIndeterminate hasStripe sx={{borderRadius: '4px', margin: '4px'}} />
                 </Box>
               )}
             </>

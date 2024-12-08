@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Board from "@/components/Board";
 import {
   Box,
@@ -93,6 +93,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
   } = useSocket(gameId, clientId, gameType, gameMode);
 
   const toast = useToast();
+  const [characterToGuess, setCharacterToGuess] = useState<string>("");
 
   useEffect(() => {
     if (isMyTurn && playerCount > 1) {
@@ -123,9 +124,19 @@ export default function Game({ clientId }: GameProps): JSX.Element {
 
   // ----------------- User Action Handlers -----------------
 
-  // Flip the character card
-  const handleClickCharacter = (index: number) => {
-    socketConnection?.emit(board[index].alive ? "eliminate" : "revive", index);
+  // Eliminate a character
+  const handleEliminateCharacter = (index: number) => {
+    socketConnection?.emit("eliminate", index);
+  };
+
+  // Revive a character
+  const handleReviveCharacter = (index: number) => {
+    socketConnection?.emit("revive", index);
+  };
+
+  const handleGuessCharacter = (index: number) => {
+    setCharacterToGuess(board[index].name);
+    openGuessCharacterModal();
   };
 
   // Ask a question to your opponent
@@ -241,10 +252,12 @@ export default function Game({ clientId }: GameProps): JSX.Element {
             />
           )}
 
-          <Box mr={1} ml={4} mt={2} w={["90vw", "75vw"]}>
+          <Box mr={1} ml={4} mt={2} w={["90vw", "80vw"]}>
             <Board
               board={board}
-              handleClickCharacter={handleClickCharacter}
+              handleEliminateCharacter={handleEliminateCharacter}
+              handleGuessCharacter={handleGuessCharacter}
+              handleReviveCharacter={handleReviveCharacter}
               columns={isMobile ? COLUMNS - 2 : COLUMNS}
               gameType={gameType}
             />
@@ -282,8 +295,13 @@ export default function Game({ clientId }: GameProps): JSX.Element {
             </Drawer>
           ) : (
             <Box flexGrow={1} right="1em" mr={2} ml={1}>
-              <Stack direction="row" height="90%" p={4}>
-                <Divider orientation="vertical" mr={2} borderWidth={'4px'} borderRadius={10} />
+              <Stack direction="row" height="90%" p={2}>
+                <Divider
+                  orientation="vertical"
+                  mr={2}
+                  borderWidth={"4px"}
+                  borderRadius={10}
+                />
                 <Dialogue
                   playerCount={playerCount}
                   yourCharacter={yourCharacter}
@@ -335,6 +353,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
             remainingCharacters={board
               .filter((c) => c.alive)
               .sort((a, b) => a.name.localeCompare(b.name))}
+            initialCharacter={characterToGuess}
           />
         </Flex>
       )}
