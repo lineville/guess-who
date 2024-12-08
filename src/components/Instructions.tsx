@@ -1,34 +1,29 @@
 import {
   ArrowRightIcon,
-  ChatIcon,
   CheckCircleIcon,
-  InfoOutlineIcon,
-  MoonIcon,
   RepeatIcon,
   SpinnerIcon,
-  StarIcon,
 } from "@chakra-ui/icons";
 import {
+  Box,
+  Button,
+  ButtonGroup,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
   Code,
+  Divider,
   Heading,
+  Link,
   List,
   ListIcon,
   ListItem,
-  Card,
-  CardHeader,
-  CardBody,
   useBreakpointValue,
-  Divider,
-  CardFooter,
-  Button,
-  Link,
-  ButtonGroup,
-  Kbd,
-  Box,
 } from "@chakra-ui/react";
 import { HeartFillIcon, MarkGithubIcon } from "@primer/octicons-react";
-import styles from "../styles/styles.module.css";
 import NextLink from "next/link";
+import styles from "../styles/styles.module.css";
 
 interface InstructionsProps {
   variant?: string;

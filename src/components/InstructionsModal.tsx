@@ -1,12 +1,9 @@
 import {
-  Checkbox,
-  HStack,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalOverlay,
-  Text,
 } from "@chakra-ui/react";
 import Instructions from "./Instructions";
 

@@ -1,36 +1,36 @@
 "use client";
-import { useEffect, useState } from "react";
+import AnswerModal from "@/components/AnswerModal";
 import Board from "@/components/Board";
+import Dialogue from "@/components/Dialogue";
+import GuessCharacterModal from "@/components/GuessCharacterModal";
+import QuestionModal from "@/components/QuestionModal";
+import WinnerModal from "@/components/WinnerModal";
+import { useSocket } from "@/hooks/useSocket";
+import { COLUMNS } from "@/lib/constants";
+import { GameMode } from "@/lib/gameMode";
+import { GameType } from "@/lib/gameType";
+import { ArrowLeftIcon, ChatIcon, StarIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Flex,
-  IconButton,
   Button,
-  VStack,
-  Text,
-  useDisclosure,
-  useBreakpointValue,
+  Divider,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
   DrawerOverlay,
-  useToast,
-  Divider,
+  Flex,
+  IconButton,
   Stack,
+  Text,
+  VStack,
+  useBreakpointValue,
+  useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
-import QuestionModal from "@/components/QuestionModal";
-import AnswerModal from "@/components/AnswerModal";
-import { ArrowLeftIcon, ChatIcon, StarIcon } from "@chakra-ui/icons";
-import Dialogue from "@/components/Dialogue";
-import GuessCharacterModal from "@/components/GuessCharacterModal";
-import WinnerModal from "@/components/WinnerModal";
-import { COLUMNS } from "@/lib/constants";
-import { useSocket } from "@/hooks/useSocket";
-import { GameType } from "@/lib/gameType";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import InstructionsModal from "./InstructionsModal";
-import { GameMode } from "@/lib/gameMode";
 
 interface GameProps {
   clientId: string;
@@ -106,7 +106,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
       });
 
       const link = document.querySelector(
-        "link[rel*='icon']"
+        "link[rel*='icon']",
       ) as HTMLLinkElement;
       if (!link) return;
 
@@ -115,7 +115,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
 
     return () => {
       const link = document.querySelector(
-        "link[rel*='icon']"
+        "link[rel*='icon']",
       ) as HTMLLinkElement;
       if (!link) return;
       link.href = "/favicon.ico";

@@ -1,25 +1,25 @@
+import Player from "@/components/Player";
+import { GameType } from "@/lib/gameType";
+import Message from "@/lib/message";
+import { CheckIcon, CopyIcon } from "@chakra-ui/icons";
 import {
+  Avatar,
+  Box,
   Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
   Flex,
-  VStack,
-  Text,
-  Progress,
-  Box,
-  useColorMode,
-  Heading,
-  Avatar,
   HStack,
+  Heading,
+  Progress,
   SlideFade,
+  Text,
+  VStack,
+  useColorMode,
 } from "@chakra-ui/react";
-import { CheckIcon, CopyIcon } from "@chakra-ui/icons";
-import Player from "@/components/Player";
 import { useState } from "react";
-import Message from "@/lib/message";
-import { GameType } from "@/lib/gameType";
 
 interface DialogueProps {
   playerCount: number;
@@ -166,17 +166,22 @@ export default function Dialogue({
           ) : (
             <>
               {!winner && (
-                <Box sx={{mx: 2}}>
+                <Box sx={{ mx: 2 }}>
                   <Text textAlign="center" mr={4} ml={4}>
                     Waiting on opponent{" "}
                     {playerCount === 1
                       ? ""
                       : isAsking || dialogues.length === 0
-                      ? "to ask a question"
-                      : "to answer you"}
+                        ? "to ask a question"
+                        : "to answer you"}
                     ...
                   </Text>
-                  <Progress size="md" isIndeterminate hasStripe sx={{borderRadius: '4px', margin: '4px'}} />
+                  <Progress
+                    size="md"
+                    isIndeterminate
+                    hasStripe
+                    sx={{ borderRadius: "4px", margin: "4px" }}
+                  />
                 </Box>
               )}
             </>

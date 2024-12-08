@@ -1,5 +1,5 @@
-import { Container, useColorMode } from "@chakra-ui/react";
 import "@/styles/globals.css";
+import { Container, useColorMode } from "@chakra-ui/react";
 
 export default function GradientBackground({
   children,

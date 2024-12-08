@@ -4,10 +4,10 @@ import {
   AvatarBadge,
   Badge,
   Box,
-  VStack,
-  Icon,
   HStack,
+  Icon,
   Text,
+  VStack,
 } from "@chakra-ui/react";
 import { BsFillPersonBadgeFill } from "react-icons/bs";
 

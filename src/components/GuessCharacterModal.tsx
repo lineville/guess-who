@@ -1,6 +1,16 @@
+import Character from "@/lib/character";
+import { GameType } from "@/lib/gameType";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Avatar,
+  Box,
   Button,
+  Flex,
+  HStack,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -9,18 +19,8 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Box,
-  Flex,
-  HStack,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import Character from "@/lib/character";
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import { GameType } from "@/lib/gameType";
 
 interface GuessCharacterModalProps {
   isOpen: boolean;
