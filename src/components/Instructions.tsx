@@ -1,34 +1,29 @@
 import {
   ArrowRightIcon,
-  ChatIcon,
   CheckCircleIcon,
-  InfoOutlineIcon,
-  MoonIcon,
   RepeatIcon,
   SpinnerIcon,
-  StarIcon,
 } from "@chakra-ui/icons";
 import {
+  Box,
+  Button,
+  ButtonGroup,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
   Code,
+  Divider,
   Heading,
+  Link,
   List,
   ListIcon,
   ListItem,
-  Card,
-  CardHeader,
-  CardBody,
   useBreakpointValue,
-  Divider,
-  CardFooter,
-  Button,
-  Link,
-  ButtonGroup,
-  Kbd,
-  Box,
 } from "@chakra-ui/react";
 import { HeartFillIcon, MarkGithubIcon } from "@primer/octicons-react";
-import styles from "../styles/styles.module.css";
 import NextLink from "next/link";
+import styles from "../styles/styles.module.css";
 
 interface InstructionsProps {
   variant?: string;
@@ -98,7 +93,7 @@ export default function Instructions({
           justifyContent={"flex-end"}
           alignItems={"flex-end"}
         >
-          <ButtonGroup gap={3}>
+          <ButtonGroup gap={isMobile ? 1 : 3}>
             <Link as={NextLink} href="https://github.com/sponsors/lineville">
               <Button colorScheme="pink" leftIcon={<HeartFillIcon />}>
                 Donate
@@ -106,7 +101,7 @@ export default function Instructions({
             </Link>
             <Link as={NextLink} href="https://github.com/lineville/guess-who">
               <Button colorScheme={"blackAlpha"} leftIcon={<MarkGithubIcon />}>
-                Source Code
+                Code
               </Button>
             </Link>
           </ButtonGroup>

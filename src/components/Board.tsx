@@ -1,44 +1,53 @@
 import Character from "@/lib/character";
-import styles from "../styles/styles.module.css";
-import Image from "next/image";
+import { GameType } from "@/lib/gameType";
+import { CheckIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
+  Box,
   Card,
-  Text,
-  Grid,
-  GridItem,
   CardBody,
   CardFooter,
-  Box,
-  useColorMode,
+  Grid,
+  GridItem,
+  IconButton,
   SlideFade,
+  Text,
+  useColorMode,
 } from "@chakra-ui/react";
+import Image from "next/image";
 import FlipCard from "react-card-flip";
-import { GameType } from "@/lib/gameType";
+import styles from "../styles/styles.module.css";
 
 interface BoardProps {
   board: Character[];
-  handleClickCharacter: (index: number) => void;
+  handleEliminateCharacter: (index: number) => void;
+  handleGuessCharacter: (index: number) => void;
+  handleReviveCharacter: (index: number) => void;
   columns: number;
   gameType: GameType;
+  isMobile?: boolean;
 }
 
 export default function Board({
   board,
-  handleClickCharacter,
+  handleEliminateCharacter,
+  handleGuessCharacter,
+  handleReviveCharacter,
   columns,
   gameType,
+  isMobile,
 }: BoardProps): JSX.Element {
   const { colorMode } = useColorMode();
 
   return (
-    (<Grid
+    <Grid
       templateColumns={`repeat(${columns}, 1fr)`}
-      gap={3}
-      rowGap={3}
+      gap={2}
+      rowGap={2}
       data-testid="board"
+      p={2}
     >
       {board.map((c, index) => (
-        <GridItem key={index} onClick={() => handleClickCharacter(index)}>
+        <GridItem key={index}>
           <SlideFade in={true} offsetX={"-200vw"}>
             <Box>
               <Card
@@ -50,8 +59,8 @@ export default function Board({
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                w={["120", "150"]}
-                h={["150", "180"]}
+                w={["115px", "180px"]}
+                h={["115px", "150px"]}
               >
                 <CardBody p={2}>
                   <FlipCard isFlipped={!c.alive} flipDirection="vertical">
@@ -60,28 +69,32 @@ export default function Board({
                       alt={c.name}
                       placeholder="empty"
                       priority={true}
-                      width={100}
-                      height={100}
+                      width={isMobile ? 50 : 80}
+                      height={isMobile ? 50 : 80}
                       sizes="(max-width: 768px) 100px, 130px"
                       style={{
                         maxWidth: "100%",
                         height: "auto",
-                        objectFit: "cover"
-                      }} />
+                        objectFit: "cover",
+                        borderRadius: "4px",
+                      }}
+                    />
 
                     <Image
                       src="/question-mark.png"
                       alt="question mark"
                       placeholder="empty"
                       priority={true}
-                      width={100}
-                      height={100}
+                      width={isMobile ? 50 : 80}
+                      height={isMobile ? 50 : 80}
                       sizes="(max-width: 768px) 100px, 130px"
                       style={{
                         maxWidth: "100%",
                         height: "auto",
-                        objectFit: "cover"
-                      }} />
+                        objectFit: "cover",
+                        borderRadius: "4px",
+                      }}
+                    />
                   </FlipCard>
                 </CardBody>
                 <CardFooter
@@ -90,24 +103,46 @@ export default function Board({
                   justifyContent="center"
                   w="100%"
                   h="100%"
+                  p={0}
                 >
+                  {c.alive ? (
+                    <IconButton
+                      aria-label="Eliminate"
+                      icon={<ViewOffIcon />}
+                      onClick={() => handleEliminateCharacter(index)}
+                      size="sm"
+                    />
+                  ) : (
+                    <IconButton
+                      aria-label="Revive"
+                      icon={<ViewIcon />}
+                      onClick={() => handleReviveCharacter(index)}
+                      size="sm"
+                    />
+                  )}
                   <Text
                     fontSize={["10px", "20px"]}
                     maxW={["100", "300"]}
                     sx={{
                       whiteSpace: "nowrap",
-                      overflow: "hidden",
                       textOverflow: "ellipsis",
                     }}
+                    mx={isMobile ? 1 : 2}
                   >
                     {c.name}
                   </Text>
+                  <IconButton
+                    aria-label="Guess"
+                    icon={<CheckIcon />}
+                    onClick={() => handleGuessCharacter(index)}
+                    size="sm"
+                  />
                 </CardFooter>
               </Card>
             </Box>
           </SlideFade>
         </GridItem>
       ))}
-    </Grid>)
+    </Grid>
   );
 }

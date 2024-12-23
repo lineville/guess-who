@@ -53,9 +53,9 @@ export default function Home() {
           <Header title="Guess Who" />
         </Box>
 
-        <HStack spacing={[2, 4]} mb={isMobile ? 4 : 30}>
+        <HStack spacing={[2, 4]}>
           <Box>
-            <Text fontSize="sm" mb={2}>
+            <Text fontSize="sm" mb={2} whiteSpace="nowrap">
               Game Mode:
             </Text>
             <Menu>
@@ -111,8 +111,8 @@ export default function Home() {
             </Menu>
           </Box>
           <Box>
-            <Text fontSize="sm" mb={2}>
-              Character Style:
+            <Text fontSize="sm" mb={2} whiteSpace="nowrap">
+              Style:
             </Text>
             <Menu>
               <MenuButton
@@ -155,20 +155,21 @@ export default function Home() {
               </MenuList>
             </Menu>
           </Box>
+        </HStack>
+
+        <HStack spacing={[2, 4]}  mb={6}>
           <Button
             onClick={createGame}
-            size={["sm", "lg"]}
+            size="lg"
             colorScheme="blue"
-            ml={2}
+            mx={isMobile ? 0 : 2}
             rightIcon={<ArrowRightIcon />}
-            mt={8}
+            mt={4}
+            minW={['300px', '418px']}
           >
             Play
           </Button>
         </HStack>
-
-        <Box mb={isMobile ? 4 : 30}></Box>
-
         <Instructions />
       </Flex>
     </GradientBackground>

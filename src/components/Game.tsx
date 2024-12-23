@@ -1,36 +1,36 @@
 "use client";
-import { useEffect } from "react";
+import AnswerModal from "@/components/AnswerModal";
 import Board from "@/components/Board";
+import Dialogue from "@/components/Dialogue";
+import GuessCharacterModal from "@/components/GuessCharacterModal";
+import QuestionModal from "@/components/QuestionModal";
+import WinnerModal from "@/components/WinnerModal";
+import { useSocket } from "@/hooks/useSocket";
+import { COLUMNS } from "@/lib/constants";
+import { GameMode } from "@/lib/gameMode";
+import { GameType } from "@/lib/gameType";
+import { ArrowLeftIcon, ChatIcon, StarIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Flex,
-  IconButton,
   Button,
-  VStack,
-  Text,
-  useDisclosure,
-  useBreakpointValue,
+  Divider,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
   DrawerOverlay,
-  useToast,
-  Divider,
+  Flex,
+  IconButton,
   Stack,
+  Text,
+  VStack,
+  useBreakpointValue,
+  useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
-import QuestionModal from "@/components/QuestionModal";
-import AnswerModal from "@/components/AnswerModal";
-import { ArrowLeftIcon, ChatIcon, StarIcon } from "@chakra-ui/icons";
-import Dialogue from "@/components/Dialogue";
-import GuessCharacterModal from "@/components/GuessCharacterModal";
-import WinnerModal from "@/components/WinnerModal";
-import { COLUMNS } from "@/lib/constants";
-import { useSocket } from "@/hooks/useSocket";
-import { GameType } from "@/lib/gameType";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import InstructionsModal from "./InstructionsModal";
-import { GameMode } from "@/lib/gameMode";
 
 interface GameProps {
   clientId: string;
@@ -93,6 +93,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
   } = useSocket(gameId, clientId, gameType, gameMode);
 
   const toast = useToast();
+  const [characterToGuess, setCharacterToGuess] = useState<string>("");
 
   useEffect(() => {
     if (isMyTurn && playerCount > 1) {
@@ -105,7 +106,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
       });
 
       const link = document.querySelector(
-        "link[rel*='icon']"
+        "link[rel*='icon']",
       ) as HTMLLinkElement;
       if (!link) return;
 
@@ -114,7 +115,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
 
     return () => {
       const link = document.querySelector(
-        "link[rel*='icon']"
+        "link[rel*='icon']",
       ) as HTMLLinkElement;
       if (!link) return;
       link.href = "/favicon.ico";
@@ -123,14 +124,24 @@ export default function Game({ clientId }: GameProps): JSX.Element {
 
   // ----------------- User Action Handlers -----------------
 
-  // Flip the character card
-  const handleClickCharacter = (index: number) => {
-    socketConnection?.emit(board[index].alive ? "eliminate" : "revive", index);
+  // Eliminate a character
+  const handleEliminateCharacter = (index: number) => {
+    socketConnection?.emit("eliminate", index);
+  };
+
+  // Revive a character
+  const handleReviveCharacter = (index: number) => {
+    socketConnection?.emit("revive", index);
+  };
+
+  const handleGuessCharacter = (index: number) => {
+    setCharacterToGuess(board[index].name);
+    openGuessCharacterModal();
   };
 
   // Ask a question to your opponent
-  const askQuestion = async (question: string) => {
-    await socketConnection?.emit("ask", question);
+  const askQuestion = (question: string) => {
+    socketConnection?.emit("ask", question);
     setIsMyTurn(false);
     setIsAsking(false);
     setDialogues((prev) => [
@@ -140,15 +151,15 @@ export default function Game({ clientId }: GameProps): JSX.Element {
   };
 
   // Answer your opponent's question
-  const answerQuestion = async (answer: string) => {
-    await socketConnection?.emit("answer", answer);
+  const answerQuestion = (answer: string) => {
+    socketConnection?.emit("answer", answer);
     setIsAsking(true);
     setDialogues((prev) => [...prev, { content: answer, clientId: clientId }]);
   };
 
   // Guess your opponent's character
-  const guessCharacter = async (character: string) => {
-    await socketConnection?.emit("guess", character);
+  const guessCharacter = (character: string) => {
+    socketConnection?.emit("guess", character);
     closeGuessCharacterModal();
     setIsMyTurn(false);
     setIsAsking(true);
@@ -162,8 +173,8 @@ export default function Game({ clientId }: GameProps): JSX.Element {
   };
 
   // Ready up for a new game
-  const handleReady = async () => {
-    await socketConnection?.emit("ready");
+  const handleReady = () => {
+    socketConnection?.emit("ready");
   };
 
   // Reset the winner when winner modal is closed
@@ -215,19 +226,6 @@ export default function Game({ clientId }: GameProps): JSX.Element {
           pr={0}
           data-testid="game-container"
         >
-          {process.env.NODE_ENV === "development" && (
-            <IconButton
-              onClick={generateImages}
-              icon={<StarIcon />}
-              aria-label={"generate-ai-images"}
-              isRound={true}
-              variant="solid"
-              position="fixed"
-              top="1em"
-              right="4em"
-            />
-          )}
-
           {isMobile && (
             <IconButton
               icon={<ChatIcon />}
@@ -241,12 +239,15 @@ export default function Game({ clientId }: GameProps): JSX.Element {
             />
           )}
 
-          <Box mr={1} ml={4} mt={2} w={["90vw", "75vw"]}>
+          <Box mr={1} ml={isMobile ? 1 : 4} mt={2} mb={3}>
             <Board
               board={board}
-              handleClickCharacter={handleClickCharacter}
-              columns={isMobile ? COLUMNS - 2 : COLUMNS}
+              handleEliminateCharacter={handleEliminateCharacter}
+              handleGuessCharacter={handleGuessCharacter}
+              handleReviveCharacter={handleReviveCharacter}
+              columns={isMobile ? COLUMNS - 3 : COLUMNS}
               gameType={gameType}
+              isMobile={isMobile}
             />
           </Box>
 
@@ -275,6 +276,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
                       userId={clientId}
                       winner={winner}
                       gameType={gameType}
+                      isMobile={isMobile}
                     />
                   </DrawerBody>
                 </DrawerContent>
@@ -282,8 +284,13 @@ export default function Game({ clientId }: GameProps): JSX.Element {
             </Drawer>
           ) : (
             <Box flexGrow={1} right="1em" mr={2} ml={1}>
-              <Stack direction="row" height="90%" p={4}>
-                <Divider orientation="vertical" mr={2} borderWidth={'4px'} borderRadius={10} />
+              <Stack direction="row" height="90%" p={2}>
+                <Divider
+                  orientation="vertical"
+                  mr={2}
+                  borderWidth={"4px"}
+                  borderRadius={10}
+                />
                 <Dialogue
                   playerCount={playerCount}
                   yourCharacter={yourCharacter}
@@ -298,6 +305,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
                   userId={clientId}
                   winner={winner}
                   gameType={gameType}
+                  isMobile={isMobile}
                 />
               </Stack>
             </Box>
@@ -335,6 +343,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
             remainingCharacters={board
               .filter((c) => c.alive)
               .sort((a, b) => a.name.localeCompare(b.name))}
+            initialCharacter={characterToGuess}
           />
         </Flex>
       )}

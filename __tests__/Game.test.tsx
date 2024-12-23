@@ -128,7 +128,7 @@ describe("Game", () => {
 
     rerender(<Game clientId={mockClientId} />);
     expect(
-      screen.getByText("Waiting on opponent to join...")
+      screen.getByText("Waiting on opponent ...")
     ).toBeInTheDocument();
   });
 });

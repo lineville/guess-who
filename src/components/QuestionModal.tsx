@@ -1,20 +1,20 @@
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-  ModalFooter,
+  Box,
+  Button,
+  CloseButton,
   FormControl,
   FormLabel,
-  Textarea,
-  Button,
   List,
-  Box,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   SlideFade,
-  CloseButton,
-  Text
+  Text,
+  Textarea,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import styles from "../styles/styles.module.css";
@@ -40,7 +40,7 @@ export default function QuestionModal({
   const [placeholder, setPlaceholder] = useState("");
   const [isFetchingQuestions, setIsFetchingQuestions] = useState(false);
   const [questions, setQuestions] = useState<string[]>(
-    INITIAL_SAMPLE_QUESTIONS
+    INITIAL_SAMPLE_QUESTIONS,
   );
 
   const handleAskQuestion = async () => {
@@ -104,7 +104,7 @@ export default function QuestionModal({
                     mb={2}
                     data-testid={`question-${index}`}
                   >
-                    <Text sx={{pr: 2}}>{question}</Text>
+                    <Text sx={{ pr: 2 }}>{question}</Text>
                     <CloseButton
                       size="sm"
                       onClick={(e) => handleRemoveQuestion(e, question)}

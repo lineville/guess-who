@@ -1,6 +1,16 @@
+import Character from "@/lib/character";
+import { GameType } from "@/lib/gameType";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Avatar,
+  Box,
   Button,
+  Flex,
+  HStack,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -9,18 +19,8 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Box,
-  Flex,
-  HStack,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import Character from "@/lib/character";
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import { GameType } from "@/lib/gameType";
+import { useEffect, useState } from "react";
 
 interface GuessCharacterModalProps {
   isOpen: boolean;
@@ -28,6 +28,7 @@ interface GuessCharacterModalProps {
   onGuess: (character: string) => void;
   remainingCharacters: Character[];
   gameType: GameType;
+  initialCharacter?: string;
 }
 
 export default function GuessCharacterModal({
@@ -36,8 +37,15 @@ export default function GuessCharacterModal({
   onGuess,
   remainingCharacters,
   gameType,
+  initialCharacter,
 }: GuessCharacterModalProps): JSX.Element {
-  const [character, setCharacter] = useState("");
+  const [character, setCharacter] = useState(initialCharacter || "");
+
+  useEffect(() => {
+    if (isOpen) {
+      setCharacter(initialCharacter || "");
+    }
+  }, [isOpen, initialCharacter]);
 
   const handleGuessCharacter = async () => {
     await onGuess(character);
@@ -45,17 +53,40 @@ export default function GuessCharacterModal({
     onClose();
   };
 
+  const handleClose = () => {
+    setCharacter("");
+    onClose();
+  };
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior="inside">
+    <Modal
+      isOpen={isOpen}
+      onClose={handleClose}
+      size="xl"
+      scrollBehavior="inside"
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader textAlign="center">Guess the character!</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Flex justify="center">
-            <Menu>
+            <Menu size="xl">
               <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                Select Character
+                {character ? (
+                  <HStack>
+                    <Avatar
+                      name={character}
+                      src={`/${gameType}/${character}.png`}
+                      size="sm"
+                    />
+                    <Text fontSize="xl" ml="4">
+                      {character}
+                    </Text>
+                  </HStack>
+                ) : (
+                  "Select Character"
+                )}
               </MenuButton>
               <MenuList
                 maxH="60vh"
@@ -79,24 +110,9 @@ export default function GuessCharacterModal({
               </MenuList>
             </Menu>
           </Flex>
-
-          {character && (
-            <Flex justify="center" mt={4}>
-              <HStack>
-                <Avatar
-                  name={character}
-                  src={`/${gameType}/${character}.png`}
-                  size="lg"
-                />
-                <Text fontSize="2xl" ml="4">
-                  {character}
-                </Text>
-              </HStack>
-            </Flex>
-          )}
         </ModalBody>
 
-        <ModalFooter>
+        <ModalFooter mt={2}>
           <Button colorScheme="blue" mr={3} onClick={handleGuessCharacter}>
             Guess
           </Button>
