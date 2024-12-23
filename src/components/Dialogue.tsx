@@ -87,7 +87,7 @@ export default function Dialogue({
           ))}
         </Flex>
 
-        <Card size={isMobile ? "md" : "fullWidth"}>
+        <Card size={isMobile ? "md" : "lg"}>
           {playerCount === 1 && (
             <CardHeader textAlign="center">
               <Heading size="md" mb={4}>
