@@ -1,5 +1,5 @@
 "use client";
-import "@fontsource/poppins";
+import "@fontsource/monaspace-neon/300.css";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { extendTheme, type ThemeConfig } from "@chakra-ui/react";
 
@@ -11,8 +11,8 @@ const config: ThemeConfig = {
 const theme = extendTheme({
   config,
   fonts: {
-    heading: "Poppins, Arial, sans-serif",
-    body: "Poppins, Arial, sans-serif",
+    heading: "Monaspace Neon",
+    body: "Monaspace Neon",
   },
 });
 

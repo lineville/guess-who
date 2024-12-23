@@ -93,7 +93,7 @@ export default function Instructions({
           justifyContent={"flex-end"}
           alignItems={"flex-end"}
         >
-          <ButtonGroup gap={3}>
+          <ButtonGroup gap={isMobile ? 1 : 3}>
             <Link as={NextLink} href="https://github.com/sponsors/lineville">
               <Button colorScheme="pink" leftIcon={<HeartFillIcon />}>
                 Donate
@@ -101,7 +101,7 @@ export default function Instructions({
             </Link>
             <Link as={NextLink} href="https://github.com/lineville/guess-who">
               <Button colorScheme={"blackAlpha"} leftIcon={<MarkGithubIcon />}>
-                Source Code
+                Code
               </Button>
             </Link>
           </ButtonGroup>

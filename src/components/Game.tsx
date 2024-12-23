@@ -140,8 +140,8 @@ export default function Game({ clientId }: GameProps): JSX.Element {
   };
 
   // Ask a question to your opponent
-  const askQuestion = async (question: string) => {
-    await socketConnection?.emit("ask", question);
+  const askQuestion = (question: string) => {
+    socketConnection?.emit("ask", question);
     setIsMyTurn(false);
     setIsAsking(false);
     setDialogues((prev) => [
@@ -151,15 +151,15 @@ export default function Game({ clientId }: GameProps): JSX.Element {
   };
 
   // Answer your opponent's question
-  const answerQuestion = async (answer: string) => {
-    await socketConnection?.emit("answer", answer);
+  const answerQuestion = (answer: string) => {
+    socketConnection?.emit("answer", answer);
     setIsAsking(true);
     setDialogues((prev) => [...prev, { content: answer, clientId: clientId }]);
   };
 
   // Guess your opponent's character
-  const guessCharacter = async (character: string) => {
-    await socketConnection?.emit("guess", character);
+  const guessCharacter = (character: string) => {
+    socketConnection?.emit("guess", character);
     closeGuessCharacterModal();
     setIsMyTurn(false);
     setIsAsking(true);
@@ -173,8 +173,8 @@ export default function Game({ clientId }: GameProps): JSX.Element {
   };
 
   // Ready up for a new game
-  const handleReady = async () => {
-    await socketConnection?.emit("ready");
+  const handleReady = () => {
+    socketConnection?.emit("ready");
   };
 
   // Reset the winner when winner modal is closed
@@ -226,19 +226,6 @@ export default function Game({ clientId }: GameProps): JSX.Element {
           pr={0}
           data-testid="game-container"
         >
-          {process.env.NODE_ENV === "development" && (
-            <IconButton
-              onClick={generateImages}
-              icon={<StarIcon />}
-              aria-label={"generate-ai-images"}
-              isRound={true}
-              variant="solid"
-              position="fixed"
-              top="1em"
-              right="4em"
-            />
-          )}
-
           {isMobile && (
             <IconButton
               icon={<ChatIcon />}
@@ -252,14 +239,15 @@ export default function Game({ clientId }: GameProps): JSX.Element {
             />
           )}
 
-          <Box mr={1} ml={4} mt={2} w={["90vw", "80vw"]}>
+          <Box mr={1} ml={isMobile ? 1 : 4} mt={2} mb={3}>
             <Board
               board={board}
               handleEliminateCharacter={handleEliminateCharacter}
               handleGuessCharacter={handleGuessCharacter}
               handleReviveCharacter={handleReviveCharacter}
-              columns={isMobile ? COLUMNS - 2 : COLUMNS}
+              columns={isMobile ? COLUMNS - 3 : COLUMNS}
               gameType={gameType}
+              isMobile={isMobile}
             />
           </Box>
 
@@ -288,6 +276,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
                       userId={clientId}
                       winner={winner}
                       gameType={gameType}
+                      isMobile={isMobile}
                     />
                   </DrawerBody>
                 </DrawerContent>
@@ -316,6 +305,7 @@ export default function Game({ clientId }: GameProps): JSX.Element {
                   userId={clientId}
                   winner={winner}
                   gameType={gameType}
+                  isMobile={isMobile}
                 />
               </Stack>
             </Box>

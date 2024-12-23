@@ -21,6 +21,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 
+
 interface DialogueProps {
   playerCount: number;
   yourCharacter: string;
@@ -35,6 +36,7 @@ interface DialogueProps {
   handleOpenQuestionModal: () => void;
   handleOpenAnswerModal: () => void;
   handleGuessCharacter: () => void;
+  isMobile?: boolean;
 }
 
 export default function Dialogue({
@@ -51,6 +53,7 @@ export default function Dialogue({
   userId,
   gameType,
   winner,
+  isMobile,
 }: DialogueProps): JSX.Element {
   const { colorMode } = useColorMode();
 
@@ -84,7 +87,7 @@ export default function Dialogue({
           ))}
         </Flex>
 
-        <Card size="md">
+        <Card size={isMobile ? "md" : "fullWidth"}>
           {playerCount === 1 && (
             <CardHeader textAlign="center">
               <Heading size="md" mb={4}>
