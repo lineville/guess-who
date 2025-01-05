@@ -392,7 +392,7 @@ describe("useSocket", () => {
       newGameCallback(mockGameId);
     });
 
-    expect(mockRouterPush).toHaveBeenCalledWith(`/game/${mockGameId}`);
+    expect(mockRouterPush).toHaveBeenCalledWith(`/game/${GameMode.MultiPlayer}/${GameType.Pixar}/${mockGameId}`);
   });
 
   it("should handle the error event", () => {
