@@ -18,6 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="apple-mobile-web-app-title" content="Guess Who" />
       </head>
       <body
         style={{
