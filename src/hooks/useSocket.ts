@@ -125,7 +125,7 @@ export const useSocket = (
     socketConnection?.on("ready", () => setOpponentReady(true));
 
     socketConnection?.on("new-game", (gameId: string) => {
-      router.push(`/game/${gameId}`);
+      router.push(`/game/${gameMode}/${gameType}/${gameId}`);
     });
 
     socketConnection?.on("error", (error: string) => {
